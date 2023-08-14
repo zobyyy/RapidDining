@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "config": {
-  "commitizen": {
-    "path": "cz-conventional-changelog"
-  }
-},
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -26,6 +26,7 @@
   },
   "devDependencies": {
     "commitizen": "^4.3.0",
-    "cz-conventional-changelog": "^3.3.0"
+    "cz-conventional-changelog": "^3.3.0",
+    "eslint-plugin-proposal": "^2.3.3"
   }
 }
