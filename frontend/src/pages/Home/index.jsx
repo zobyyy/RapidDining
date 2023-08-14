@@ -1,14 +1,20 @@
 import Layouts from '../../components/Layouts'
+import Restaurant from './Restaurant'
 import styles from './Home.module.scss'
 
-export default function Page() {
+export default function Home() {
   return (
     <main>
         <Layouts>
             <div className={styles.Logo}>
-                <div>食</div>
-                <div>時好</div>
+                <div className={styles.first}>食</div>
+                <div className={styles.others}>時好</div>
             </div>
+            <div className={styles.selectBlock}></div>
+            <div className={styles.devide}></div>
+            <div className={styles.distance}>顯示500公尺內餐廳</div>
+            {/* 使用map */}
+            <Restaurant/>
         </Layouts>
     </main>
   )
