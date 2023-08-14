@@ -1,0 +1,23 @@
+{
+  "name": "campussummer_rapiddining",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zobyyy/CampusSummer_RapidDining.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zobyyy/CampusSummer_RapidDining/issues"
+  },
+  "homepage": "https://github.com/zobyyy/CampusSummer_RapidDining#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mysql2": "^3.6.0"
+  }
+}
