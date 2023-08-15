@@ -1,8 +1,9 @@
 import styles from './Home.module.scss'
-import Layouts from '../../components/Layouts'
+import Restaurant from './Restaurant'
 import { useState } from 'react'
+
 export default function SearchOrder({setIsSearch}) {
-  const [phone, setPhone] = useState([]);
+  const [phone, setPhone] = useState('');
   return (
     <div className={styles.overlay}>
       <div className={styles.searchBlock}>
@@ -19,7 +20,7 @@ export default function SearchOrder({setIsSearch}) {
             <button type="button" className={styles.submit}>送出</button>
           </div>
         </div>
-        
+        <Restaurant/>
       </div>
     </div>
   )
