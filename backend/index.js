@@ -31,6 +31,7 @@ app.use(cors(corsOptions));
 while (1) {
   try {
     await pool.query('SELECT 1+1 AS result');
+    console.log('connected to database');
     break;
   } catch (err) {
     console.warn("Can't connect to mysql. Try again in 3 seconds.");
