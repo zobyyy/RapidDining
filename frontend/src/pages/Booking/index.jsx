@@ -5,14 +5,13 @@ import Layouts from '@/components/Layouts'
 import { Field, ErrorMessage } from 'formik'
 import Image from 'next/image'
 import Cookies from 'js-cookie'
-
-import OrderPosition from './OrderPosotion'
+import OrderPosition from './OrderPosition'
 import OrderFood from './OrderFood'
 
 export default function Booking() {
-  const myObject = { 1: 2, 2: 2, 3: 2 }
-  Cookies.set('tableId', JSON.stringify(myObject))
-  console.log('hi', Cookies.get('tableId'))
+  // const myObject = { 1: 2, 2: 2, 3: 2 }
+  // Cookies.set('tableId', JSON.stringify(myObject))
+  // console.log('hi', Cookies.get('tableId'))
   const [chooseOrderPosition, setChooseOrderPosition] = useState(true)
 
   const handleChooseButtonOnclick = () => {
@@ -47,7 +46,13 @@ export default function Booking() {
             我要訂餐
           </button>
         </div>
-        {chooseOrderPosition ? <OrderPosition /> : <OrderFood />}
+        {chooseOrderPosition ? (
+          <OrderPosition
+            handleChooseButtonOnclick={handleChooseButtonOnclick}
+          />
+        ) : (
+          <OrderFood />
+        )}
       </div>
     </Layouts>
   )
