@@ -50,7 +50,9 @@
   line-height: normal;
 }
 .orderChoose {
+  box-sizing: border-box;
   width: 100%;
+  padding: 0% 10%;
   > button {
     height: 37px;
     width: 50%;
@@ -151,23 +153,18 @@
   font-family: 'Jaldi';
   font-size: 16px;
 }
-.orderFoodButton {
+
+.orderFoodEatWhere {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  height: 46px;
+  border-radius: 20px;
+  background: transparent;
+  font-size: 16px;
+  letter-spacing: 1.6px;
   width: 100%;
-  gap: 5px;
-  & > button {
-    width: 50%;
-    height: 46px;
-    border-radius: 20px;
-    background: transparent;
-    font-size: 16px;
-    letter-spacing: 1.6px;
-  }
-  .orderFoodButtonChosen {
-    border: 3px solid $mainRed;
-  }
-  .orderFoodButtonNotChoose {
-    border: 1px solid $Grey;
-  }
+  border: 3px solid $mainRed;
 }
 //菜單
 .scrollContainer {

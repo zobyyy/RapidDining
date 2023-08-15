@@ -11,7 +11,7 @@ import FormControl from '@mui/material/FormControl'
 import Select from '@mui/material/Select'
 import Image from 'next/image'
 
-const BookingCheck = () => {
+const BookingCheck = ({ handleChooseButtonOnclick }) => {
   return (
     <div
       style={{
@@ -47,6 +47,87 @@ const BookingCheck = () => {
         </div>
         分鐘內抵達，謝謝！
       </div>
+      <>
+        <button
+          className={styles.orderButtonCancel}
+          // onClick={handleOrderButtonClick}
+        >
+          取消訂位
+        </button>
+        <button
+          className={styles.orderButton}
+          onClick={handleChooseButtonOnclick}
+        >
+          前往訂餐
+        </button>
+      </>
+    </div>
+  )
+}
+const BookingWaiting = () => {
+  return (
+    <div
+      style={{
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        gap: '20px',
+        padding: '10% 0'
+      }}
+    >
+      <Image src='/收到確認.png' width={67} height={67} />
+      <div>黃小姐您好</div>
+      <div>目前尚未有空位，先為您登記候位</div>
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          flexDirection: 'column',
+          width: '100%',
+          border: '1px solid #D9D9D9',
+          borderRadius: '20px',
+          height: '131px'
+        }}
+      >
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row'
+          }}
+        >
+          您是候位第
+          <div
+            style={{
+              fontSize: '32px',
+              color: '#F58873',
+              fontWeight: '700',
+              margin: '10px',
+              marginTop: '0'
+            }}
+          >
+            3
+          </div>
+          組
+        </div>
+        <div>如有位置會立即連絡您，謝謝！</div>
+      </div>
+      <>
+        <button
+          className={styles.orderButtonCancel}
+          // onClick={handleOrderButtonClick}
+        >
+          取消候位
+        </button>
+        <button
+          className={styles.orderButton}
+          // onClick={handleOrderButtonClick}
+        >
+          前往訂餐
+        </button>
+      </>
     </div>
   )
 }
@@ -78,7 +159,7 @@ const BasicSelect = () => {
     </Box>
   )
 }
-const OrderPosition = () => {
+const OrderPosition = ({ handleChooseButtonOnclick }) => {
   const [isOrderPosition, setIsOrderPosition] = useState(false)
 
   const handleOrderButtonClick = () => {
@@ -88,7 +169,7 @@ const OrderPosition = () => {
     <div className={styles.order}>
       <div className={styles.orderInfo}>
         {isOrderPosition ? (
-          <BookingCheck />
+          <BookingCheck handleChooseButtonOnclick={handleChooseButtonOnclick} />
         ) : (
           <>
             <div className={styles.inputGroup}>
@@ -101,14 +182,16 @@ const OrderPosition = () => {
         )}
       </div>
       <>
-        <button
-          className={
-            isOrderPosition ? styles.orderButtonCancel : styles.orderButton
-          }
-          onClick={handleOrderButtonClick}
-        >
-          {isOrderPosition ? '取消訂位' : '立即訂位'}
-        </button>
+        {!isOrderPosition && (
+          <button
+            className={
+              isOrderPosition ? styles.orderButtonCancel : styles.orderButton
+            }
+            onClick={handleOrderButtonClick}
+          >
+            立即訂位
+          </button>
+        )}
         {!isOrderPosition && (
           <div className={styles.orderButtonRemind}>
             如有位置會為您保留10分鐘座位
