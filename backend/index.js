@@ -17,7 +17,7 @@ import {orderPending} from './controller/order/pending';
 
 /*************************
   * global config
-  ***********************/
+*************************/
 
 import 'dotenv/config';
 
@@ -32,7 +32,7 @@ const port = 3000;
 
 /*************************
   * global setup
-  ***********************/
+*************************/
 
 const app = express();
 app.use(bodyParser.json());
@@ -52,7 +52,7 @@ while (1) {
 
 /*************************
   * routers
-  ***********************/
+*************************/
 
 app.all('/', function (req, res) {
   res.send("Hello friend from the other side!");
