@@ -38,37 +38,42 @@ const mockData = {
 }
 
 const { options } = mockData.data
-const ProductNumber = () => {
-  const [number, setNumber] = useState(1)
-  const handlePlusClick = () => {
-    setNumber(number + 1)
-  }
-
-  const handleMinusClick = () => {
-    if (number > 1) {
-      setNumber(number - 1)
-    }
-  }
-  return (
-    <div className={styles.productNumber}>
-      {number === 1 ? (
-        <Image src='/minusDisabled.png' width={64} height={50} />
-      ) : (
-        <Image
-          src='/minus.png'
-          width={64}
-          height={50}
-          onClick={handleMinusClick}
-        />
-      )}
-      <div className={styles.productNumberButton}>{number}</div>
-      <Image src='/plus.png' width={64} height={50} onClick={handlePlusClick} />
-    </div>
-  )
-}
 
 export default function Product() {
   const [selectedOptions, setSelectedOptions] = useState({})
+  const [number, setNumber] = useState(1)
+  const ProductNumber = () => {
+    const handlePlusClick = () => {
+      setNumber(number + 1)
+    }
+
+    const handleMinusClick = () => {
+      if (number > 1) {
+        setNumber(number - 1)
+      }
+    }
+    return (
+      <div className={styles.productNumber}>
+        {number === 1 ? (
+          <Image src='/minusDisabled.png' width={64} height={50} />
+        ) : (
+          <Image
+            src='/minus.png'
+            width={64}
+            height={50}
+            onClick={handleMinusClick}
+          />
+        )}
+        <div className={styles.productNumberButton}>{number}</div>
+        <Image
+          src='/plus.png'
+          width={64}
+          height={50}
+          onClick={handlePlusClick}
+        />
+      </div>
+    )
+  }
   const Customization = ({ options }) => {
     const handleOptionClick = (type, optionId) => {
       setSelectedOptions((prevSelectedOptions) => ({
@@ -112,6 +117,7 @@ export default function Product() {
     )
   }
   const handleAddToCart = () => {
+    //cookies要存是甚麼商品的客製化+數量
     const selectedIds = Object.values(selectedOptions)
     const selectedNames = selectedIds.map(
       (id) =>
@@ -119,10 +125,19 @@ export default function Product() {
           .flatMap((opt) => opt.options)
           .find((subOption) => subOption.id === id).name
     )
-    Cookies.set('CustomizationId', JSON.stringify(selectedIds))
-    Cookies.set('CustomizationName', JSON.stringify(selectedNames))
-    console.log('Selected Options:', JSON.stringify(selectedIds))
-    console.log('Selected Options:', JSON.stringify(selectedNames))
+    const productChosen = {
+      name: mockData.data.name,
+      price: mockData.data.price,
+      customization: selectedNames,
+      quantity: number
+    }
+
+    // Cookies.set('CustomizationId', JSON.stringify(selectedIds)) //CustomizationId是要回傳給後端的
+    // Cookies.set('CustomizationName', JSON.stringify(selectedNames))
+    Cookies.set('productChosen', JSON.stringify(productChosen))
+    // console.log('Selected Options:', JSON.stringify(selectedIds))
+    // console.log('Selected Options:', JSON.stringify(selectedNames))
+    console.log('Product Chosen:', JSON.stringify(productChosen))
   }
   return (
     <Layouts>
@@ -141,8 +156,8 @@ export default function Product() {
         />
         <div className={styles.product}>
           <div className={styles.storeInfo}>
-            <div className={styles.storeName}>經典番茄義大利麵</div>
-            <div className={styles.storeName}>NT$295</div>
+            <div className={styles.storeName}>{mockData.data.name}</div>
+            <div className={styles.storeName}>NT${mockData.data.price}</div>
             <div className={styles.storeAddress}>
               新鮮番茄醬與香料搭配，經典美味{' '}
             </div>
