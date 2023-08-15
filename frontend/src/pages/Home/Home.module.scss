@@ -1,0 +1,330 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+@import '../../styles/global.scss';
+
+.Logo {
+    display: flex;
+    align-items: flex-end;
+
+    .first {
+        font-size: 36px;
+        font-weight: 700;
+        color: $mainRed;
+    }
+
+    .others {
+        font-size: 24px;
+        font-weight: 700;
+        color: $mainYellow;
+        margin-bottom: 2.5%;
+    }
+}
+
+.selectBlock {
+    width: 85%;
+    display: flex;
+    justify-content: space-between;
+    margin: 3% auto;
+
+    .selectPeople {
+        width: 55%;
+        display: flex;
+        column-gap: 10%;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid $mainRed;
+        border-radius: 10px;
+
+        .selectText {
+            color: $Grey;
+        }
+
+        .text {
+            font-size: 14px;
+            font-weight: 500;
+            color: $mainRed;
+        }
+    }
+
+    .historyOrder {
+        width: 40%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        column-gap: 10%;
+        border: 1px solid $mainRed;
+        border-radius: 10px;
+        cursor: pointer;
+
+        .iconOrder {
+            position: relative;
+            width: 10.5px;
+            height: 14px;
+            border: 1px solid $mainRed;
+            border-radius: 1px;
+
+            .icon2 {
+                position: absolute;
+                bottom: 1px;
+                left: 0.5px;
+            }
+        }
+
+        .text {
+            font-size: 14px;
+            font-weight: 500;
+            color: $mainRed;
+        }
+    }
+}
+
+.devide {
+    width: 85%;
+    height: 4px;
+    background-color: $mainYellow;
+    margin: 3% auto 4.5%;
+}
+
+.distance {
+    margin-right: auto;
+    margin-left: 7.5%;
+}
+
+.Restaurant {
+    width: 85%;
+    height: 14.72%;
+    display: flex;
+    border: 1px solid $Grey;
+    border-radius: 10px;
+    margin: 2.5% auto;
+
+    .picture {
+        display: flex;
+        width: 40%;
+        height: full;
+        justify-content: center;
+        align-items: center;
+        border-radius: 10px 0px 0px 10px;
+        background-color: $mainRed;
+
+        .bookingTag {
+            display: flex;
+            justify-content: center;
+            column-gap: 5%;
+            width: 100px;
+
+            .tick {
+                display: flex;
+                align-items: center;
+                text-align: center;
+            }
+
+            .text {
+                font-size: 12px;
+                font-weight: 700;
+                color: #fff;
+            }
+        }
+    }
+
+    .info {
+        width: 60%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        padding: 0px 5%;
+        
+        .restaurantName {
+            font-size: 16px;
+            font-weight: 700;
+            line-height: 19.36px;
+        }
+
+        .tag {
+            width: 33%;
+            height: 25%;
+            background-color: $lightGrey;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 400;
+            line-height: 24px;
+            text-align: center;
+        }
+
+        .waitTime {
+            width: 100%;
+            display: flex;
+            align-items: flex-start;
+
+            .text {
+                font-size: 12px;
+                font-weight: 400;
+                line-height: 24px;
+            }
+
+            .time {
+                font-size: 24px;
+                font-weight: 700;
+                line-height: 0px;
+                margin-left: auto;
+                margin-right: 2%;
+                color: $mainRed;
+            }
+        }
+    }
+
+    .info_isBooking {
+        width: 60%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        padding: 0px 5%;
+        
+        .restaurantName {
+            font-size: 16px;
+            font-weight: 700;
+            line-height: 19.36px;
+            color: $DarkGrey;
+        }
+
+        .tag {
+            width: 33%;
+            height: 25%;
+            background-color: $lightGrey;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 400;
+            line-height: 24px;
+            text-align: center;
+            color: $DarkGrey;
+        }
+
+        .waitTime {
+            width: 100%;
+            display: flex;
+            align-items: flex-start;
+
+            .text {
+                font-size: 12px;
+                font-weight: 400;
+                line-height: 24px;
+                color: $Grey;
+            }
+
+            .time {
+                font-size: 24px;
+                font-weight: 700;
+                line-height: 0px;
+                margin-left: auto;
+                margin-right: 2%;
+                color: $Grey;
+            }
+        }
+    }
+}
+
+.overlay {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: 100;
+
+    .searchBlock {
+        position: relative;
+        width: 83.5%;
+        height: 23%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        background-color: #fff;
+        border-radius: 20px;
+        overflow-y: scroll;
+
+        .cancle {
+            position: absolute;
+            border: none;
+            background: rgba(0, 0, 0, 0);
+            right: 7px;
+            top: 7px;
+            cursor: pointer;
+        }
+
+        .title {
+            font-size: 16px;
+            font-weight: 500;
+        }
+        
+        .inputBlock {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            padding: 0px 8% 10%;
+
+            .inputLabel {
+                font-size: 14px;
+                align-self: flex-start;
+
+            }
+
+            .inputBar {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                width: 95%;
+                border: 1px solid $DarkGrey;
+                border-radius: 10px;
+                padding: 2.5%;
+
+                input {
+                    width: 80%;
+                    border: none;
+                    outline: none;
+                }
+
+                .submit {
+                    background-color: $Grey;
+                    border: none;
+                    border-radius: 10px;
+                    padding: 1.5% 3%;
+                }
+            }
+
+            .inputBar_red {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                width: 95%;
+                border: 1px solid $mainRed;
+                border-radius: 10px;
+                padding: 2.5%;
+
+                input {
+                    width: 80%;
+                    border: none;
+                    outline: none;
+                }
+
+                .submit {
+                    background-color: $mainRed;
+                    border: none;
+                    border-radius: 10px;
+                    padding: 1.5% 3%;
+                    color:#fff;
+                }
+            }
+        }
+
+        
+
+        
+    }
+}
