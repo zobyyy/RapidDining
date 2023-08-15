@@ -1,8 +1,7 @@
 import Layouts from '../../components/Layouts'
+import SearchOrder from './SearchOrder'
 import Restaurant from './Restaurant'
-import Select from '@mui/material/Select'
 import styles from './Home.module.scss'
-import BasicSelect from '../Booking/OrderPosotion'
 import Box from '@mui/material/Box'
 import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem'
@@ -11,6 +10,7 @@ import { NativeSelect } from '@mui/material'
 import { useState } from 'react'
 
 export default function Home() {
+  const [isSearch,setIsSearch] = useState(false);
   const bookingInfo = [false, true, false, false];
 
   // 選擇人數
@@ -47,6 +47,7 @@ export default function Home() {
   return (
     <main>
         <Layouts>
+            {isSearch && <SearchOrder setIsSearch={setIsSearch} />}
             <div className={styles.Logo}>
                 <div className={styles.first}>食</div>
                 <div className={styles.others}>時好</div>
@@ -56,7 +57,7 @@ export default function Home() {
                   <p className={styles.text}>您有幾位</p>
                   <BasicSelect/>
                 </div>
-                <div className={styles.historyOrder}>
+                <div className={styles.historyOrder} onClick={() => setIsSearch(!isSearch)}>
                     <div className={styles.iconOrder}>
                         <img className={styles.icon2} src="/icon_order2.svg" alt="" />
                     </div>
