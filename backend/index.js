@@ -2,7 +2,18 @@ import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 
+import './util/types';
 import { pool } from './model/util.js';
+
+import { restaurantList } from './controller/restaurant/list';
+import {reservationReserve} from './controller/reservation/reserve';
+import {reservationPending} from './controller/reservation/pending';
+import {reservationCancel} from './controller/reservation/cancel';
+import {restaurantVacancy} from './controller/restaurant/vacancy';
+import {menuSearch} from './controller/menu/search';
+import {dishDetail} from './controller/menu/detail';
+import {orderRequest} from './controller/order/request';
+import {orderPending} from './controller/order/pending';
 
 /*************************
   * global config
@@ -46,6 +57,16 @@ while (1) {
 app.all('/', function (req, res) {
   res.send("Hello friend from the other side!");
 })
+
+app.get(`/api/${process.env.apiVer}/restaurants`, restaurantList);
+app.post(`/api/${process.env.apiVer}/reservations/reserve`, reservationReserve);
+app.get(`/api/${process.env.apiVer}/reservations/pending`, reservationPending);
+app.delete(`/api/${process.env.apiVer}/reservations/cancel`, reservationCancel);
+app.get(`/api/${process.env.apiVer}/restaurants/:restaurantId/vacancy`, restaurantVacancy);
+app.get(`/api/${process.env.apiVer}/menus/search`, menuSearch);
+app.get(`/api/${process.env.apiVer}/menus/:dishId`, dishDetail);
+app.post(`/api/${process.env.apiVer}/orders/request`, orderRequest);
+app.get(`/api/${process.env.apiVer}/orders/pending`, orderPending);
 
 app.listen(port, () => {
   console.log(`Canchu backend listening on port:${port}`);
