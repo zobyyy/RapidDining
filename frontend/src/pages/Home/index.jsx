@@ -3,6 +3,7 @@ import Restaurant from './Restaurant'
 import styles from './Home.module.scss'
 
 export default function Home() {
+  const bookingInfo = [false, true];
   return (
     <main>
         <Layouts>
@@ -13,8 +14,9 @@ export default function Home() {
             <div className={styles.selectBlock}></div>
             <div className={styles.devide}></div>
             <div className={styles.distance}>顯示500公尺內餐廳</div>
-            {/* 使用map */}
-            <Restaurant/>
+            {bookingInfo.map((isBooking) =>(
+              <Restaurant isBooking={isBooking}/>
+            ))}
         </Layouts>
     </main>
   )
