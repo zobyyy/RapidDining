@@ -12,7 +12,7 @@ export default function SearchOrder({setIsSearch}) {
           <p className={styles.inputLabel}>請輸入訂位/訂餐人手機號碼</p>
           <div className={styles.inputBar}>
             <input type="text" />
-            <button type="submit" className={styles.submit}>送出</button>
+            <button type="button" className={styles.submit}>送出</button>
           </div>
         </div>
         
