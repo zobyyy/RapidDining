@@ -5,8 +5,8 @@ import Home from '@/pages/Home'
 
 export default function Index() {
     return (
-        <Layouts>
+        <main>
             <Home />
-        </Layouts>
+        </main>
     )
 }
