@@ -266,7 +266,7 @@
             justify-content: center;
             align-items: center;
             width: 100%;
-            padding: 5% 8% 10%;
+            padding: 0px 8% 10%;
 
             .inputLabel {
                 font-size: 14px;
@@ -294,6 +294,30 @@
                     border: none;
                     border-radius: 10px;
                     padding: 1.5% 3%;
+                }
+            }
+
+            .inputBar_red {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                width: 95%;
+                border: 1px solid $mainRed;
+                border-radius: 10px;
+                padding: 2.5%;
+
+                input {
+                    width: 80%;
+                    border: none;
+                    outline: none;
+                }
+
+                .submit {
+                    background-color: $mainRed;
+                    border: none;
+                    border-radius: 10px;
+                    padding: 1.5% 3%;
+                    color:#fff;
                 }
             }
         }
