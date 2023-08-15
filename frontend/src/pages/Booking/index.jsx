@@ -3,14 +3,21 @@ import * as Yup from 'yup'
 import styles from './Booking.module.scss'
 import Layouts from '@/components/Layouts'
 import { Field, ErrorMessage } from 'formik'
-import BookingInfo from '@/pages/Booking/BookingInfo'
-import { Inter } from 'next/font/google'
-const inter = Inter({ subsets: ['latin'] })
+import Image from 'next/image'
+
+import OrderPosition from './OrderPosotion'
+import OrderFood from './OrderFood'
 
 export default function Booking() {
+  const [chooseOrderPosition, setChooseOrderPosition] = useState(true)
+
+  const handleChooseButtonOnclick = () => {
+    setChooseOrderPosition(!chooseOrderPosition)
+  }
   return (
-    <main className={inter.className}>
-      <Layouts>
+    <Layouts>
+      <div style={{ width: '100%' }}>
+        <Image src='/餐廳照片.png' width={390} height={220}></Image>
         <div className={styles.storeInfo}>
           <div className={styles.storeName}>AppWorks咖啡廳</div>
           <div className={styles.storeAddress}>
@@ -19,13 +26,25 @@ export default function Booking() {
           <div className={styles.storePhone}>02 1234 5678 </div>
         </div>
         <div className={styles.orderChoose}>
-          <button>我要訂位</button>
-          <button>我要訂餐</button>
+          <button
+            style={{
+              borderBottom: !chooseOrderPosition && '8px solid #F5F5F5'
+            }}
+            onClick={handleChooseButtonOnclick}
+          >
+            我要訂位
+          </button>
+          <button
+            style={{
+              borderBottom: chooseOrderPosition && '8px solid #F5F5F5'
+            }}
+            onClick={handleChooseButtonOnclick}
+          >
+            我要訂餐
+          </button>
         </div>
-        <div className={styles.orderInfo}>
-          <BookingInfo />
-        </div>
-      </Layouts>
-    </main>
+        {chooseOrderPosition ? <OrderPosition /> : <OrderFood />}
+      </div>
+    </Layouts>
   )
 }

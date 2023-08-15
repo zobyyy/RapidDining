@@ -1,6 +1,35 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
 @import '@/styles/global.scss';
+@import url('https://fonts.googleapis.com/css2?family=Jaldi&display=swap');
 
+.order {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+  padding: 10% 10%;
+  gap: 20px;
+}
+.orderInfo {
+  flex-direction: column;
+  gap: 10px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-bottom: 10%;
+
+  width: 100%;
+}
+.storeInfo {
+  flex-direction: column;
+  gap: 5px;
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 5% 0% 5% 10%;
+}
 .storeName {
   color: black;
   font-size: 24px;
@@ -21,8 +50,10 @@
   line-height: normal;
 }
 .orderChoose {
-  width: 180px;
+  width: 100%;
   > button {
+    height: 37px;
+    width: 50%;
     color: #000;
     font-family: 'Inter';
     font-size: 16px;
@@ -41,49 +72,145 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  .inputGroup {
+}
+.inputGroup {
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.inputTitle {
+  color: #000;
+  font-family: 'Inter';
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+.inputText {
+  border-radius: 10px;
+  border: 1px solid var(--unnamed, #959595);
+  background: #fff;
+  width: 309px;
+  height: 45px;
+  flex-shrink: 0;
+  color: #000;
+  display: flex;
+  padding: 0.5% 0%;
+  align-items: center;
+  justify-content: flex-start;
+}
+.errorMessage {
+  bottom: 0;
+  // position: absolute;
+  // z-index: 2;
+  display: grid;
+  color: red;
+  font-family: 'Alkatra', sans-serif;
+  font-size: 0.8rem;
+  line-height: 1rem;
+  margin-top: 5px;
+  margin-left: 5px;
+}
+.orderButton {
+  width: 309px;
+  height: 53px;
+  color: #000;
+  font-family: 'Inter';
+  font-size: 20px;
+  letter-spacing: 2px;
+  border-radius: 10px;
+  background: $mainYellow;
+  border: 0px;
+}
+.orderButtonCancel {
+  background: $lightGrey;
+  width: 309px;
+  height: 53px;
+  color: #000;
+  font-family: 'Inter';
+  font-size: 20px;
+  letter-spacing: 2px;
+  border-radius: 10px;
+  border: 0px;
+}
+.orderButtonRemind {
+  color: $DarkGrey;
+  font-family: Inter;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: 1px;
+}
+// 我要訂餐
+.storeIntro {
+  white-space: pre-line;
+  font-family: 'Jaldi';
+  font-size: 16px;
+}
+.orderFoodButton {
+  width: 100%;
+  gap: 5px;
+  & > button {
     width: 50%;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
-    margin: 2% 0;
-    @media (max-width: 960px) {
-      width: 80%;
-    }
-    .inputTitle {
-      color: #000;
-      font-family: 'Alkatra', sans-serif;
-      font-size: 16px;
-      line-height: 24px;
-    }
-    .inputText {
-      border-radius: 6px;
-      border: 1px solid #5458f7;
-      background: #fff;
-      width: 100%;
-      height: 40px;
-      color: #000;
-      display: flex;
-      padding: 0.5% 3%;
-      align-items: center;
-      justify-content: flex-start;
-    }
-    .inputText::placeholder {
-      color: #bfbfbf;
-    }
-    .errorMessage {
-      bottom: 0;
-      // position: absolute;
-      // z-index: 2;
-      display: grid;
-      color: red;
-      font-family: 'Alkatra', sans-serif;
-      font-size: 0.8rem;
-      line-height: 1rem;
-      margin-top: 5px;
-      margin-left: 5px;
-    }
+    height: 46px;
+    border-radius: 20px;
+    background: transparent;
+    font-size: 16px;
+    letter-spacing: 1.6px;
   }
+  .orderFoodButtonChosen {
+    border: 3px solid $mainRed;
+  }
+  .orderFoodButtonNotChoose {
+    border: 1px solid $Grey;
+  }
+}
+//菜單
+.scrollContainer {
+  overflow-x: auto;
+  max-width: 100%;
+  flex-direction: row;
+  display: flex;
+  &::-webkit-scrollbar {
+    width: 0px;
+  }
+}
+
+.kindsItem {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $lightGrey;
+  margin-right: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 46px;
+  border-radius: 20px;
+  padding: 0 26px;
+  white-space: nowrap;
+}
+//商品欄位
+.kindsTitle {
+  width: 100%;
+  font-size: 20px;
+  font-weight: 700;
+  border-bottom: 1px solid $lightGrey;
+  padding-bottom: 10px;
+}
+.productCol {
+  width: 100%;
+  border-bottom: 1px solid $lightGrey;
+}
+.productName {
+  font-weight: 600;
+}
+.productIntro {
+  color: $DarkGrey;
+
+  font-size: 16px;
 }
