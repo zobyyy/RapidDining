@@ -1,0 +1,108 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+@import '@/styles/global.scss';
+@import url('https://fonts.googleapis.com/css2?family=Jaldi&display=swap');
+
+.cartTitle {
+  color: #000;
+  font-size: 24px;
+  font-weight: 700;
+  flex-direction: column;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15% 5% 0 5%;
+  width: 100%;
+  box-sizing: border-box;
+  gap: 20px;
+}
+.productNumber {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: 80px;
+
+  background: #fff;
+}
+.productNumberButton {
+  border-top: 1px solid #d9d9d9;
+  border-bottom: 1px solid #d9d9d9;
+  width: 47px;
+  height: 34px;
+  display: flex;
+  font-size: 20px;
+  font-weight: 700;
+  align-items: center;
+  justify-content: center;
+}
+
+//商品欄位
+.kindsTitle {
+  width: 100%;
+  font-size: 20px;
+  font-weight: 700;
+  border-bottom: 1px solid $lightGrey;
+  padding-bottom: 10px;
+}
+.productCol {
+  width: 100%;
+  border-bottom: 1px solid $lightGrey;
+  padding: 5% 10%;
+  box-sizing: border-box;
+}
+.productName {
+  font-weight: 600;
+}
+.productIntro {
+  color: $DarkGrey;
+
+  font-size: 16px;
+}
+
+.buttonFixed {
+  position: absolute;
+  bottom: 20px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 20px;
+}
+.cartTotalSquare {
+  height: 65px;
+  background: $mainYellow;
+  padding: 0 8%;
+  display: flex;
+  box-sizing: border-box;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+.buttonGruop {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  flex-direction: row;
+  & > button {
+    width: 160px;
+    height: 60px;
+    letter-spacing: 1.6px;
+    font-size: 16px;
+  }
+}
+.orderContinueButton {
+  border-radius: 10px;
+  border: 1px solid #959595;
+  background: transparent;
+  font-weight: 500;
+}
+.submitButton {
+  border: 0px;
+  border-radius: 10px;
+  background: $mainLinear;
+  color: #fff;
+  font-weight: 700;
+}

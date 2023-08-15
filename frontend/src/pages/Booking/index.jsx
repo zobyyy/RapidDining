@@ -13,7 +13,12 @@ export default function Booking() {
   // Cookies.set('tableId', JSON.stringify(myObject))
   // console.log('hi', Cookies.get('tableId'))
   const [chooseOrderPosition, setChooseOrderPosition] = useState(true)
-
+  useEffect(() => {
+    const isChooseOrderPosition = Cookies.get('chooseOrderPosition')
+    if (isChooseOrderPosition === 'false') {
+      setChooseOrderPosition(false)
+    }
+  }, [])
   const handleChooseButtonOnclick = () => {
     setChooseOrderPosition(!chooseOrderPosition)
   }

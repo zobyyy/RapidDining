@@ -1,8 +1,11 @@
 import React from 'react'
 import styles from './Booking.module.scss'
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 
 const ProductColumn = () => {
+  const router = useRouter()
+
   return (
     <div className={styles.productCol}>
       <div style={{ width: '100%', display: 'flex', flexDirection: 'row' }}>
@@ -42,6 +45,7 @@ const ProductColumn = () => {
           width={27}
           height={27}
           className={styles.productAdd}
+          onClick={() => router.push('/Product')}
         />
       </div>
     </div>

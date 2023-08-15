@@ -3,6 +3,7 @@ import styles from './Product.module.scss'
 import Layouts from '@/components/Layouts'
 import Image from 'next/image'
 import Cookies from 'js-cookie'
+import { useRouter } from 'next/router'
 const mockData = {
   data: {
     dish_id: '1',
@@ -40,6 +41,9 @@ const mockData = {
 const { options } = mockData.data
 
 export default function Product() {
+  Cookies.set('chooseOrderPosition', false)
+  const router = useRouter()
+
   const [selectedOptions, setSelectedOptions] = useState({})
   const [number, setNumber] = useState(1)
   const ProductNumber = () => {
@@ -147,6 +151,7 @@ export default function Product() {
           width={51}
           height={51}
           style={{ zIndex: '2', position: 'absolute', margin: '3%' }}
+          onClick={() => router.push('/Booking')}
         />
         <Image
           src='/product_義大利麵.png'
@@ -166,7 +171,13 @@ export default function Product() {
         <Customization options={options} />
         <div className={styles.buttonFixed}>
           <ProductNumber />
-          <button className={styles.addCarButton} onClick={handleAddToCart}>
+          <button
+            className={styles.addCartButton}
+            onClick={() => {
+              handleAddToCart()
+              router.push('/Booking')
+            }}
+          >
             加入購物車
           </button>
         </div>
