@@ -45,31 +45,29 @@ export default function Home() {
   
 
   return (
-    <main>
-        <Layouts>
-            {isSearch && <SearchOrder setIsSearch={setIsSearch} />}
-            <div className={styles.Logo}>
-                <div className={styles.first}>食</div>
-                <div className={styles.others}>時好</div>
+    <Layouts>
+        {isSearch && <SearchOrder setIsSearch={setIsSearch} />}
+        <div className={styles.Logo}>
+            <div className={styles.first}>食</div>
+            <div className={styles.others}>時好</div>
+        </div>
+        <div className={styles.selectBlock}>
+            <div className={styles.selectPeople}>
+              <p className={styles.text}>您有幾位</p>
+              <BasicSelect/>
             </div>
-            <div className={styles.selectBlock}>
-                <div className={styles.selectPeople}>
-                  <p className={styles.text}>您有幾位</p>
-                  <BasicSelect/>
+            <div className={styles.historyOrder} onClick={() => setIsSearch(!isSearch)}>
+                <div className={styles.iconOrder}>
+                    <img className={styles.icon2} src="/icon_order2.svg" alt="" />
                 </div>
-                <div className={styles.historyOrder} onClick={() => setIsSearch(!isSearch)}>
-                    <div className={styles.iconOrder}>
-                        <img className={styles.icon2} src="/icon_order2.svg" alt="" />
-                    </div>
-                    <p className={styles.text}>查看紀錄</p>
-                </div>
+                <p className={styles.text}>查看紀錄</p>
             </div>
-            <div className={styles.devide}></div>
-            <div className={styles.distance}>顯示500公尺內餐廳</div>
-            {bookingInfo.map((isBooking) =>(
-              <Restaurant isBooking={isBooking}/>
-            ))}
-        </Layouts>
-    </main>
+        </div>
+        <div className={styles.devide}></div>
+        <div className={styles.distance}>顯示500公尺內餐廳</div>
+        {bookingInfo.map((isBooking) =>(
+          <Restaurant isBooking={isBooking}/>
+        ))}
+    </Layouts>
   )
 }
