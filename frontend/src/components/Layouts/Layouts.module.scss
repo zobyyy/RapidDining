@@ -9,6 +9,7 @@
   background: white;
   flex-direction: column;
   overflow-y: auto;
+  position: relative;
   &::-webkit-scrollbar {
     width: 0px;
   }
