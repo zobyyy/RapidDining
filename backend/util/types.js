@@ -1,5 +1,5 @@
 /**
- * @typedef {Object} RestaurantInfo
+ * @typedef {Object} APIRestaurantInfo
  * @property {number} id - Restaurant’s ID
  * @property {string} name - Human-readable name
  * @property {string} phone - Phone number
