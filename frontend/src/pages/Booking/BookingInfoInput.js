@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import styles from './Booking.module.scss'
 import Link from 'next/link'
 import { Field, ErrorMessage } from 'formik'
+import * as Yup from 'yup'
 import Radio from '@mui/material/Radio'
 import RadioGroup from '@mui/material/RadioGroup'
 import FormControlLabel from '@mui/material/FormControlLabel'
@@ -20,6 +21,7 @@ const BookingInfoInput = () => {
           row
           aria-labelledby='demo-row-radio-buttons-group-label'
           name='row-radio-buttons-group'
+          defaultValue='female'
         >
           <FormControlLabel value='female' control={<Radio />} label='小姐' />
           <FormControlLabel value='male' control={<Radio />} label='先生' />
@@ -28,40 +30,27 @@ const BookingInfoInput = () => {
       </FormControl>
     )
   }
-  const InputField = ({ title }) => (
+  const InputField = ({ title, name, type }) => (
     <div className={styles.inputGroup}>
       <div style={{ flexDirection: 'row', display: 'flex' }}>
         <div className={styles.inputTitle}>{title}</div>
-        {/* <ErrorMessage
+        <ErrorMessage
           name={name}
           component='div'
           className={styles.errorMessage}
-        /> */}
+        />
       </div>
-      <input className={styles.inputText} />
-      {/* <Field
-        className={styles.inputText}
-        type={type}
-        name={name}
-        placeholder={placeholder}
-        innerRef={innerRef}
-      /> */}
+      {/* <input className={styles.inputText} /> */}
+      <Field className={styles.inputText} type={type} name={name} />
     </div>
   )
   return (
     <>
-      {/* <InputField
-        title='電子郵件'
-        placeholder='例: shirney@appworks.tw'
-        name='email'
-        type='email'
-        innerRef={emailRef}
-      /> */}
       <div>
-        <InputField title='訂位人姓名' />
+        <InputField title='訂位人姓名' name='name' />
         <RowRadioButtonsGroup />
       </div>
-      <InputField title='訂位人手機號碼' />
+      <InputField title='訂位人手機號碼' name='phoneNumber' />
     </>
   )
 }
