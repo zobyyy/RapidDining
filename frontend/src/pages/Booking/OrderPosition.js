@@ -169,16 +169,10 @@ const OrderPosition = ({ handleChooseButtonOnclick }) => {
   }
   const validationSchema = Yup.object({
     name: Yup.string().required('必填欄位'),
-    phoneNumber: Yup.number()
-      .typeError('必須為數字')
-      .positive('必須為正數')
-      .integer('必須為整數')
-      .required('必填欄位'),
-    gender: Yup.string().required('必選欄位')
+    phoneNumber: Yup.number().typeError('必須為數字').required('必填欄位')
   })
   const handleSubmit = async (values, { setSubmitting }) => {
     if (!values.name || !values.phoneNumber) {
-      // 顯示警告訊息
       await Swal.fire({
         icon: 'error',
         title: '請填寫姓名和手機號碼',
@@ -187,9 +181,6 @@ const OrderPosition = ({ handleChooseButtonOnclick }) => {
       setSubmitting(false)
       return
     }
-
-    // 在這裡處理表單提交
-    console.log(values)
     setSubmitting(false)
   }
 

@@ -1,19 +1,13 @@
 import React from 'react'
 import { useRouter } from 'next/router'
 import styles from './Booking.module.scss'
-import Link from 'next/link'
 import { Field, ErrorMessage } from 'formik'
-import * as Yup from 'yup'
 import Radio from '@mui/material/Radio'
 import RadioGroup from '@mui/material/RadioGroup'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import FormControl from '@mui/material/FormControl'
-import { styled } from '@mui/material/styles'
-import { createTheme } from '@mui/material/styles'
 
 const BookingInfoInput = () => {
-  const router = useRouter()
-
   const RowRadioButtonsGroup = () => {
     return (
       <FormControl>
@@ -30,20 +24,21 @@ const BookingInfoInput = () => {
       </FormControl>
     )
   }
-  const InputField = ({ title, name, type }) => (
-    <div className={styles.inputGroup}>
-      <div style={{ flexDirection: 'row', display: 'flex' }}>
-        <div className={styles.inputTitle}>{title}</div>
-        <ErrorMessage
-          name={name}
-          component='div'
-          className={styles.errorMessage}
-        />
+  const InputField = ({ title, name, type }) => {
+    return (
+      <div className={styles.inputGroup}>
+        <div style={{ flexDirection: 'row', display: 'flex' }}>
+          <div className={styles.inputTitle}>{title}</div>
+          <ErrorMessage
+            name={name}
+            component='div'
+            className={styles.errorMessage}
+          />
+        </div>
+        <Field className={styles.inputText} type={type} name={name} />
       </div>
-      {/* <input className={styles.inputText} /> */}
-      <Field className={styles.inputText} type={type} name={name} />
-    </div>
-  )
+    )
+  }
   return (
     <>
       <div>
