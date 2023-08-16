@@ -6,14 +6,14 @@ import './util/types';
 import { pool } from './model/util.js';
 
 import { restaurantList } from './controller/restaurant/list';
-import {reservationReserve} from './controller/reservation/reserve';
-import {reservationPending} from './controller/reservation/pending';
-import {reservationCancel} from './controller/reservation/cancel';
-import {restaurantVacancy} from './controller/restaurant/vacancy';
-import {menuSearch} from './controller/menu/search';
-import {dishDetail} from './controller/menu/detail';
-import {orderRequest} from './controller/order/request';
-import {orderPending} from './controller/order/pending';
+import { reservationReserve } from './controller/reservation/reserve';
+import { reservationPending } from './controller/reservation/pending';
+import { reservationCancel } from './controller/reservation/cancel';
+import { restaurantVacancy } from './controller/restaurant/vacancy';
+import { menuSearch } from './controller/menu/search';
+import { dishDetail } from './controller/menu/detail';
+import { orderRequest } from './controller/order/request';
+import { orderPending } from './controller/order/pending';
 
 /*************************
   * global config
