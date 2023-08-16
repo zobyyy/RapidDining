@@ -55,7 +55,7 @@ while (1) {
 *************************/
 
 app.all('/', function (req, res) {
-  res.send("Hello friend from the other side!");
+  res.send({ "data": "Hello friend from the other side!" });
 })
 
 app.get(`/api/${process.env.apiVer}/restaurants`, restaurantList);
