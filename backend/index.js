@@ -23,7 +23,7 @@ import 'dotenv/config';
 
 /** @type {cors.CorsOptions} */
 const corsOptions = {
-  "origin": process.env.frontendAddr,
+  // "origin": process.env.frontendAddr,
   "methods": "GET,PUT,POST,DELETE",
   "allowedHeaders": ["Content-Type"]
 };
