@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { useState } from 'react'
 import styles from './Home.module.scss'
 
@@ -5,9 +6,23 @@ export default function Restaurant( {type,isBooking} ) {
     // type 1 restaurant list
     // type 2 order
     return (
-        <>
-            {type === 1 ? <RestaurantInfo isBooking={isBooking}/> : <OrderHistory isBooking={isBooking} /> }
-        </>
+        <div style={type === 1 ? {position: 'relative', width: '100%', height: '100%'} : {width: '100%'}}>
+            {type === 1
+                ?
+                    <>
+                        <Link href="/Booking">
+                            <div style={{position:'absolute', left: '29px', top:'10px', width: '85%', height: '85%'}}></div>
+                        </Link>
+                        <RestaurantInfo isBooking={isBooking}/>
+                    </>
+                :
+                    <OrderHistory isBooking={isBooking}/>
+            }
+            {/* <Link href="/Booking">
+                <div style={{position:'absolute', left: '29px', top:'10px', width: '85%', height: '85%'}}></div>
+            </Link>
+            {type === 1 ? <RestaurantInfo isBooking={isBooking}/> : <OrderHistory isBooking={isBooking} /> } */}
+        </div>
     )
 }
 

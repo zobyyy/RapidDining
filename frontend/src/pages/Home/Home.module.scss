@@ -128,8 +128,6 @@
     }
 }
 
-
-
 .Restaurant {
     width: 85%;
     height: 7rem;
@@ -137,6 +135,10 @@
     border: 1px solid $Grey;
     border-radius: 10px;
     margin: 2.5% auto;
+
+    p {
+        text-decoration: none;
+    }
 
     .picture {
         display: flex;
@@ -173,7 +175,7 @@
         display: flex;
         flex-direction: column;
         padding: 0px 6%;
-        
+            
         .restaurantName {
             font-size: 16px;
             font-weight: 700;
@@ -219,7 +221,7 @@
         display: flex;
         flex-direction: column;
         padding: 0px 6%;
-        
+            
         .restaurantName {
             font-size: 16px;
             font-weight: 700;
@@ -262,6 +264,8 @@
         }
     }
 }
+
+
 
 .overlay {
     position: absolute;
