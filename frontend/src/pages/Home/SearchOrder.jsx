@@ -2,12 +2,12 @@ import styles from './Home.module.scss'
 import Restaurant from './Restaurant'
 import { useState } from 'react'
 
-export default function SearchOrder({setIsSearch}) {
+export default function SearchOrder({setIsSearch,setIsHidden}) {
   const [phone, setPhone] = useState('');
   return (
     <div className={styles.overlay}>
       <div className={styles.searchBlock}>
-        <button type="button" className={styles.cancle} onClick={() => {setIsSearch(false); setPhone([])}}>
+        <button type="button" className={styles.cancle} onClick={() => {setIsSearch(false);setIsHidden(false); setPhone([])}}>
           <img src="/icon_cancel.svg" alt="" />
         </button>
         <p className={styles.title}>找尋您的訂位或訂餐紀錄</p>
