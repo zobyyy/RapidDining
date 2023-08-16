@@ -80,7 +80,7 @@ const Menu = () => {
         ))}
 
         {mockData.data.menu.map((productChosen, index) => (
-          <ProductColumn productChosen={productChosen} />
+          <ProductColumn productChosen={productChosen} key={index} />
         ))}
       </>
     )

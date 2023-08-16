@@ -5,8 +5,10 @@ import { useRouter } from 'next/router'
 
 const ProductColumn = ({ productChosen }) => {
   const router = useRouter()
-  const [isChosen, setIsChosen] = useState(false)
-
+  const [isChosen, setIsChosen] = useState(true)
+  if (productChosen === undefined) {
+    return
+  }
   return (
     <div className={styles.productCol}>
       <div style={{ width: '100%', display: 'flex', flexDirection: 'row' }}>
@@ -19,7 +21,6 @@ const ProductColumn = ({ productChosen }) => {
             width: '30%',
             display: 'flex',
             flexDirection: 'row',
-
             justifyContent: 'flex-end',
             alignItems: 'center'
           }}
@@ -44,7 +45,6 @@ const ProductColumn = ({ productChosen }) => {
             gap: '5px'
           }}
         >
-          {/* 判斷API取得的資料 vegan和spicy為true or false */}
           {productChosen.spicy && (
             <Image src='/辣.png' width={36} height={22} />
           )}
