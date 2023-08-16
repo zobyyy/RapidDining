@@ -50,7 +50,9 @@ const OrderFood = () => {
             className={styles.cartButton}
             onClick={() => router.push('/Cart')}
           >
+            <div className={styles.cartButtonText}>1</div>
             購物車
+            <div className={styles.cartButtonPrice}>NT$100</div>
           </button>
         </div>
       )}

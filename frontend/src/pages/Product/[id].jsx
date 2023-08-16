@@ -66,6 +66,9 @@ export default function Product() {
             width={64}
             height={50}
             onClick={handleMinusClick}
+            style={{
+              cursor: ' pointer'
+            }}
           />
         )}
         <div className={styles.productNumberButton}>{number}</div>
@@ -74,6 +77,9 @@ export default function Product() {
           width={64}
           height={50}
           onClick={handlePlusClick}
+          style={{
+            cursor: ' pointer'
+          }}
         />
       </div>
     )
@@ -140,9 +146,9 @@ export default function Product() {
     // Cookies.set('CustomizationId', JSON.stringify(selectedIds)) //CustomizationId是要回傳給後端的
     // Cookies.set('CustomizationName', JSON.stringify(selectedNames))
     Cookies.set('productChosen', JSON.stringify(productChosen))
-    // console.log('Selected Options:', JSON.stringify(selectedIds))
-    // console.log('Selected Options:', JSON.stringify(selectedNames))
     console.log('Product Chosen:', JSON.stringify(productChosen))
+
+    router.push('/Booking')
   }
   return (
     <Layouts>
@@ -151,7 +157,12 @@ export default function Product() {
           src='/back.png'
           width={51}
           height={51}
-          style={{ zIndex: '2', position: 'absolute', margin: '3%' }}
+          style={{
+            zIndex: '2',
+            position: 'absolute',
+            margin: '3%',
+            cursor: ' pointer'
+          }}
           onClick={() => router.push('/Booking')}
         />
         <Image
@@ -176,7 +187,6 @@ export default function Product() {
             className={styles.addCartButton}
             onClick={() => {
               handleAddToCart()
-              router.push('/Booking')
             }}
           >
             加入購物車

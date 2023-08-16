@@ -8,25 +8,18 @@ import Cookies from 'js-cookie'
 import OrderPosition from './OrderPosition'
 import OrderFood from './OrderFood'
 import useTest from '@/hook/useTest'
+import { useRouter } from 'next/router'
+
 export default function Booking() {
-  // const { data } = useTest()
-  // console.log(data)
-  // const myObject = { 1: 2, 2: 2, 3: 2 }
-  // Cookies.set('tableId', JSON.stringify(myObject))
-  // console.log('hi', Cookies.get('tableId'))
+  const router = useRouter()
+
   const [chooseOrderPosition, setChooseOrderPosition] = useState(true)
-  const [productChosen, setProductChosen] = useState({})
 
   useEffect(() => {
     const isChooseOrderPosition = Cookies.get('chooseOrderPosition')
     if (isChooseOrderPosition === 'false') {
       setChooseOrderPosition(false)
     }
-    // const productChosenCookie = Cookies.get('productChosen')
-    // if (productChosenCookie) {
-    //   const parsedProductChosen = JSON.parse(productChosenCookie)
-    //   setProductChosen(parsedProductChosen)
-    // }
   }, [])
   const handleChooseButtonOnclick = () => {
     setChooseOrderPosition(!chooseOrderPosition)
@@ -34,6 +27,18 @@ export default function Booking() {
   return (
     <Layouts>
       <div style={{ width: '100%' }}>
+        <Image
+          src='/back.png'
+          width={51}
+          height={51}
+          style={{
+            zIndex: '2',
+            position: 'absolute',
+            margin: '3%',
+            cursor: ' pointer'
+          }}
+          onClick={() => router.push('/')}
+        />
         <Image src='/餐廳照片.png' width={390} height={220}></Image>
         <div className={styles.storeInfo}>
           <div className={styles.storeName}>AppWorks咖啡廳</div>
