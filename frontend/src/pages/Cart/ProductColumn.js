@@ -3,9 +3,33 @@ import styles from './Cart.module.scss'
 import Image from 'next/image'
 import Cookies from 'js-cookie'
 
-const ProductColumn = ({ productChosen }) => {
+const ProductColumn = ({ productChosen, total, setTotal }) => {
   const [number, setNumber] = useState(1)
-
+  // useEffect(() => {
+  //   if (productChosen) {
+  //     setNumber(productChosen.quantity)
+  //   }
+  // }, [productChosen])
+  // useEffect(() => {
+  //   if (productChosen) {
+  //     const updatedProductChosen = { ...productChosen, quantity: number }
+  //     Cookies.set('productChosen', JSON.stringify(updatedProductChosen))
+  //     console.log(productChosen)
+  //   }
+  // }, [number, productChosen])
+  useEffect(() => {
+    if (productChosen) {
+      setNumber(productChosen.quantity)
+      const updatedProductChosen = { ...productChosen, quantity: number }
+      Cookies.set('productChosen', JSON.stringify(updatedProductChosen))
+      const totalPrice = productChosen.price * number
+      Cookies.set(
+        'totalPrice',
+        parseInt(Cookies.get('totalPrice')) + totalPrice
+      )
+      setTotal(total + totalPrice)
+    }
+  }, [number, productChosen, setTotal])
   const ProductNumber = () => {
     const handlePlusClick = () => {
       setNumber(number + 1)
@@ -47,12 +71,18 @@ const ProductColumn = ({ productChosen }) => {
   if (!productChosen) {
     return (
       <div className={styles.productCol}>
-        <div className={styles.productName}>No product chosen</div>
+        <div className={styles.productName}>尚未有商品加入</div>
       </div>
     )
   }
-  console.log(productChosen.customization)
+
   const totalPrice = productChosen.price * number
+
+  Cookies.set('totalPrice', parseInt(Cookies.get('totalPrice')) + totalPrice)
+
+  // useEffect(() => {
+  //   setTotal(total + totalPrice)
+  // }, [totalPrice])
   return (
     <div className={styles.productCol}>
       <div>
