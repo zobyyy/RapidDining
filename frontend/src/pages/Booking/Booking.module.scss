@@ -235,6 +235,10 @@
 }
 //購物車有東西
 .cartButton {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
   z-index: 5;
   position: fixed;
   bottom: 5%;
@@ -250,4 +254,29 @@
   font-weight: 700;
   letter-spacing: 8px;
   box-sizing: border-box;
+}
+.cartButtonText {
+  width: 28px;
+  height: 25px;
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  opacity: 0.3;
+  background: #000;
+  color: #fff;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+
+  letter-spacing: 1.4px;
+}
+.cartButtonPrice {
+  color: #fff;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+
+  letter-spacing: 1.4px;
 }
