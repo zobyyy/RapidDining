@@ -9,6 +9,8 @@
   flex-direction: column;
   padding: 10% 10%;
   gap: 20px;
+
+  margin-bottom: 10%;
 }
 .orderInfo {
   flex-direction: column;
@@ -206,6 +208,7 @@
   position: relative;
   width: 100%;
   border-bottom: 1px solid $lightGrey;
+  padding-bottom: 10px;
 }
 .productName {
   font-weight: 600;

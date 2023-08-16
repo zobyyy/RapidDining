@@ -35,21 +35,39 @@ const ProductColumn = () => {
           display: 'flex',
           flexDirection: 'row',
           marginTop: '12px',
-          justifyContent: 'flex-end',
-          alignItems: 'center',
-          gap: '20px'
+          justifyContent: 'space-between',
+          alignItems: 'center'
         }}
       >
-        <div className={styles.productPrice}>NT$295</div>
-        {isChosen && <div className={styles.productChosenQuantity}>1</div>}
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            gap: '5px'
+          }}
+        >
+          {/* 判斷API取得的資料 vegan和spicy為true or false */}
+          <Image src='/辣.png' width={36} height={22} />
+          <Image src='/素食.png' width={45} height={22} />
+        </div>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            gap: '20px'
+          }}
+        >
+          <div className={styles.productPrice}>NT$295</div>
+          {isChosen && <div className={styles.productChosenQuantity}>1</div>}
 
-        <Image
-          src='/AddProduct.png'
-          width={27}
-          height={27}
-          className={styles.productAdd}
-          onClick={() => router.push('/Product')}
-        />
+          <Image
+            src='/AddProduct.png'
+            width={27}
+            height={27}
+            className={styles.productAdd}
+            onClick={() => router.push('/Product')}
+          />
+        </div>
       </div>
     </div>
   )

@@ -30,7 +30,7 @@ const KindsArea = () => {
 const Menu = () => {
   return (
     <>
-      <div className={styles.order}>
+      <div>
         <Image src='/banner.png' alt='banner' width={340} height={177} />
       </div>
       <Kinds />
