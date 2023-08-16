@@ -51,7 +51,7 @@ const ProductColumn = ({ productChosen }) => {
       </div>
     )
   }
-
+  console.log(productChosen.customization)
   const totalPrice = productChosen.price * number
   return (
     <div className={styles.productCol}>
@@ -68,6 +68,22 @@ const ProductColumn = ({ productChosen }) => {
           >
             <div className={styles.productName}>{productChosen.name}</div>
             <div className={styles.productPrice}>NT${productChosen.price}</div>
+            <div
+              style={{
+                width: '100%',
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'flex-end'
+              }}
+            >
+              <div>
+                {productChosen.customization.map((item, index) => (
+                  <div key={index} className={styles.customizationItem}>
+                    {item}
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </div>

@@ -20,8 +20,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  height: 80px;
-
+  height: 40px;
   background: #fff;
 }
 .productNumberButton {
@@ -58,7 +57,18 @@
 
   font-size: 16px;
 }
-
+.customizationItem {
+  align-items: center;
+  justify-content: center;
+  display: inline-flex;
+  height: 23px;
+  border: 0.5px $DarkGrey solid;
+  border-radius: 20px;
+  color: $DarkGrey;
+  padding: 0 5px;
+  white-space: nowrap;
+  font-size: 12px;
+}
 .buttonFixed {
   position: absolute;
   bottom: 20px;
