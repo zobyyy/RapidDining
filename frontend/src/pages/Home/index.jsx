@@ -11,7 +11,7 @@ import { useState } from 'react'
 
 export default function Home() {
   const [isSearch,setIsSearch] = useState(false);
-  const bookingInfo = [false, true, false, true, false];
+  const bookingInfo = [false, true, false, true];
 
   // 選擇人數
   const BasicSelect = () => {
@@ -69,6 +69,11 @@ export default function Home() {
             {bookingInfo.map((isBooking) =>(
               <Restaurant isBooking={isBooking}/>
             ))}
+            {/* <div className={styles.restaurantBlock}>
+              {bookingInfo.map((isBooking) =>(
+                <Restaurant isBooking={isBooking}/>
+              ))}
+            </div> */}
         </Layouts>
     </main>
   )

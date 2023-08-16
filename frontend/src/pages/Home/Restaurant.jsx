@@ -32,3 +32,9 @@ export default function Restaurant( {isBooking} ) {
     </div>
   )
 }
+
+// function RestaurantInfo ( { isBooking } ) {
+//     return (
+        
+//     )
+// }
