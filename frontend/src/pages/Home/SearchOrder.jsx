@@ -21,6 +21,8 @@ export default function SearchOrder({setIsSearch}) {
           </div>
         </div>
         <Restaurant type={2} isBooking={true}/>
+        <Restaurant type={2} isBooking={true}/>
+        <Restaurant type={2} isBooking={true}/>
       </div>
     </div>
   )
