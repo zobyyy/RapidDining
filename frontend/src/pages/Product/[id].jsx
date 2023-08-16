@@ -66,6 +66,9 @@ export default function Product() {
             width={64}
             height={50}
             onClick={handleMinusClick}
+            style={{
+              cursor: ' pointer'
+            }}
           />
         )}
         <div className={styles.productNumberButton}>{number}</div>
@@ -74,6 +77,9 @@ export default function Product() {
           width={64}
           height={50}
           onClick={handlePlusClick}
+          style={{
+            cursor: ' pointer'
+          }}
         />
       </div>
     )
@@ -151,7 +157,12 @@ export default function Product() {
           src='/back.png'
           width={51}
           height={51}
-          style={{ zIndex: '2', position: 'absolute', margin: '3%' }}
+          style={{
+            zIndex: '2',
+            position: 'absolute',
+            margin: '3%',
+            cursor: ' pointer'
+          }}
           onClick={() => router.push('/Booking')}
         />
         <Image

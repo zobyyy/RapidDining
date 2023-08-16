@@ -50,6 +50,9 @@ const ProductColumn = ({ productChosen, total, setTotal }) => {
             width={36}
             height={34}
             onClick={handleMinusClick}
+            style={{
+              cursor: ' pointer'
+            }}
           />
         )}
         <div className={styles.productNumberButton}>{number}</div>
@@ -58,6 +61,9 @@ const ProductColumn = ({ productChosen, total, setTotal }) => {
           width={36}
           height={34}
           onClick={handlePlusClick}
+          style={{
+            cursor: ' pointer'
+          }}
         />
       </div>
     )
@@ -143,6 +149,9 @@ const ProductColumn = ({ productChosen, total, setTotal }) => {
             width={24}
             height={24}
             onClick={handleDeleteClick}
+            style={{
+              cursor: ' pointer'
+            }}
           />
         </div>
       </div>

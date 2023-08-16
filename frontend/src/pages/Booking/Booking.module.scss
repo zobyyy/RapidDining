@@ -56,6 +56,7 @@
   width: 100%;
   padding: 0% 10%;
   > button {
+    cursor: pointer;
     height: 37px;
     width: 50%;
     color: #000;
@@ -122,6 +123,7 @@
   margin-left: 5px;
 }
 .orderButton {
+  cursor: pointer;
   width: 309px;
   height: 53px;
   color: #000;
@@ -183,6 +185,7 @@
 }
 
 .kindsItem {
+  cursor: pointer;
   align-items: center;
   justify-content: center;
   background-color: $lightGrey;
@@ -196,6 +199,9 @@
   white-space: nowrap;
 }
 //商品欄位
+.productAdd {
+  cursor: pointer;
+}
 .kindsTitle {
   width: 100%;
   font-size: 20px;
@@ -235,6 +241,7 @@
 }
 //購物車有東西
 .cartButton {
+  cursor: pointer;
   display: flex;
   flex-direction: row;
   justify-content: space-between;

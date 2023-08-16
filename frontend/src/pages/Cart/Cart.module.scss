@@ -104,12 +104,14 @@
   }
 }
 .orderContinueButton {
+  cursor: pointer;
   border-radius: 10px;
   border: 1px solid #959595;
   background: transparent;
   font-weight: 500;
 }
 .submitButton {
+  cursor: pointer;
   border: 0px;
   border-radius: 10px;
   background: $mainLinear;
