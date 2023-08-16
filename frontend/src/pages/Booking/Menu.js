@@ -19,7 +19,10 @@ const KindsArea = () => {
   return (
     <>
       <div className={styles.kindsTitle}>主食</div>
-      <ProductColumn />
+      <ProductColumn
+      // productQuantities={productQuantities}
+      // productChosen={productChosen}
+      />
     </>
   )
 }

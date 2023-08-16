@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styles from './Cart.module.scss'
 import Image from 'next/image'
+import Cookies from 'js-cookie'
 
 const ProductColumn = ({ productChosen }) => {
   const [number, setNumber] = useState(1)
@@ -37,8 +38,21 @@ const ProductColumn = ({ productChosen }) => {
       </div>
     )
   }
-  const totalPrice = productChosen.price * number
 
+  const handleDeleteClick = () => {
+    Cookies.remove('productChosen')
+    window.location.reload()
+  }
+
+  if (!productChosen) {
+    return (
+      <div className={styles.productCol}>
+        <div className={styles.productName}>No product chosen</div>
+      </div>
+    )
+  }
+
+  const totalPrice = productChosen.price * number
   return (
     <div className={styles.productCol}>
       <div>
@@ -68,7 +82,23 @@ const ProductColumn = ({ productChosen }) => {
         }}
       >
         <ProductNumber />
-        <div className={styles.productPrice}>NT${totalPrice}</div>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'flex-end',
+            alignItems: 'center',
+            gap: '5px'
+          }}
+        >
+          <div className={styles.productPrice}>NT${totalPrice}</div>
+          <Image
+            src='/delete.png'
+            width={24}
+            height={24}
+            onClick={handleDeleteClick}
+          />
+        </div>
       </div>
     </div>
   )

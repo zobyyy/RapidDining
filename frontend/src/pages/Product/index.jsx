@@ -130,6 +130,7 @@ export default function Product() {
           .find((subOption) => subOption.id === id).name
     )
     const productChosen = {
+      dish_id: mockData.data.dish_id,
       name: mockData.data.name,
       price: mockData.data.price,
       customization: selectedNames,

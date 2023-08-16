@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styles from './Booking.module.scss'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 
 const ProductColumn = () => {
   const router = useRouter()
+  const [isChosen, setIsChosen] = useState(false)
 
   return (
     <div className={styles.productCol}>
@@ -40,6 +41,8 @@ const ProductColumn = () => {
         }}
       >
         <div className={styles.productPrice}>NT$295</div>
+        {isChosen && <div className={styles.productChosenQuantity}>1</div>}
+
         <Image
           src='/AddProduct.png'
           width={27}

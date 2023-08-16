@@ -6,46 +6,24 @@ import Cookies from 'js-cookie'
 import ProductColumn from './ProductColumn'
 import { useRouter } from 'next/router'
 
-const productChosen = JSON.parse(Cookies.get('productChosen'))
-console.log(productChosen.name)
+const productChosenString = Cookies.get('productChosen')
+const productChosen = productChosenString
+  ? JSON.parse(productChosenString)
+  : null
 
 export default function Cart() {
   Cookies.set('chooseOrderPosition', false)
   const router = useRouter()
-  const [selectedOptions, setSelectedOptions] = useState({})
   const [number, setNumber] = useState(1)
-  const ProductNumber = () => {
-    const handlePlusClick = () => {
-      setNumber(number + 1)
-    }
+  const [productChosen, setProductChosen] = useState(null)
 
-    const handleMinusClick = () => {
-      if (number > 1) {
-        setNumber(number - 1)
-      }
+  useEffect(() => {
+    const productChosenString = Cookies.get('productChosen')
+    if (productChosenString) {
+      const parsedProductChosen = JSON.parse(productChosenString)
+      setProductChosen(parsedProductChosen)
     }
-    return (
-      <div className={styles.productNumber}>
-        {number === 1 ? (
-          <Image src='/minusDisabled.png' width={64} height={50} />
-        ) : (
-          <Image
-            src='/minus.png'
-            width={64}
-            height={50}
-            onClick={handleMinusClick}
-          />
-        )}
-        <div className={styles.productNumberButton}>{number}</div>
-        <Image
-          src='/plus.png'
-          width={64}
-          height={50}
-          onClick={handlePlusClick}
-        />
-      </div>
-    )
-  }
+  }, [])
 
   return (
     <Layouts>
@@ -61,6 +39,7 @@ export default function Cart() {
             }}
           ></div>
         </div>
+
         <ProductColumn productChosen={productChosen} />
 
         <div className={styles.buttonFixed}>
