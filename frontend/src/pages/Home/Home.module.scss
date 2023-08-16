@@ -287,6 +287,9 @@
         background-color: #fff;
         border-radius: 20px;
         overflow-y: auto;
+        &::-webkit-scrollbar {
+            display: none;
+        }
 
         .cancle {
             position: absolute;

@@ -9,13 +9,14 @@ import { NativeSelect } from '@mui/material'
 import { useState } from 'react'
 
 export default function Home() {
+  const [isHidden, setIsHidden] = useState(false);
   const [isSearch,setIsSearch] = useState(false);
   const bookingInfo = [false, true, false, true, false, true];
 
   return (
     <main>
-        <Layouts>
-            {isSearch && <SearchOrder setIsSearch={setIsSearch} />}
+        <Layouts scrollBarHidden={isHidden}>
+            {isSearch && <SearchOrder setIsSearch={setIsSearch} setIsHidden={setIsHidden} />}
             <div className={styles.header}>
               <div className={styles.Logo}>
                   <div className={styles.first}>食</div>
@@ -26,7 +27,7 @@ export default function Home() {
                     <p className={styles.text}>您有幾位</p>
                     <PeopleSelect/>
                   </div>
-                  <div className={styles.historyOrder} onClick={() => setIsSearch(!isSearch)}>
+                  <div className={styles.historyOrder} onClick={() => {setIsSearch(!isSearch); setIsHidden(true)}}>
                       <div className={styles.iconOrder}>
                           <img className={styles.icon2} src="/icon_order2.svg" alt="" />
                       </div>

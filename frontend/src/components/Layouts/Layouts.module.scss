@@ -15,3 +15,21 @@
     width: 0px;
   }
 }
+
+.layoutsHidden {
+  position: relative;
+  margin-top: 5%;
+  border: 5px solid black;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  height: 844px; /* 844*0.65=548.6px */
+  width: 390px; /*390*0.65=253.5px*/
+  background: white;
+  flex-direction: column;
+  overflow-y: hidden;
+  position: relative;
+  &::-webkit-scrollbar {
+    width: 0px;
+  }
+}
