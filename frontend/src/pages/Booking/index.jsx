@@ -7,13 +7,27 @@ import Image from 'next/image'
 import Cookies from 'js-cookie'
 import OrderPosition from './OrderPosition'
 import OrderFood from './OrderFood'
-
+import useTest from '@/hook/useTest'
 export default function Booking() {
+  // const { data } = useTest()
+  // console.log(data)
   // const myObject = { 1: 2, 2: 2, 3: 2 }
   // Cookies.set('tableId', JSON.stringify(myObject))
   // console.log('hi', Cookies.get('tableId'))
   const [chooseOrderPosition, setChooseOrderPosition] = useState(true)
+  const [productChosen, setProductChosen] = useState({})
 
+  useEffect(() => {
+    const isChooseOrderPosition = Cookies.get('chooseOrderPosition')
+    if (isChooseOrderPosition === 'false') {
+      setChooseOrderPosition(false)
+    }
+    // const productChosenCookie = Cookies.get('productChosen')
+    // if (productChosenCookie) {
+    //   const parsedProductChosen = JSON.parse(productChosenCookie)
+    //   setProductChosen(parsedProductChosen)
+    // }
+  }, [])
   const handleChooseButtonOnclick = () => {
     setChooseOrderPosition(!chooseOrderPosition)
   }
@@ -51,7 +65,9 @@ export default function Booking() {
             handleChooseButtonOnclick={handleChooseButtonOnclick}
           />
         ) : (
-          <OrderFood />
+          <div>
+            <OrderFood />
+          </div>
         )}
       </div>
     </Layouts>
