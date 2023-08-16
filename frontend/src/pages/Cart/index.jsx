@@ -6,25 +6,22 @@ import Cookies from 'js-cookie'
 import ProductColumn from './ProductColumn'
 import { useRouter } from 'next/router'
 
-const productChosenString = Cookies.get('productChosen')
-const productChosen = productChosenString
-  ? JSON.parse(productChosenString)
-  : null
-
 export default function Cart() {
   Cookies.set('chooseOrderPosition', false)
   const router = useRouter()
   const [number, setNumber] = useState(1)
   const [productChosen, setProductChosen] = useState(null)
+  const [total, setTotal] = useState(0)
 
   useEffect(() => {
     const productChosenString = Cookies.get('productChosen')
     if (productChosenString) {
       const parsedProductChosen = JSON.parse(productChosenString)
+
       setProductChosen(parsedProductChosen)
     }
   }, [])
-
+  // const totalPrice = Cookies.get('totalPrice')
   return (
     <Layouts>
       <div style={{ width: '100%' }}>
@@ -40,12 +37,17 @@ export default function Cart() {
           ></div>
         </div>
 
-        <ProductColumn productChosen={productChosen} />
+        <ProductColumn
+          productChosen={productChosen}
+          setProductChosen={setProductChosen}
+          total={total}
+          setTotal={setTotal}
+        />
 
         <div className={styles.buttonFixed}>
           <div className={styles.cartTotalSquare}>
             <div>總金額</div>
-            <div>NT$</div>
+            <div>NT${total}</div>
           </div>
           <div className={styles.buttonGruop}>
             <button

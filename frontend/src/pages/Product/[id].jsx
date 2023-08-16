@@ -140,9 +140,9 @@ export default function Product() {
     // Cookies.set('CustomizationId', JSON.stringify(selectedIds)) //CustomizationId是要回傳給後端的
     // Cookies.set('CustomizationName', JSON.stringify(selectedNames))
     Cookies.set('productChosen', JSON.stringify(productChosen))
-    // console.log('Selected Options:', JSON.stringify(selectedIds))
-    // console.log('Selected Options:', JSON.stringify(selectedNames))
     console.log('Product Chosen:', JSON.stringify(productChosen))
+
+    router.push('/Booking')
   }
   return (
     <Layouts>
@@ -176,7 +176,6 @@ export default function Product() {
             className={styles.addCartButton}
             onClick={() => {
               handleAddToCart()
-              router.push('/Booking')
             }}
           >
             加入購物車

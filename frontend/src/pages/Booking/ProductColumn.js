@@ -1,13 +1,16 @@
 import React, { useState } from 'react'
 import styles from './Booking.module.scss'
 import Image from 'next/image'
-import { useRouter } from 'next/router'
+import Cookies from 'js-cookie'
 
 const ProductColumn = ({ productChosen }) => {
-  const router = useRouter()
   const [isChosen, setIsChosen] = useState(true)
   if (productChosen === undefined) {
     return
+  }
+  const handleProductClick = () => {
+    Cookies.set('productId', productChosen.id)
+    window.location.href = `/Product/${productChosen.id}`
   }
   return (
     <div className={styles.productCol}>
@@ -67,7 +70,7 @@ const ProductColumn = ({ productChosen }) => {
             width={27}
             height={27}
             className={styles.productAdd}
-            onClick={() => router.push('/Product')}
+            onClick={handleProductClick}
           />
         </div>
       </div>
