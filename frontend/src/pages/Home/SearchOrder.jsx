@@ -20,7 +20,7 @@ export default function SearchOrder({setIsSearch}) {
             <button type="button" className={styles.submit}>送出</button>
           </div>
         </div>
-        <Restaurant/>
+        <Restaurant type={2} isBooking={true}/>
       </div>
     </div>
   )
