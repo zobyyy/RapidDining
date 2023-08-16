@@ -2,18 +2,18 @@ import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 
-import './util/types';
+import './util/types.js';
 import { pool } from './model/util.js';
 
-import { restaurantList } from './controller/restaurant/list';
-import { reservationReserve } from './controller/reservation/reserve';
-import { reservationPending } from './controller/reservation/pending';
-import { reservationCancel } from './controller/reservation/cancel';
-import { restaurantVacancy } from './controller/restaurant/vacancy';
-import { menuSearch } from './controller/menu/search';
-import { dishDetail } from './controller/menu/detail';
-import { orderRequest } from './controller/order/request';
-import { orderPending } from './controller/order/pending';
+import { restaurantList } from './controller/restaurant/list.js';
+import { reservationReserve } from './controller/reservation/reserve.js';
+import { reservationPending } from './controller/reservation/pending.js';
+import { reservationCancel } from './controller/reservation/cancel.js';
+import { restaurantVacancy } from './controller/restaurant/vacancy.js';
+import { menuSearch } from './controller/menu/search.js';
+import { dishDetail } from './controller/menu/detail.js';
+import { orderRequest } from './controller/order/request.js';
+import { orderPending } from './controller/order/pending.js';
 
 /*************************
   * global config
