@@ -14,7 +14,7 @@ export default function SearchOrder({setIsSearch}) {
         <div className={styles.inputBlock}>
           <p className={styles.inputLabel}>請輸入訂位/訂餐人手機號碼</p>
           <div className={phone.trim() !== '' ? styles.inputBar_red : styles.inputBar}>
-            <input type="text"
+            <input type="tel"
             value={phone}
             onChange={(e) => setPhone(e.target.value) } />
             <button type="button" className={styles.submit}>送出</button>
