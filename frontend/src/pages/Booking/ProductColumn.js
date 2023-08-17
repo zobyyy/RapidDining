@@ -3,21 +3,21 @@ import styles from './Booking.module.scss'
 import Image from 'next/image'
 import Cookies from 'js-cookie'
 
-const ProductColumn = ({ productChosen }) => {
+const ProductColumn = ({ product }) => {
   const [isChosen, setIsChosen] = useState(true)
-  if (productChosen === undefined) {
+  if (product === undefined) {
     return
   }
   const handleProductClick = () => {
-    Cookies.set('productId', productChosen.id)
-    window.location.href = `/Product/${productChosen.id}`
+    Cookies.set('productId', product.id)
+    window.location.href = `/Product/${product.id}`
   }
   return (
     <div className={styles.productCol}>
       <div style={{ width: '100%', display: 'flex', flexDirection: 'row' }}>
         <div style={{ width: '70%' }}>
-          <div className={styles.productName}>{productChosen.name}</div>
-          <div className={styles.productIntro}>{productChosen.description}</div>
+          <div className={styles.productName}>{product.name}</div>
+          <div className={styles.productIntro}>{product.description}</div>
         </div>
         <div
           style={{
@@ -48,12 +48,8 @@ const ProductColumn = ({ productChosen }) => {
             gap: '5px'
           }}
         >
-          {productChosen.spicy && (
-            <Image src='/辣.png' width={36} height={22} />
-          )}
-          {productChosen.vegan && (
-            <Image src='/素食.png' width={45} height={22} />
-          )}
+          {product.spicy && <Image src='/辣.png' width={36} height={22} />}
+          {product.vegan && <Image src='/素食.png' width={45} height={22} />}
         </div>
         <div
           style={{
@@ -62,7 +58,7 @@ const ProductColumn = ({ productChosen }) => {
             gap: '20px'
           }}
         >
-          <div className={styles.productPrice}>NT${productChosen.price}</div>
+          <div className={styles.productPrice}>NT${product.price}</div>
           {isChosen && <div className={styles.productChosenQuantity}>1</div>}
 
           <Image
