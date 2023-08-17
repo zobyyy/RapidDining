@@ -2,7 +2,7 @@ import { pool } from './util.js';
 import '../util/types.js';
 
 /**
- * @typedef {Object} DBRestaurantInfo
+ * @typedef {object} DBRestaurantInfo
  * @property {number} id
  * @property {string} name
  * @property {string} phone
