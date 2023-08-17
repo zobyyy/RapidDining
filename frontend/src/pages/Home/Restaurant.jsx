@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { useState } from 'react'
 import styles from './Home.module.scss'
 
-export default function Restaurant( {type,restaurant} ) {
+export default function Restaurant( {type, restaurant} ) {
     // type 1 restaurant list
     // type 2 order
     return (
