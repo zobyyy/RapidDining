@@ -7,11 +7,14 @@ import Link from 'next/link'
 import Box from '@mui/material/Box'
 import FormControl from '@mui/material/FormControl'
 import { NativeSelect } from '@mui/material'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import useRestaurants from '../../hook/useRestaurants'
 
 export default function Home() {
   const [isHidden, setIsHidden] = useState(false);
-  const [isSearch,setIsSearch] = useState(false);
+  const [isSearch, setIsSearch] = useState(false);
+  const [isRefresh, setIsRefresh] = useState(false);
+  const {restaurants} = useRestaurants(1,null,isRefresh);
   const bookingInfo = [false, true, false, true, false, true];
 
   return (
@@ -39,14 +42,22 @@ export default function Home() {
             </div>
             <div className={styles.displayBar}>
               <div className={styles.distance}>顯示500公尺內餐廳</div>
-              <div className={styles.refresh}>
+              <div className={styles.refresh} onClick={() => {setIsRefresh(true); setTimeout(() => {setIsRefresh(false)},2000)}}>
                 <img src="/icon_refresh.svg" alt="" />
                 <p className={styles.text}>刷新</p>
               </div>
             </div>
-            {bookingInfo.map((isBooking) =>(
-              <Restaurant type={1} isBooking={isBooking}/>
-            ))}
+            {
+              isRefresh 
+                ?
+                  <div style={{position: 'relative', display: 'flex', width: '100%', height: '100%',justifyContent: 'center', alignItems: 'center'}}>
+                    <div className={styles.ldsfacebook}><div></div><div></div><div></div></div>
+                  </div>
+                :
+                  restaurants.map((restaurant) =>(
+                    <Restaurant type={1} restaurant={restaurant}/>
+                  ))
+            }
         </Layouts>
     </main>
   )
