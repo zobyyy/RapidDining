@@ -13,10 +13,10 @@ import useRestaurants from '../../hook/useRestaurants'
 export default function Home() {
   const [isHidden, setIsHidden] = useState(false);
   const [isSearch,setIsSearch] = useState(false);
-  const {restaurants} = useRestaurants();
+  const {restaurants} = useRestaurants(1);
   const bookingInfo = [false, true, false, true, false, true];
 
-  console.log('Data from API:', restaurants);
+  
 
   return (
     <main>
