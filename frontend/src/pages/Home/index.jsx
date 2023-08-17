@@ -13,9 +13,15 @@ import useRestaurants from '../../hook/useRestaurants'
 export default function Home() {
   const [isHidden, setIsHidden] = useState(false);
   const [isSearch, setIsSearch] = useState(false);
-  const [isRefresh, setIsRefresh] = useState(false);
-  const {restaurants} = useRestaurants(1,null,isRefresh);
+  const [isLoading, setIsLoading] = useState(true);
+  const {restaurants} = useRestaurants(1,isLoading);
   const bookingInfo = [false, true, false, true, false, true];
+
+  function handleSelect () {
+
+  }
+
+
 
   return (
     <main>
@@ -42,13 +48,13 @@ export default function Home() {
             </div>
             <div className={styles.displayBar}>
               <div className={styles.distance}>顯示500公尺內餐廳</div>
-              <div className={styles.refresh} onClick={() => {setIsRefresh(true); setTimeout(() => {setIsRefresh(false)},2000)}}>
+              <div className={styles.refresh} onClick={() => {setIsLoading(true); setTimeout(() => {setIsLoading(false)},2000)}}>
                 <img src="/icon_refresh.svg" alt="" />
                 <p className={styles.text}>刷新</p>
               </div>
             </div>
             {
-              isRefresh 
+              isLoading 
                 ?
                   <div style={{position: 'relative', display: 'flex', width: '100%', height: '100%',justifyContent: 'center', alignItems: 'center'}}>
                     <div className={styles.ldsfacebook}><div></div><div></div><div></div></div>

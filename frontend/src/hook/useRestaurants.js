@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 
-const useRestaurants = (headcount, cursor, isRefresh) => {
+//isRefresh 監測是否需要重打API
+const useRestaurants = (headcount, isLoading, isScroll) => {
     const [restaurants, setRestaurants] = useState([]);
+    const [cursor, setCursor] = useState(null);
 
     async function fetchRestaurants() {
         try {
@@ -12,6 +14,7 @@ const useRestaurants = (headcount, cursor, isRefresh) => {
             }
             const data = await response.json(); // 將回應轉換為 JSON 格式
             setRestaurants(data.data.restaurants);
+            setCursor(data.data.next_cursor);
         } catch (error) {
             console.error('Error fetching data:', error);
         }
@@ -23,10 +26,10 @@ const useRestaurants = (headcount, cursor, isRefresh) => {
 
     useEffect(() => {
         
-        if (isRefresh) {
+        if (isLoading) {
             fetchRestaurants();
         }
-    },[isRefresh])
+    },[isLoading])
 
     return {restaurants};
 }
