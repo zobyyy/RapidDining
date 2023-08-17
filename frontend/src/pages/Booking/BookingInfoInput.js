@@ -71,10 +71,10 @@ const BookingInfoInput = () => {
     <>
       <SelectGroup />
       <div>
-        <InputField title='訂位人姓名' name='name' />
+        <InputField title='訂位人姓名' name='name' type='text' />
         <RadioGroup />
       </div>
-      <InputField title='訂位人手機號碼' name='phoneNumber' />
+      <InputField title='訂位人手機號碼' name='phoneNumber' type='text' />
     </>
   )
 }

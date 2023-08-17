@@ -4,18 +4,26 @@ import { Formik, Form } from 'formik'
 import * as Yup from 'yup'
 import Swal from 'sweetalert2'
 import BookingInfoInput from '@/pages/Booking/BookingInfoInput'
-import Box from '@mui/material/Box'
-import MenuItem from '@mui/material/MenuItem'
-import FormControl from '@mui/material/FormControl'
-import Select from '@mui/material/Select'
 import Image from 'next/image'
-import useReservation from '@/hook/useReservation'
+import Cookies from 'js-cookie'
 
-const OrderPosition = ({ handleChooseButtonOnclick }) => {
+const OrderPosition = ({
+  handleChooseButtonOnclick,
+  makeReservation,
+  reservationType
+}) => {
   const [isOrderPosition, setIsOrderPosition] = useState(false)
-  const [reservationType, setReservationType] = useState('')
-  const { makeReservation } = useReservation()
+  let tableId = 0
+  let reservationId = 0
+  if (reservationType === 'check') {
+    tableId = Cookies.get('tableId')
+  }
+  if (reservationType === 'waiting') {
+    reservationId = Cookies.get('reservationId')
+  }
 
+  const userName = Cookies.get('userName')
+  const userGender = Cookies.get('userGender')
   const BookingCheck = ({ handleChooseButtonOnclick }) => {
     return (
       <div
@@ -30,7 +38,10 @@ const OrderPosition = ({ handleChooseButtonOnclick }) => {
         }}
       >
         <Image src='/收到確認.png' width={67} height={67} />
-        <div>黃小姐您好</div>
+        <div>
+          {userName}
+          {userGender}您好
+        </div>
         <div>我們將會為您保留座位</div>
         <div
           style={{
@@ -83,7 +94,10 @@ const OrderPosition = ({ handleChooseButtonOnclick }) => {
         }}
       >
         <Image src='/收到確認.png' width={67} height={67} />
-        <div>黃小姐您好</div>
+        <div>
+          {userName}
+          {userGender}您好
+        </div>
         <div>目前尚未有空位，先為您登記候位</div>
         <div
           style={{
@@ -100,7 +114,8 @@ const OrderPosition = ({ handleChooseButtonOnclick }) => {
           <div
             style={{
               display: 'flex',
-              flexDirection: 'row'
+              flexDirection: 'row',
+              alignItems: 'center'
             }}
           >
             您是候位第
@@ -113,9 +128,8 @@ const OrderPosition = ({ handleChooseButtonOnclick }) => {
                 marginTop: '0'
               }}
             >
-              3
+              {reservationId}
             </div>
-            組
           </div>
           <div>如有位置會立即連絡您，謝謝！</div>
         </div>
@@ -128,7 +142,7 @@ const OrderPosition = ({ handleChooseButtonOnclick }) => {
           </button>
           <button
             className={styles.orderButton}
-            // onClick={handleOrderButtonClick}
+            onClick={handleOrderButtonClick}
           >
             前往訂餐
           </button>
@@ -136,33 +150,6 @@ const OrderPosition = ({ handleChooseButtonOnclick }) => {
       </div>
     )
   }
-  // const BasicSelect = () => {
-  //   const handleChange = (event) => {
-  //     setPeopleNum(event.target.value)
-  //   }
-  //   return (
-  //     <Box sx={{ minWidth: 120 }}>
-  //       <FormControl fullWidth>
-  //         <Select
-  //           labelId='demo-simple-select-label'
-  //           id='demo-simple-select'
-  //           defaultValue={1}
-  //           value={peopleNum}
-  //           label=''
-  //           onChange={handleChange}
-  //           sx={{ borderRadius: '10px', height: '45px' }}
-  //         >
-  //           <MenuItem value={1}>1位</MenuItem>
-  //           <MenuItem value={2}>2位</MenuItem>
-  //           <MenuItem value={3}>3位</MenuItem>
-  //           <MenuItem value={4}>4位</MenuItem>
-  //           <MenuItem value={5}>5位</MenuItem>
-  //           <MenuItem value={6}>6位</MenuItem>
-  //         </Select>
-  //       </FormControl>
-  //     </Box>
-  //   )
-  // }
 
   const initialValues = {
     headcount: 0,
@@ -172,14 +159,11 @@ const OrderPosition = ({ handleChooseButtonOnclick }) => {
   }
   const validationSchema = Yup.object({
     name: Yup.string().required('必填欄位'),
-    phoneNumber: Yup.number()
-      .typeError('必須為數字')
-      .positive('必須為正數')
-      .integer('必須為整數')
+    phoneNumber: Yup.string()
       .required('必填欄位')
+      .matches(/^(09)\d{8}$/, '手機格式不正確')
   })
   const handleSubmit = async (values) => {
-    console.log(values)
     const requestBody = {
       restaurantId: 1,
       headcount: parseInt(values.headcount),
@@ -187,13 +171,7 @@ const OrderPosition = ({ handleChooseButtonOnclick }) => {
       gender: values.gender,
       phone: values.phoneNumber
     }
-    const reposeData = await makeReservation(requestBody)
-
-    if (reposeData.data.tableId !== null) {
-      setReservationType('check')
-    } else if (reposeData.data.tableId === null) {
-      setReservationType('waiting')
-    }
+    await makeReservation(requestBody)
   }
 
   const handleOrderButtonClick = () => {
@@ -207,32 +185,34 @@ const OrderPosition = ({ handleChooseButtonOnclick }) => {
         ) : reservationType === 'waiting' ? (
           <BookingWaiting />
         ) : (
-          <Formik
-            initialValues={initialValues}
-            validationSchema={validationSchema}
-            onSubmit={handleSubmit}
-          >
-            <Form className={styles.inputSquare}>
-              <BookingInfoInput />
-              <button
-                className={
-                  isOrderPosition
-                    ? styles.orderButtonCancel
-                    : styles.orderButton
-                }
-                type='submit'
-              >
-                立即訂位
-              </button>
-              <>
-                {!isOrderPosition && (
-                  <div className={styles.orderButtonRemind}>
-                    如有位置會為您保留10分鐘座位
-                  </div>
-                )}
-              </>
-            </Form>
-          </Formik>
+          <>
+            <Formik
+              initialValues={initialValues}
+              validationSchema={validationSchema}
+              onSubmit={handleSubmit}
+            >
+              <Form className={styles.inputSquare}>
+                <BookingInfoInput />
+                <button
+                  className={
+                    isOrderPosition
+                      ? styles.orderButtonCancel
+                      : styles.orderButton
+                  }
+                  type='submit'
+                >
+                  立即訂位
+                </button>
+                <>
+                  {!isOrderPosition && (
+                    <div className={styles.orderButtonRemind}>
+                      如有位置會為您保留10分鐘座位
+                    </div>
+                  )}
+                </>
+              </Form>
+            </Formik>
+          </>
         )}
       </div>
     </div>

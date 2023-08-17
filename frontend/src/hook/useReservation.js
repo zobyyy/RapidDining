@@ -1,8 +1,12 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import Cookies from 'js-cookie'
 
 const useReservation = () => {
   const [reservationInfo, setReservationInfo] = useState(null)
-  const [reserved, setReserved] = useState(false)
+  const [reservationError, setReservationError] = useState(null)
+  const [isAlert, setIsAlert] = useState(false)
+  const [reservationType, setReservationType] = useState(null)
+
   const makeReservation = async (requestBody) => {
     try {
       const response = await fetch(
@@ -16,18 +20,44 @@ const useReservation = () => {
         }
       )
 
-      const data = await response.json()
       if (response.ok) {
+        const data = await response.json()
         setReservationInfo(data)
+        setReservationError(null)
+        console.log(requestBody.name)
+        if (data.data.tableId !== null) {
+          setReservationType('check')
+          Cookies.set('tableId', data.data.tableId)
+        } else if (data.data.tableId === null) {
+          setReservationType('waiting')
+          Cookies.set('reservationId', data.data.reservationId)
+          Cookies.set('userName', requestBody.name)
+          Cookies.set('userGender', requestBody.gender)
+        }
+      } else {
+        setReservationError(data.error)
+        if (reservationError === 'You already have an reservation.') {
+          setIsAlert(true)
+        }
       }
     } catch (error) {
-      console.error('Error making reservation:', error)
+      console.error(error)
+      // setIsAlert(true)
     }
   }
-
+  // useEffect(() => {
+  //   if (isAlert) {
+  //     setTimeout(() => {
+  //       setIsAlert(false)
+  //       window.location.reload()
+  //     }, 3000)
+  //   }
+  // }, [isAlert])
   return {
     reservationInfo,
-    makeReservation
+    makeReservation,
+    isAlert,
+    reservationType
   }
 }
 
