@@ -14,8 +14,12 @@ export default function Home() {
   const [isHidden, setIsHidden] = useState(false);
   const [isSearch, setIsSearch] = useState(false);
   const [isRefresh, setIsRefresh] = useState(false);
-  const {restaurants} = useRestaurants(1,null,isRefresh);
-  const bookingInfo = [false, true, false, true, false, true];
+  // const {restaurants} = useRestaurants(1,null,isRefresh);
+  const bookingInfo = [false, true, false, true, false, true]; // 餐廳假資料
+
+  function handleSelect (peopleNum) {
+    console.log("people: "+ peopleNum)
+  }
 
   return (
     <main>
@@ -29,7 +33,7 @@ export default function Home() {
               <div className={styles.selectBlock}>
                   <div className={styles.selectPeople}>
                     <p className={styles.text}>您有幾位</p>
-                    <PeopleSelect/>
+                    <PeopleSelect handleSelect={handleSelect} />
                   </div>
                   <div className={styles.historyOrder} onClick={() => {setIsSearch(!isSearch); setIsHidden(true)}}>
                       <div className={styles.iconOrder}>
@@ -47,7 +51,7 @@ export default function Home() {
                 <p className={styles.text}>刷新</p>
               </div>
             </div>
-            {restaurants.map((restaurant) =>(
+            {bookingInfo.map((restaurant) =>(
               <Restaurant type={1} restaurant={restaurant}/>
             ))}
         </Layouts>
