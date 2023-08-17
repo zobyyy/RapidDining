@@ -42,14 +42,20 @@ export default function Home() {
             </div>
             <div className={styles.displayBar}>
               <div className={styles.distance}>顯示500公尺內餐廳</div>
-              <div className={styles.refresh} onClick={() => setIsRefresh(true)}>
+              <div className={styles.refresh} onClick={() => {setIsRefresh(true); setTimeout(() => {setIsRefresh(false)},1000)}}>
                 <img src="/icon_refresh.svg" alt="" />
                 <p className={styles.text}>刷新</p>
               </div>
             </div>
-            {restaurants.map((restaurant) =>(
-              <Restaurant type={1} restaurant={restaurant}/>
-            ))}
+            {
+              isRefresh 
+                ?
+                  <div style={{width: '100%', height: '10%'}}>Loading....</div>
+                :
+                  restaurants.map((restaurant) =>(
+                    <Restaurant type={1} restaurant={restaurant}/>
+                  ))
+            }
         </Layouts>
     </main>
   )
