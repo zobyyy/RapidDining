@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-const useRestaurants = (headcount, cursor) => {
+const useRestaurants = (headcount, cursor, isRefresh) => {
     const [restaurants, setRestaurants] = useState([]);
 
     async function fetchRestaurants() {
@@ -19,7 +19,7 @@ const useRestaurants = (headcount, cursor) => {
 
     useEffect(() => {
         fetchRestaurants();
-    },[])
+    },[isRefresh])
 
     return {restaurants};
 }

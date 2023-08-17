@@ -12,11 +12,10 @@ import useRestaurants from '../../hook/useRestaurants'
 
 export default function Home() {
   const [isHidden, setIsHidden] = useState(false);
-  const [isSearch,setIsSearch] = useState(false);
-  const {restaurants} = useRestaurants(1);
+  const [isSearch, setIsSearch] = useState(false);
+  const [isRefresh, setIsRefresh] = useState(false);
+  const {restaurants} = useRestaurants(1,null,isRefresh);
   const bookingInfo = [false, true, false, true, false, true];
-
-  
 
   return (
     <main>
@@ -48,8 +47,8 @@ export default function Home() {
                 <p className={styles.text}>刷新</p>
               </div>
             </div>
-            {bookingInfo.map((isBooking) =>(
-              <Restaurant type={1} isBooking={isBooking}/>
+            {restaurants.map((restaurant) =>(
+              <Restaurant type={1} restaurant={restaurant}/>
             ))}
         </Layouts>
     </main>
