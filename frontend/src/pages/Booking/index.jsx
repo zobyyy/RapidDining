@@ -7,20 +7,21 @@ import Image from 'next/image'
 import Cookies from 'js-cookie'
 import OrderPosition from './OrderPosition'
 import OrderFood from './OrderFood'
+import useReservation from '@/hook/useReservation'
+import Alert from '@/components/Alert'
 
 export default function Booking() {
-  // const myObject = { 1: 2, 2: 2, 3: 2 }
-  // Cookies.set('tableId', JSON.stringify(myObject))
-  // console.log('hi', Cookies.get('tableId'))
   const [chooseOrderPosition, setChooseOrderPosition] = useState(true)
+  const { makeReservation, isAlert, reservationType } = useReservation()
 
   const handleChooseButtonOnclick = () => {
     setChooseOrderPosition(!chooseOrderPosition)
   }
   return (
     <Layouts>
-      <div style={{ width: '100%' }}>
-        <Image src='/餐廳照片.png' width={390} height={220}></Image>
+      <div style={{ width: '100%', position: 'relative' }}>
+        {isAlert && <Alert />}
+        <Image src='/餐廳照片.png' width={390} height={220} />
         <div className={styles.storeInfo}>
           <div className={styles.storeName}>AppWorks咖啡廳</div>
           <div className={styles.storeAddress}>
@@ -49,6 +50,8 @@ export default function Booking() {
         {chooseOrderPosition ? (
           <OrderPosition
             handleChooseButtonOnclick={handleChooseButtonOnclick}
+            reservationType={reservationType}
+            makeReservation={makeReservation}
           />
         ) : (
           <OrderFood />

@@ -1,4 +1,5 @@
 import '@/styles/globals.css'
+import '@/styles/sweetAlert.css'
 import { ThemeProvider } from '@mui/material/styles'
 import { createTheme } from '@mui/material/styles'
 const theme = createTheme({
