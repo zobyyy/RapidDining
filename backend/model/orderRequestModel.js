@@ -2,12 +2,6 @@
 import { pool } from './util.js';
 export async function createOrder(orderData){
     try {
-        console.log(`restaurantId = ${orderData.restaurantId}`);
-        console.log(`phone = ${orderData.phone}`);
-        console.log(`reservationId = ${orderData.reservationId}`);
-        console.log(`tableId = ${orderData.tableId}`);
-        console.log(`total = ${orderData.total}`);
-
         const insertOrderQuery = `
     INSERT INTO OrderList (restaurantId, phone, reservationId, tableId, total)
     VALUES (?, ?, ?, ?, ?);
