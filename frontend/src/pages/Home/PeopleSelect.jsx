@@ -4,12 +4,6 @@ import FormControl from '@mui/material/FormControl'
 import { NativeSelect } from '@mui/material'
 
 export default function PeopleSelect({handleSelect}) {
-    const [peopleNum, setPeopleNum] = useState('')
-
-    const handleChange = (event) => {
-      handleSelect(event.target.value);
-    }
-
     return (
         <Box sx={{ minWidth: 40 }}>
           <FormControl fullWidth>
@@ -20,7 +14,7 @@ export default function PeopleSelect({handleSelect}) {
                 id: 'uncontrolled-native',
               }}
               sx={{color:'#959595'}}
-              onChange={handleChange}
+              onChange={(e) => handleSelect(e.target.value)}
             >
               <option value={1}>1位</option>
               <option value={2}>2位</option>
