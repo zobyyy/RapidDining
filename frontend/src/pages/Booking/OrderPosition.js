@@ -20,7 +20,7 @@ const OrderPosition = ({
     tableId = Cookies.get('tableId')
   }
   if (reservationType === 'waiting') {
-    reservationId = Cookies.get('reservationId')
+    reservationCount = Cookies.get('reservationCount')
   }
 
   const userName = Cookies.get('userName')

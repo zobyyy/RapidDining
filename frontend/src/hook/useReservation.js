@@ -30,7 +30,7 @@ const useReservation = () => {
           Cookies.set('tableId', data.data.tableId)
         } else if (data.data.tableId === null) {
           setReservationType('waiting')
-          Cookies.set('reservationId', data.data.reservationId)
+          Cookies.set('reservationCount', data.data.reservationCount)
           Cookies.set('userName', requestBody.name)
           Cookies.set('userGender', requestBody.gender)
         }
@@ -45,14 +45,14 @@ const useReservation = () => {
       // setIsAlert(true)
     }
   }
-  // useEffect(() => {
-  //   if (isAlert) {
-  //     setTimeout(() => {
-  //       setIsAlert(false)
-  //       window.location.reload()
-  //     }, 3000)
-  //   }
-  // }, [isAlert])
+  useEffect(() => {
+    if (isAlert) {
+      setTimeout(() => {
+        setIsAlert(false)
+        window.location.reload()
+      }, 3000)
+    }
+  }, [isAlert])
   return {
     reservationInfo,
     makeReservation,
