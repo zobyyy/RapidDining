@@ -15,7 +15,7 @@ export default function Home() {
   const [isSearch, setIsSearch] = useState(false);
   const [isRefresh, setIsRefresh] = useState(true);
   const [headCount, setHeadCount] = useState(0);
-  const {restaurants} = useRestaurants(1,null,isRefresh);
+  const {restaurants} = useRestaurants(headCount,null,isRefresh);
   const bookingInfo = [false, true, false, true, false, true]; // 餐廳假資料
 
   function handleSelect (selectPeople) {
