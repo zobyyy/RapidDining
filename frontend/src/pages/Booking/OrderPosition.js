@@ -9,9 +9,12 @@ import MenuItem from '@mui/material/MenuItem'
 import FormControl from '@mui/material/FormControl'
 import Select from '@mui/material/Select'
 import Image from 'next/image'
+import useReservation from '@/hook/useReservation'
 
 const OrderPosition = ({ handleChooseButtonOnclick }) => {
   const [isOrderPosition, setIsOrderPosition] = useState(false)
+  const [reservationType, setReservationType] = useState('')
+  const { makeReservation } = useReservation()
 
   const BookingCheck = ({ handleChooseButtonOnclick }) => {
     return (
@@ -133,38 +136,38 @@ const OrderPosition = ({ handleChooseButtonOnclick }) => {
       </div>
     )
   }
-  const BasicSelect = () => {
-    const [peopleNum, setPeopleNum] = useState(1)
-
-    const handleChange = (event) => {
-      setPeopleNum(event.target.value)
-    }
-    return (
-      <Box sx={{ minWidth: 120 }}>
-        <FormControl fullWidth>
-          <Select
-            labelId='demo-simple-select-label'
-            id='demo-simple-select'
-            defaultValue={1}
-            value={peopleNum}
-            label=''
-            onChange={handleChange}
-            sx={{ borderRadius: '10px', height: '45px' }}
-          >
-            <MenuItem value={1}>1位</MenuItem>
-            <MenuItem value={2}>2位</MenuItem>
-            <MenuItem value={3}>3位</MenuItem>
-            <MenuItem value={4}>4位</MenuItem>
-            <MenuItem value={5}>5位</MenuItem>
-            <MenuItem value={6}>6位</MenuItem>
-          </Select>
-        </FormControl>
-      </Box>
-    )
-  }
+  // const BasicSelect = () => {
+  //   const handleChange = (event) => {
+  //     setPeopleNum(event.target.value)
+  //   }
+  //   return (
+  //     <Box sx={{ minWidth: 120 }}>
+  //       <FormControl fullWidth>
+  //         <Select
+  //           labelId='demo-simple-select-label'
+  //           id='demo-simple-select'
+  //           defaultValue={1}
+  //           value={peopleNum}
+  //           label=''
+  //           onChange={handleChange}
+  //           sx={{ borderRadius: '10px', height: '45px' }}
+  //         >
+  //           <MenuItem value={1}>1位</MenuItem>
+  //           <MenuItem value={2}>2位</MenuItem>
+  //           <MenuItem value={3}>3位</MenuItem>
+  //           <MenuItem value={4}>4位</MenuItem>
+  //           <MenuItem value={5}>5位</MenuItem>
+  //           <MenuItem value={6}>6位</MenuItem>
+  //         </Select>
+  //       </FormControl>
+  //     </Box>
+  //   )
+  // }
 
   const initialValues = {
+    headcount: 0,
     name: '',
+    gender: '',
     phoneNumber: ''
   }
   const validationSchema = Yup.object({
@@ -173,24 +176,24 @@ const OrderPosition = ({ handleChooseButtonOnclick }) => {
       .typeError('必須為數字')
       .positive('必須為正數')
       .integer('必須為整數')
-      .required('必填欄位'),
-    gender: Yup.string().required('必選欄位')
+      .required('必填欄位')
   })
-  const handleSubmit = async (values, { setSubmitting }) => {
-    if (!values.name || !values.phoneNumber) {
-      // 顯示警告訊息
-      await Swal.fire({
-        icon: 'error',
-        title: '請填寫姓名和手機號碼',
-        text: '姓名和手機號碼為必填欄位'
-      })
-      setSubmitting(false)
-      return
-    }
-
-    // 在這裡處理表單提交
+  const handleSubmit = async (values) => {
     console.log(values)
-    setSubmitting(false)
+    const requestBody = {
+      restaurantId: 1,
+      headcount: parseInt(values.headcount),
+      name: values.name,
+      gender: values.gender,
+      phone: values.phoneNumber
+    }
+    const reposeData = await makeReservation(requestBody)
+
+    if (reposeData.data.tableId !== null) {
+      setReservationType('check')
+    } else if (reposeData.data.tableId === null) {
+      setReservationType('waiting')
+    }
   }
 
   const handleOrderButtonClick = () => {
@@ -199,8 +202,10 @@ const OrderPosition = ({ handleChooseButtonOnclick }) => {
   return (
     <div className={styles.order}>
       <div className={styles.orderInfo}>
-        {isOrderPosition ? (
+        {reservationType === 'check' ? (
           <BookingCheck handleChooseButtonOnclick={handleChooseButtonOnclick} />
+        ) : reservationType === 'waiting' ? (
+          <BookingWaiting />
         ) : (
           <Formik
             initialValues={initialValues}
@@ -208,10 +213,6 @@ const OrderPosition = ({ handleChooseButtonOnclick }) => {
             onSubmit={handleSubmit}
           >
             <Form className={styles.inputSquare}>
-              <div className={styles.inputGroup}>
-                <span>用餐人數</span>
-                <BasicSelect />
-              </div>
               <BookingInfoInput />
               <button
                 className={
@@ -220,7 +221,6 @@ const OrderPosition = ({ handleChooseButtonOnclick }) => {
                     : styles.orderButton
                 }
                 type='submit'
-                onClick={handleOrderButtonClick}
               >
                 立即訂位
               </button>
