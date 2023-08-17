@@ -44,7 +44,13 @@ export async function restaurantList(req, res, next) { // eslint-disable-line no
     }
   }
 
-  const restaurants = await selectAllRestaurantSortedByTime(headcount, cursor.restaurantId);
+  let restaurants;
+  try {
+    restaurants = await selectAllRestaurantSortedByTime(headcount, cursor.restaurantId);
+  } catch (err) {
+    console.error("Error occurred when getting restaurant list:", err);
+    return res.status(500).send({ "error": "internal server error" });
+  }
   res.status(200).send({
     "data": {
       "restaurants": restaurants.slice(0, 10).map(rest => {
