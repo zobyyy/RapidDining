@@ -155,9 +155,9 @@ const OrderPosition = ({
   }
 
   const initialValues = {
-    headcount: 0,
+    headcount: 1,
     name: '',
-    gender: '',
+    gender: '小姐',
     phoneNumber: ''
   }
   const validationSchema = Yup.object({
