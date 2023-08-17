@@ -6,12 +6,12 @@ export default function Restaurant( {type,restaurant} ) {
     // type 1 restaurant list
     // type 2 order
     return (
-        <div style={type === 1 ? {position: 'relative', width: '100%', height: '90%'} : {width: '100%'}}>
+        <div style={type === 1 ? {position: 'relative', width: '100%',height:'9.5rem'} : {width: '100%'}}>
             {type === 1
                 ?
                     <>
                         <Link href="/Booking">
-                            <div style={{position:'absolute', left: '29px', top:'0', width: '85%', height: '83%'}}></div>
+                            <div style={{position:'absolute', left: '29px', top:'0', width: '85%', height: '85%'}}></div>
                         </Link>
                         <RestaurantInfo restaurant={restaurant} />
                     </>

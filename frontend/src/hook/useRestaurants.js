@@ -19,6 +19,12 @@ const useRestaurants = (headcount, cursor, isRefresh) => {
 
     useEffect(() => {
         fetchRestaurants();
+    },[])
+
+    useEffect(() => {
+        if (isRefresh) {
+            fetchRestaurants();
+        }
     },[isRefresh])
 
     return {restaurants};
