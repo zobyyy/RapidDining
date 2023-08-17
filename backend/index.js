@@ -23,7 +23,7 @@ import 'dotenv/config';
 
 /** @type {cors.CorsOptions} */
 const corsOptions = {
-  "origin": process.env.frontendAddr,
+  // "origin": process.env.frontendAddr,
   "methods": "GET,PUT,POST,DELETE",
   "allowedHeaders": ["Content-Type"]
 };
@@ -39,7 +39,7 @@ app.use(bodyParser.json());
 app.use(cors(corsOptions));
 
 // try to connect to database
-while (1) {
+while (1) {  // eslint-disable-line no-constant-condition
   try {
     await pool.query('SELECT 1+1 AS result');
     console.log('connected to database');
