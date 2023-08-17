@@ -1,17 +1,31 @@
 import React from 'react'
-import { useRouter } from 'next/router'
 import styles from './Booking.module.scss'
-import Link from 'next/link'
-import { Field, ErrorMessage } from 'formik'
+import { Field, ErrorMessage, Formik, Form } from 'formik'
 import * as Yup from 'yup'
-import Radio from '@mui/material/Radio'
-import RadioGroup from '@mui/material/RadioGroup'
-import FormControlLabel from '@mui/material/FormControlLabel'
-import FormControl from '@mui/material/FormControl'
-import { styled } from '@mui/material/styles'
-import { createTheme } from '@mui/material/styles'
 
-const BookingInfoInput = () => {
+const BookingInfoInput = ({ isOrderPosition, makeReservation }) => {
+  const initialValues = {
+    headcount: 1,
+    name: '',
+    gender: '小姐',
+    phoneNumber: ''
+  }
+  const validationSchema = Yup.object({
+    name: Yup.string().required('必填欄位'),
+    phoneNumber: Yup.string()
+      .required('必填欄位')
+      .matches(/^(09)\d{8}$/, '手機格式不正確')
+  })
+  const handleSubmit = async (values) => {
+    const requestBody = {
+      restaurantId: 1,
+      headcount: parseInt(values.headcount),
+      name: values.name,
+      gender: values.gender,
+      phone: values.phoneNumber
+    }
+    await makeReservation(requestBody)
+  }
   const SelectGroup = () => {
     return (
       <div className={styles.inputGroup}>
@@ -64,14 +78,35 @@ const BookingInfoInput = () => {
     </div>
   )
   return (
-    <>
-      <SelectGroup />
-      <div>
-        <InputField title='訂位人姓名' name='name' type='text' />
-        <RadioGroup />
-      </div>
-      <InputField title='訂位人手機號碼' name='phoneNumber' type='text' />
-    </>
+    <Formik
+      initialValues={initialValues}
+      validationSchema={validationSchema}
+      onSubmit={handleSubmit}
+    >
+      <Form className={styles.inputSquare}>
+        <SelectGroup />
+        <div>
+          <InputField title='訂位人姓名' name='name' type='text' />
+          <RadioGroup />
+        </div>
+        <InputField title='訂位人手機號碼' name='phoneNumber' type='text' />
+        <button
+          className={
+            isOrderPosition ? styles.orderButtonCancel : styles.orderButton
+          }
+          type='submit'
+        >
+          立即訂位
+        </button>
+        <>
+          {!isOrderPosition && (
+            <div className={styles.orderButtonRemind}>
+              如有位置會為您保留10分鐘座位
+            </div>
+          )}
+        </>
+      </Form>
+    </Formik>
   )
 }
 

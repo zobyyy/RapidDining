@@ -1,8 +1,5 @@
 import React, { useState } from 'react'
 import styles from './Booking.module.scss'
-import { Formik, Form } from 'formik'
-import * as Yup from 'yup'
-import Swal from 'sweetalert2'
 import BookingInfoInput from '@/pages/Booking/BookingInfoInput'
 import Image from 'next/image'
 import Cookies from 'js-cookie'
@@ -154,29 +151,6 @@ const OrderPosition = ({
     )
   }
 
-  const initialValues = {
-    headcount: 1,
-    name: '',
-    gender: '小姐',
-    phoneNumber: ''
-  }
-  const validationSchema = Yup.object({
-    name: Yup.string().required('必填欄位'),
-    phoneNumber: Yup.string()
-      .required('必填欄位')
-      .matches(/^(09)\d{8}$/, '手機格式不正確')
-  })
-  const handleSubmit = async (values) => {
-    const requestBody = {
-      restaurantId: 1,
-      headcount: parseInt(values.headcount),
-      name: values.name,
-      gender: values.gender,
-      phone: values.phoneNumber
-    }
-    await makeReservation(requestBody)
-  }
-
   const handleOrderButtonClick = () => {
     setIsOrderPosition(!isOrderPosition)
     setChooseOrderPosition(false)
@@ -189,34 +163,10 @@ const OrderPosition = ({
         ) : reservationType === 'waiting' ? (
           <BookingWaiting />
         ) : (
-          <>
-            <Formik
-              initialValues={initialValues}
-              validationSchema={validationSchema}
-              onSubmit={handleSubmit}
-            >
-              <Form className={styles.inputSquare}>
-                <BookingInfoInput />
-                <button
-                  className={
-                    isOrderPosition
-                      ? styles.orderButtonCancel
-                      : styles.orderButton
-                  }
-                  type='submit'
-                >
-                  立即訂位
-                </button>
-                <>
-                  {!isOrderPosition && (
-                    <div className={styles.orderButtonRemind}>
-                      如有位置會為您保留10分鐘座位
-                    </div>
-                  )}
-                </>
-              </Form>
-            </Formik>
-          </>
+          <BookingInfoInput
+            isOrderPosition={isOrderPosition}
+            makeReservation={makeReservation}
+          />
         )}
       </div>
     </div>
