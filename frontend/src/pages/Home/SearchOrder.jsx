@@ -17,7 +17,7 @@ export default function SearchOrder({setIsSearch,setIsHidden}) {
             <input type="tel"
             value={phone}
             onChange={(e) => setPhone(e.target.value) } />
-            <button type="button" className={styles.submit}>送出</button>
+            <button type="button" className={styles.submit} onClick={() => setPhone('')}>送出</button>
           </div>
         </div>
         <Restaurant type={2} isBooking={true}/>

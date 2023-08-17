@@ -2,49 +2,45 @@ import Link from 'next/link'
 import { useState } from 'react'
 import styles from './Home.module.scss'
 
-export default function Restaurant( {type,isBooking} ) {
+export default function Restaurant( {type,restaurant} ) {
     // type 1 restaurant list
     // type 2 order
     return (
-        <div style={type === 1 ? {position: 'relative', width: '100%', height: '100%'} : {width: '100%'}}>
+        <div style={type === 1 ? {position: 'relative', width: '100%',height:'9.5rem'} : {width: '100%'}}>
             {type === 1
                 ?
                     <>
                         <Link href="/Booking">
-                            <div style={{position:'absolute', left: '29px', top:'10px', width: '85%', height: '85%'}}></div>
+                            <div style={{position:'absolute', left: '29px', top:'0', width: '85%', height: '85%'}}></div>
                         </Link>
-                        <RestaurantInfo isBooking={isBooking}/>
+                        <RestaurantInfo restaurant={restaurant} />
                     </>
                 :
-                    <OrderHistory isBooking={isBooking}/>
+                    <OrderHistory restaurant={restaurant} />
             }
-            {/* <Link href="/Booking">
-                <div style={{position:'absolute', left: '29px', top:'10px', width: '85%', height: '85%'}}></div>
-            </Link>
-            {type === 1 ? <RestaurantInfo isBooking={isBooking}/> : <OrderHistory isBooking={isBooking} /> } */}
         </div>
     )
 }
 
-function RestaurantInfo ( { isBooking } ) {
+function RestaurantInfo ( { restaurant } ) {
     return (
        <div className={styles.Restaurant}>
             <div className={styles.picture}>
-                <img src="" alt="" />
+                <img src={restaurant.picture} alt="" />
                 {
-                    isBooking
+                    restaurant.availability
                     &&
                     <Tag tag={"已訂位"} />
                 }
                 
             </div>
-            <div className={isBooking ? styles.info_isBooking : styles.info}>
-                <p className={styles.restaurantName}>AppWork咖啡廳</p>
+            <div className={restaurant.availability ? styles.info_isBooking : styles.info}>
+                <p className={styles.restaurantName}>{restaurant.name}</p>
                 {/* mockData 現在用訂位狀況判斷 */}
-                <div className={styles.tag}>{isBooking ? "無空位" : "有空位"}</div>
+                <div className={styles.tag}>{restaurant.availability ? "無空位" : "有空位"}</div>
                 <div className={styles.waitTime}>
                     <p className={styles.text}>平均等待時間</p>
-                    <p className={styles.time}>10</p>
+                    <p className={styles.time}>{restaurant.waitTime}</p>
                     <p className={styles.text}>分鐘</p>
                 </div>
             </div>
@@ -52,9 +48,10 @@ function RestaurantInfo ( { isBooking } ) {
     )
 }
 
-function OrderHistory ( { isBooking } ) {
+function OrderHistory ( { restaurant } ) {
+    let isBooking = true;
     return (
-       <div className={styles.order}>
+        <div className={styles.order}>
             <div className={styles.picture}>
                 <img src="" alt="" />
                 {
@@ -77,6 +74,28 @@ function OrderHistory ( { isBooking } ) {
                 </div>
             </div>
         </div> 
+    //    <div className={styles.order}>
+    //         <div className={styles.picture}>
+    //             <img src="" alt="" />
+    //             {
+    //                 restaurant.availability
+    //                 &&
+    //                 <Tag tag={"已訂位"} />
+    //             }
+    //             {
+    //                 restaurant.availability
+    //                 &&
+    //                 <Tag tag={"已訂餐"} />
+    //             }
+    //         </div>
+    //         <div className={styles.info}>
+    //             <p className={styles.restaurantName}>{restaurant.name}</p>
+    //             <div className={styles.orderInfo}>
+    //                 <p className={styles.text}>請於{restaurant.waitTime}分鐘內抵達</p>
+    //                 <p className={styles.text}>訂餐編號：1234</p>
+    //             </div>
+    //         </div>
+    //     </div> 
     )
 }
 
