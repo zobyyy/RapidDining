@@ -41,14 +41,9 @@ export async function updateTableVacancy(phone,headcount) {
   try {
     const results = await pool.query(`SELECT * FROM tableList WHERE vacancy = true AND headcount <= ? ORDER BY id LIMIT 1`, [headcount]
         );
-        console.log(results);
         const id = results[0][0].id; 
-        console.log(`First row - id: ${id}`);
-        console.log(`phone is ${phone}`);
         await pool.query(`UPDATE tableList SET vacancy = false, phone = ? WHERE id = ?`, [phone, id]);
         return id;
-       // UPDATE tableList SET vacancy = true, phone = NULL  WHERE id = 1;
-       // UPDATE tableList SET vacancy = true, phone = NULL  WHERE id = 2;
   } catch (error) {
     console.error('Error in updateTableVacancy:', error);
     throw error; 
@@ -73,7 +68,6 @@ export async function insertReservation(phone, headcount, restaurantId) {
 export async function getWaitCount(restaurantId) {
     try {
       const results = await pool.query('SELECT * FROM Reservation WHERE restaurantId = ?', [restaurantId]);
-      //console.log('the result restaurant is reservation result:', results);
       console.log('the result of res count:', results[0].length);
       return results[0].length;
     } catch (error) {

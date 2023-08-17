@@ -1,17 +1,3 @@
-/**
- * @param {import("express").Request} req
- * @param {import("express").Response} res
- * @param {import("express").NextFunction} next
- * */
-
-// export function reservationReserve(req, res, next) {
-//   throw new Error("not implemented");
-// }
-
-
-
-console.log("this is for reservation");
-
 import {checkExistingTable} from '../../model/reserveModel.js'; 
 import {hasVacancy} from '../../model/reserveModel.js'; 
 import {insertReservation} from '../../model/reserveModel.js'; 
@@ -19,6 +5,12 @@ import {updateTableVacancy} from '../../model/reserveModel.js';
 import {checkExistingReservation} from '../../model/reserveModel.js'; 
 import {getWaitCount} from '../../model/reserveModel.js'; 
 
+
+/**
+ * @param {import("express").Request} req
+ * @param {import("express").Response} res
+ * @param {import("express").NextFunction} next
+ * */
 
 export async function reservationReserve(req, res) {
   try {
@@ -29,20 +21,9 @@ export async function reservationReserve(req, res) {
       return res.status(400).json({ error: 'Missing request body fields.' });
     }
 
-    console.log(typeof phone); 
-
     const phoneNum = parseInt(phone, 10); 
-    console.log(phoneNum);
-    console.log(typeof phoneNum);
-
-
-    console.log(`restaurant is ${restaurantId}`);
-    console.log(`headcount is ${headcount}`);
-    console.log(`reservation name is ${name}`);
-    console.log(`reservation gender is ${gender}`);
-    console.log(`reservation phone is ${phoneNum}`);
-
-    //check if reservaton is exist
+  
+    
     const isTable = await checkExistingTable(phoneNum);
     if (isTable) {
       console.log("you alreayd have a seat, you can't reserve again!");
@@ -80,11 +61,4 @@ export async function reservationReserve(req, res) {
     return res.status(500).json({ error: 'internal server error' });
   }
 }
-
-
-    //check if restaurant exist
-    // const restaurant = await db.getRestaurantById(restaurantId); //query if restaurant is exist
-    // if (!restaurant) {
-    //   return res.status(404).json({ error: 'restaurant not found' });
-    // }
 
