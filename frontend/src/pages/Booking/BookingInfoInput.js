@@ -31,7 +31,12 @@ const BookingInfoInput = () => {
     return (
       <div role='group' aria-labelledby='my-radio-group'>
         <label>
-          <Field type='radio' name='gender' value='小姐' />
+          <Field
+            type='radio'
+            name='gender'
+            value='小姐'
+            style={{ color: '#333' }}
+          />
           小姐
         </label>
         <label>
@@ -43,19 +48,6 @@ const BookingInfoInput = () => {
           其他
         </label>
       </div>
-
-      // <FormControl>
-      //   <RadioGroup
-      //     row
-      //     aria-labelledby='demo-row-radio-buttons-group-label'
-      //     name='row-radio-buttons-group'
-      //     defaultValue='female'
-      //   >
-      //     <FormControlLabel value='female' control={<Radio />} label='小姐' />
-      //     <FormControlLabel value='male' control={<Radio />} label='先生' />
-      //     <FormControlLabel value='other' control={<Radio />} label='其他' />
-      //   </RadioGroup>
-      // </FormControl>
     )
   }
   const InputField = ({ title, name, type }) => (
