@@ -20,6 +20,19 @@ module.exports = {
         "sourceType": "module"
     },
     "rules": {
-        "no-unused-vars": "warn"
-    }
+        "no-unused-vars": "warn",
+        "jsdoc/check-access": "warn",
+        "jsdoc/check-param-names": "warn",
+        "jsdoc/check-property-names": "warn",
+        "jsdoc/check-tag-names": "warn",
+        "jsdoc/check-types": "warn",
+        "jsdoc/check-values": "warn",
+        "jsdoc/empty-tags": "warn",
+        "jsdoc/no-undefined-types": "error",
+        "jsdoc/require-returns-check": "warn",
+        "jsdoc/valid-types": "warn"
+    },
+    "plugins": [
+        "jsdoc"
+    ]
 }
