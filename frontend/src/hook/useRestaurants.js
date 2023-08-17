@@ -22,6 +22,7 @@ const useRestaurants = (headcount, cursor, isRefresh) => {
     },[])
 
     useEffect(() => {
+        
         if (isRefresh) {
             fetchRestaurants();
         }
