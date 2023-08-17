@@ -8,3 +8,14 @@
  * @property {boolean} availability - Whether the restaurant able to accommodate selected amount of people
  * @property {string} picture - URL to restaurant’s picture
  * */
+
+/**
+ * @typedef {object} APIDishObject
+ * @property {number} id
+ * @property {string} name
+ * @property {number} price
+ * @property {string} description
+ * @property {null | string} picture
+ * @property {boolean} spicy
+ * @property {boolean} vegan
+ * */
