@@ -13,8 +13,8 @@ import useRestaurants from '../../hook/useRestaurants'
 export default function Home() {
   const [isHidden, setIsHidden] = useState(false);
   const [isSearch, setIsSearch] = useState(false);
-  const [isRefresh, setIsRefresh] = useState(false);
-  // const {restaurants} = useRestaurants(1,null,isRefresh);
+  const [isRefresh, setIsRefresh] = useState(true);
+  const {restaurants} = useRestaurants(1,null,isRefresh);
   const bookingInfo = [false, true, false, true, false, true]; // 餐廳假資料
 
   function handleSelect (peopleNum) {
@@ -51,7 +51,7 @@ export default function Home() {
                 <p className={styles.text}>刷新</p>
               </div>
             </div>
-            {bookingInfo.map((restaurant) =>(
+            {restaurants.map((restaurant) =>(
               <Restaurant type={1} restaurant={restaurant}/>
             ))}
         </Layouts>
