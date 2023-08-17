@@ -13,9 +13,14 @@ import useRestaurants from '../../hook/useRestaurants'
 export default function Home() {
   const [isHidden, setIsHidden] = useState(false);
   const [isSearch, setIsSearch] = useState(false);
-  const [isRefresh, setIsRefresh] = useState(false);
+  const [isRefresh, setIsRefresh] = useState(true);
+  const [headCount, setHeadCount] = useState(0);
   const {restaurants} = useRestaurants(1,null,isRefresh);
-  const bookingInfo = [false, true, false, true, false, true];
+  const bookingInfo = [false, true, false, true, false, true]; // 餐廳假資料
+
+  function handleSelect (selectPeople) {
+    setHeadCount(selectPeople);
+  }
 
   return (
     <main>
@@ -29,7 +34,7 @@ export default function Home() {
               <div className={styles.selectBlock}>
                   <div className={styles.selectPeople}>
                     <p className={styles.text}>您有幾位</p>
-                    <PeopleSelect/>
+                    <PeopleSelect handleSelect={handleSelect} />
                   </div>
                   <div className={styles.historyOrder} onClick={() => {setIsSearch(!isSearch); setIsHidden(true)}}>
                       <div className={styles.iconOrder}>
