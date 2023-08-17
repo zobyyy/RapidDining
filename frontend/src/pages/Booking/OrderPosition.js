@@ -10,7 +10,8 @@ import Cookies from 'js-cookie'
 const OrderPosition = ({
   handleChooseButtonOnclick,
   makeReservation,
-  reservationType
+  reservationType,
+  setChooseOrderPosition
 }) => {
   const [isOrderPosition, setIsOrderPosition] = useState(false)
   let tableId = 0
@@ -46,7 +47,9 @@ const OrderPosition = ({
         <div
           style={{
             display: 'flex',
-            flexDirection: 'row'
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center'
           }}
         >
           請盡速於
@@ -176,6 +179,7 @@ const OrderPosition = ({
 
   const handleOrderButtonClick = () => {
     setIsOrderPosition(!isOrderPosition)
+    setChooseOrderPosition(false)
   }
   return (
     <div className={styles.order}>

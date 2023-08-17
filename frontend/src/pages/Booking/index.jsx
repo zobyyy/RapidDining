@@ -74,6 +74,7 @@ export default function Booking() {
             handleChooseButtonOnclick={handleChooseButtonOnclick}
             reservationType={reservationType}
             makeReservation={makeReservation}
+            setChooseOrderPosition={setChooseOrderPosition}
           />
         ) : (
           <div>
