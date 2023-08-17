@@ -4,7 +4,7 @@ import { selectAllRestaurantSortedByTime } from '../../model/restaurant.js';
 
 class Cursor {
   /**
-    * @param {Object} opt
+    * @param {object} opt
     * @param {number} opt.restaurantId
     * */
   constructor({ restaurantId }) {
