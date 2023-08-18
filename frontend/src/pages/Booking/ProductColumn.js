@@ -3,9 +3,9 @@ import styles from './Booking.module.scss'
 import Image from 'next/image'
 import Cookies from 'js-cookie'
 
-const ProductColumn = ({ product }) => {
+const ProductColumn = ({ dish }) => {
   const [isChosen, setIsChosen] = useState(true)
-  if (product === undefined) {
+  if (dish === undefined) {
     return
   }
   const handleProductClick = () => {
@@ -16,8 +16,8 @@ const ProductColumn = ({ product }) => {
     <div className={styles.productCol}>
       <div style={{ width: '100%', display: 'flex', flexDirection: 'row' }}>
         <div style={{ width: '70%' }}>
-          <div className={styles.productName}>{product.name}</div>
-          <div className={styles.productIntro}>{product.description}</div>
+          <div className={styles.productName}>{dish.name}</div>
+          <div className={styles.productIntro}>{dish.description}</div>
         </div>
         <div
           style={{
@@ -48,8 +48,8 @@ const ProductColumn = ({ product }) => {
             gap: '5px'
           }}
         >
-          {product.spicy && <Image src='/辣.png' width={36} height={22} />}
-          {product.vegan && <Image src='/素食.png' width={45} height={22} />}
+          {dish.spicy && <Image src='/辣.png' width={36} height={22} />}
+          {dish.vegan && <Image src='/素食.png' width={45} height={22} />}
         </div>
         <div
           style={{
@@ -58,7 +58,7 @@ const ProductColumn = ({ product }) => {
             gap: '20px'
           }}
         >
-          <div className={styles.productPrice}>NT${product.price}</div>
+          <div className={styles.productPrice}>NT${dish.price}</div>
           {isChosen && <div className={styles.productChosenQuantity}>1</div>}
 
           <Image
