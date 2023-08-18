@@ -59,3 +59,28 @@ export async function selectAllRestaurantSortedByTime(headCount, smallestId) {
                ) v ON r.id = v.restaurantId` // TODO: remove after redis built
   return (await pool.query(sql, [smallestId, headCount]))[0];
 }
+
+/**
+  * @typedef {object} DBRestaurantProfile
+  * @property {number} id
+  * @property {string} name
+  * @property {string} phone
+  * @property {string} address
+  * @property {string} picture
+  * */
+
+/**
+ * @param {number} restaurantId
+ * @returns {Promise<DBRestaurantProfile>}
+ * */
+export async function restaurantProfile(restaurantId) {
+  const sql = `SELECT
+                 id,
+                 name,
+                 phone,
+                 address,
+                 picture
+               FROM restaurant
+               WHERE id = ?`;
+  return (await pool.query(sql, [restaurantId]))[0][0];
+}
