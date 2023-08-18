@@ -4,45 +4,17 @@ import Layouts from '@/components/Layouts'
 import Image from 'next/image'
 import Cookies from 'js-cookie'
 import { useRouter } from 'next/router'
-const mockData = {
-  data: {
-    dish_id: '1',
-    name: '經典番茄義大利麵',
-    price: '295',
-    picture: 'pasta.jpg',
-    description: '新鮮番茄醬與香料搭配，經典美味',
-    options: [
-      {
-        type: '辣度調整',
-        options: [
-          {
-            id: 1,
-            name: '微辣'
-          },
-          {
-            id: 3,
-            name: '中辣'
-          }
-        ]
-      },
-      {
-        type: '配菜調整',
-        options: [
-          {
-            id: 5,
-            name: '不要番茄'
-          }
-        ]
-      }
-    ]
-  }
-}
-
-const { options } = mockData.data
+import useDishDetail from '@/hook/useDishDetail'
 
 export default function Product() {
   Cookies.set('chooseOrderPosition', false)
   const router = useRouter()
+  const { id } = router.query
+  const { dishData } = useDishDetail(id)
+  let customized = []
+  if (dishData) {
+    customized = dishData.data.customized
+  }
 
   const [selectedOptions, setSelectedOptions] = useState({})
   const [number, setNumber] = useState(1)
@@ -84,14 +56,21 @@ export default function Product() {
       </div>
     )
   }
-  const Customization = ({ options }) => {
+  const Customization = ({ customized }) => {
     const handleOptionClick = (type, optionId) => {
-      setSelectedOptions((prevSelectedOptions) => ({
-        ...prevSelectedOptions,
-        [type]: optionId
-      }))
-    }
+      setSelectedOptions((prevSelectedOptions) => {
+        const newSelectedOptions = { ...prevSelectedOptions }
 
+        // 如果已經選中了該選項，則取消選擇
+        if (newSelectedOptions[type] === optionId) {
+          newSelectedOptions[type] = null
+        } else {
+          newSelectedOptions[type] = optionId
+        }
+
+        return newSelectedOptions
+      })
+    }
     return (
       <div>
         <div
@@ -103,11 +82,11 @@ export default function Product() {
         >
           依你喜好
         </div>
-        {options.map((option, index) => (
+        {customized.map((option, index) => (
           <div key={index} className={styles.type}>
             {option.type}
             <div className={styles.options}>
-              {option.options.map((subOption, subIndex) => (
+              {option.option.map((subOption, subIndex) => (
                 <div
                   key={subIndex}
                   className={`${styles.optionsName} ${
@@ -117,7 +96,7 @@ export default function Product() {
                   }`}
                   onClick={() => handleOptionClick(option.type, subOption.id)}
                 >
-                  {subOption.name}
+                  {subOption.taste}
                 </div>
               ))}
             </div>
@@ -129,16 +108,19 @@ export default function Product() {
   const handleAddToCart = () => {
     //cookies要存是甚麼商品的客製化+數量
     const selectedIds = Object.values(selectedOptions)
-    const selectedNames = selectedIds.map(
-      (id) =>
-        options
-          .flatMap((opt) => opt.options)
-          .find((subOption) => subOption.id === id).name
-    )
+    const selectedNames = selectedIds.map((id) => {
+      // 尋找選項
+      const option = customized
+        .flatMap((opt) => opt.option)
+        .find((subOption) => subOption.id === id)
+
+      // 如果找到選項，返回其口味；否則返回空字串
+      return option ? option.taste : ''
+    })
     const productChosen = {
-      dish_id: mockData.data.dish_id,
-      name: mockData.data.name,
-      price: mockData.data.price,
+      dish_id: dishData.data.dish_id,
+      name: dishData.data.name,
+      price: dishData.data.price,
       customization: selectedNames,
       quantity: number
     }
@@ -147,8 +129,8 @@ export default function Product() {
     // Cookies.set('CustomizationName', JSON.stringify(selectedNames))
     Cookies.set('productChosen', JSON.stringify(productChosen))
     console.log('Product Chosen:', JSON.stringify(productChosen))
-
-    router.push('/Booking')
+    Cookies.get('restaurantId')
+    router.push(`/Booking/${restaurantId}`)
   }
   return (
     <Layouts>
@@ -173,14 +155,14 @@ export default function Product() {
         />
         <div className={styles.product}>
           <div className={styles.storeInfo}>
-            <div className={styles.storeName}>{mockData.data.name}</div>
-            <div className={styles.storeName}>NT${mockData.data.price}</div>
+            <div className={styles.storeName}>{dishData?.data.name}</div>
+            <div className={styles.storeName}>NT${dishData?.data.price}</div>
             <div className={styles.storeAddress}>
               新鮮番茄醬與香料搭配，經典美味{' '}
             </div>
           </div>
         </div>
-        <Customization options={options} />
+        <Customization customized={customized} />
         <div className={styles.buttonFixed}>
           <ProductNumber />
           <button
