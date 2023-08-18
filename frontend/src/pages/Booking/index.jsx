@@ -9,11 +9,14 @@ import OrderPosition from './OrderPosition'
 import OrderFood from './OrderFood'
 import useTest from '@/hook/useTest'
 import { useRouter } from 'next/router'
+import useReservation from '@/hook/useReservation'
+import Alert from '@/components/Alert'
 
 export default function Booking() {
   const router = useRouter()
 
   const [chooseOrderPosition, setChooseOrderPosition] = useState(true)
+  const { makeReservation, isAlert, reservationType } = useReservation()
 
   useEffect(() => {
     const isChooseOrderPosition = Cookies.get('chooseOrderPosition')
@@ -26,7 +29,7 @@ export default function Booking() {
   }
   return (
     <Layouts>
-      <div style={{ width: '100%' }}>
+      <div style={{ width: '100%', position: 'relative' }}>
         <Image
           src='/back.png'
           width={51}
@@ -39,7 +42,8 @@ export default function Booking() {
           }}
           onClick={() => router.push('/')}
         />
-        <Image src='/餐廳照片.png' width={390} height={220}></Image>
+        {isAlert && <Alert />}
+        <Image src='/餐廳照片.png' width={390} height={220} />
         <div className={styles.storeInfo}>
           <div className={styles.storeName}>AppWorks咖啡廳</div>
           <div className={styles.storeAddress}>
@@ -68,6 +72,9 @@ export default function Booking() {
         {chooseOrderPosition ? (
           <OrderPosition
             handleChooseButtonOnclick={handleChooseButtonOnclick}
+            reservationType={reservationType}
+            makeReservation={makeReservation}
+            setChooseOrderPosition={setChooseOrderPosition}
           />
         ) : (
           <div>

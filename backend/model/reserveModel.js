@@ -30,6 +30,7 @@ export async function hasVacancy(restaurantId, headcount) {
       'SELECT * FROM tableList WHERE restaurantId = ? AND headcount >= ? AND vacancy = true',
       [restaurantId, headcount]
     );
+    console.log(`result of return ${rows.length}`);
     return rows.length > 0;
   } catch (error) {
     console.error('Error in checkVacancy:', error);
@@ -39,11 +40,13 @@ export async function hasVacancy(restaurantId, headcount) {
 
 export async function updateTableVacancy(phone,headcount) {
   try {
-    const results = await pool.query(`SELECT * FROM tableList WHERE vacancy = true AND headcount <= ? ORDER BY id LIMIT 1`, [headcount]
+    const [results] = await pool.query(`SELECT id FROM tableList WHERE vacancy = true AND headcount >= ? ORDER BY id LIMIT 1`, [headcount]
         );
-        const id = results[0][0].id; 
-        await pool.query(`UPDATE tableList SET vacancy = false, phone = ? WHERE id = ?`, [phone, id]);
-        return id;
+        console.log(`results is ${results}`);
+        const tableid = results[0].id; 
+        console.log(`give you a id = ${tableid}`);
+        await pool.query(`UPDATE tableList SET vacancy = false, phone = ? WHERE id = ?`, [phone, tableid]);
+        return tableid;
   } catch (error) {
     console.error('Error in updateTableVacancy:', error);
     throw error; 
@@ -75,8 +78,3 @@ export async function getWaitCount(restaurantId) {
       throw error; 
     }
   }
-
-
-
-
-
