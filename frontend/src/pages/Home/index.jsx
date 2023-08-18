@@ -19,6 +19,7 @@ export default function Home() {
   const bookingInfo = [false, true, false, true, false, true]; // 餐廳假資料
 
   function handleSelect (selectPeople) {
+    console.log("select");
     setHeadCount(selectPeople);
   }
 
