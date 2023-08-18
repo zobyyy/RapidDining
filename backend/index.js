@@ -6,6 +6,7 @@ import './util/types.js';
 import { pool } from './model/util.js';
 
 import { restaurantList } from './controller/restaurant/list.js';
+import { restaurantProfile } from './controller/restaurant/profile.js';
 import { reservationReserve } from './controller/reservation/reserve.js';
 import { reservationPending } from './controller/reservation/pending.js';
 import { reservationCancel } from './controller/reservation/reserveCancel.js';
@@ -61,6 +62,7 @@ app.all('/', function (req, res) {
 })
 
 app.get(`/api/${process.env.apiVer}/restaurants`, restaurantList);
+app.get(`/api/${process.env.apiVer}/restaurants/:id/profile`, restaurantProfile);
 app.post(`/api/${process.env.apiVer}/reservations/reserve`, reservationReserve);
 app.get(`/api/${process.env.apiVer}/reservations/pending`, reservationPending);
 app.delete(`/api/${process.env.apiVer}/reservations/cancel`, reservationCancel);
