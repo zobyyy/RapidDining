@@ -8,7 +8,7 @@ const useRestaurants = (headcount, isLoading, isScroll) => {
   async function fetchRestaurants() {
     try {
       const response = await fetch(
-        `http://ec2-3-84-189-230.compute-1.amazonaws.com/api/1.0/restaurants/?headcount=${headcount}${
+        `https://107.22.142.48/api/1.0/restaurants/?headcount=${headcount}${
           cursor ? '&cursor=' + cursor : ''
         }`
       )
