@@ -18,7 +18,6 @@ export default function Booking() {
   const [chooseOrderPosition, setChooseOrderPosition] = useState(true)
   const { makeReservation, isAlert, reservationType } = useReservation()
   const { menuInfo } = useMenu(id)
-  Cookies.set('restaurantId', id)
   console.log(id)
   useEffect(() => {
     const isChooseOrderPosition = Cookies.get('chooseOrderPosition')
