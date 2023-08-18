@@ -56,7 +56,7 @@ export async function restaurantList(req, res, next) { // eslint-disable-line no
       "restaurants": restaurants.slice(0, 10).map(rest => {
         return {
           ...rest,
-          "waitTime": rest.waitTime === null ? 0 : rest.waitTime,
+          "waitTime": rest.waitTime === null ? 0 : Number(rest.waitTime),
           "availability": rest.availability === null ? false : true
         };
       }),
