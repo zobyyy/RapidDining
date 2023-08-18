@@ -13,11 +13,11 @@ import useRestaurants from '../../hook/useRestaurants'
 export default function Home() {
   const [isHidden, setIsHidden] = useState(false);
   const [isSearch, setIsSearch] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
-  const {restaurants} = useRestaurants(1,isLoading);
+  const [isLoading, setIsLoading] = useState(false);
+  const [headCount, setHeadCount] = useState(1);
+  const {restaurants} = useRestaurants(headCount,isLoading);
   const bookingInfo = [false, true, false, true, false, true];
 
-  const [headCount, setHeadCount] = useState(0);
 
   function handleSelect (selectPeople) {
     console.log("select");
