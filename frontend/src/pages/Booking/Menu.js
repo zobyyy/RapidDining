@@ -6,13 +6,24 @@ import ProductColumn from './ProductColumn'
 const Menu = ({ menuInfo }) => {
   const [activeKindIndex, setActiveKindIndex] = useState(0)
 
-  const kindsRefs = menuInfo?.data.menu.map(() => useRef(null))
+  // const kindsRefs = menuInfo?.data.menu.map(() => useRef(null))
+
+  // useEffect(() => {
+  //   kindsRefs.forEach((ref, index) => {
+  //     kindsRefs[index] = ref
+  //   })
+  // }, [kindsRefs])
+  const kindsRefs = useRef([])
 
   useEffect(() => {
-    kindsRefs.forEach((ref, index) => {
-      kindsRefs[index] = ref
+    kindsRefs.current = kindsRefs.current.slice(0, menuInfo?.data?.menu.length)
+  }, [menuInfo])
+
+  useEffect(() => {
+    kindsRefs.current.forEach((ref, index) => {
+      kindsRefs.current[index] = ref
     })
-  }, [kindsRefs])
+  }, [])
 
   const scrollToKinds = (index) => {
     if (kindsRefs[index].current) {
@@ -29,7 +40,7 @@ const Menu = ({ menuInfo }) => {
   const Kinds = () => {
     return (
       <div className={styles.kindsContainer}>
-        {menuInfo?.data.menu.map((type, index) => (
+        {menuInfo?.data?.menu.map((type, index) => (
           <div
             key={index}
             className={`${styles.kindsItem} ${
@@ -46,7 +57,7 @@ const Menu = ({ menuInfo }) => {
   const KindsArea = () => {
     return (
       <>
-        {menuInfo?.data.menu.map((type, index) => (
+        {menuInfo?.data?.menu.map((type, index) => (
           <>
             <div
               key={index}
