@@ -10,7 +10,7 @@ const useReservation = () => {
   const makeReservation = async (requestBody) => {
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_DOMAIN}/reservations/reserve`,
+        `https://107.22.142.48/api/1.0/reservations/reserve`,
         {
           method: 'POST',
           headers: {

@@ -9,12 +9,14 @@ import { restaurantList } from './controller/restaurant/list.js';
 import { restaurantProfile } from './controller/restaurant/profile.js';
 import { reservationReserve } from './controller/reservation/reserve.js';
 import { reservationPending } from './controller/reservation/pending.js';
-import { reservationCancel } from './controller/reservation/cancel.js';
+import { reservationCancel } from './controller/reservation/reserveCancel.js';
 import { restaurantVacancy } from './controller/restaurant/vacancy.js';
 import { menuSearch } from './controller/menu/search.js';
 import { dishDetail } from './controller/menu/detail.js';
 import { orderRequest } from './controller/order/request.js';
 import { orderPending } from './controller/order/pending.js';
+import { tableCancel } from './controller/reservation/tableCancel.js';
+
 
 /*************************
   * global config
@@ -64,6 +66,7 @@ app.get(`/api/${process.env.apiVer}/restaurants/:id/profile`, restaurantProfile)
 app.post(`/api/${process.env.apiVer}/reservations/reserve`, reservationReserve);
 app.get(`/api/${process.env.apiVer}/reservations/pending`, reservationPending);
 app.delete(`/api/${process.env.apiVer}/reservations/cancel`, reservationCancel);
+app.delete(`/api/${process.env.apiVer}/tables/cancel`, tableCancel);
 app.get(`/api/${process.env.apiVer}/restaurants/:restaurantId/vacancy`, restaurantVacancy);
 app.get(`/api/${process.env.apiVer}/menus/search`, menuSearch);
 app.get(`/api/${process.env.apiVer}/menus/:dishId`, dishDetail);
