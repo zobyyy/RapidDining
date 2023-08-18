@@ -13,8 +13,8 @@ import useRestaurants from '../../hook/useRestaurants'
 export default function Home() {
   const [isHidden, setIsHidden] = useState(false);
   const [isSearch, setIsSearch] = useState(false);
-  const [isRefresh, setIsRefresh] = useState(true);
-  const [headCount, setHeadCount] = useState(0);
+  const [isRefresh, setIsRefresh] = useState(false);
+  const [headCount, setHeadCount] = useState(1);
   const {restaurants} = useRestaurants(headCount,null,isRefresh);
   const bookingInfo = [false, true, false, true, false, true]; // 餐廳假資料
 
