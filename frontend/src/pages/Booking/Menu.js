@@ -5,6 +5,7 @@ import ProductColumn from './ProductColumn'
 
 const Menu = ({ menuInfo }) => {
   const [activeKindIndex, setActiveKindIndex] = useState(0)
+
   const kindsRefs = menuInfo?.data.menu.map(() => useRef(null))
 
   useEffect(() => {
