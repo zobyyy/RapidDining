@@ -10,12 +10,19 @@ import Cookies from 'js-cookie'
 // 假資料
 const storeIntro =
   '歡迎來到「AppWorks」！\n我們是一家充滿綠意的小森林咖啡廳，提供有機、精選食材的義大利麵、三明治、沙拉等美味簡餐。\n在繁忙的城市中，我們是您的綠洲，讓您感受大自然的美好與品味。'
-const OrderFood = () => {
+const OrderFood = ({ menuInfo }) => {
   const router = useRouter()
-
+  const { id } = router.query
   const [chooseOrderPosition, setChooseOrderPosition] = useState(true)
   const [productChosen, setProductChosen] = useState({})
-  const [isEatHere, setIsEatHere] = useState(true)
+  const [isEatHere, setIsEatHere] = useState(false)
+  if (Cookies.get('isReserved')) {
+    if (Cookies.get('isReserved').includes(id)) {
+      setIsEatHere(true)
+    } else {
+      setIsEatHere(false)
+    }
+  }
   useEffect(() => {
     const isChooseOrderPosition = Cookies.get('chooseOrderPosition')
     if (isChooseOrderPosition === 'false') {
@@ -36,7 +43,7 @@ const OrderFood = () => {
         {/* 如果沒有訂位，則是外帶自取。怎麼判斷沒有訂位呢? */}
       </div>
 
-      <Menu />
+      <Menu menuInfo={menuInfo} />
       {Object.keys(productChosen).length > 0 && (
         <div
           style={{

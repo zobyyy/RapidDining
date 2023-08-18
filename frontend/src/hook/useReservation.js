@@ -24,7 +24,7 @@ const useReservation = () => {
         const data = await response.json()
         setReservationInfo(data)
         setReservationError(null)
-        console.log(requestBody.name)
+
         if (data.data.tableId !== null) {
           setReservationType('check')
           Cookies.set('tableId', data.data.tableId)

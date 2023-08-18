@@ -7,17 +7,18 @@ import Image from 'next/image'
 import Cookies from 'js-cookie'
 import OrderPosition from './OrderPosition'
 import OrderFood from './OrderFood'
-import useTest from '@/hook/useTest'
 import { useRouter } from 'next/router'
 import useReservation from '@/hook/useReservation'
 import Alert from '@/components/Alert'
+import useMenu from '@/hook/useMenu'
 
 export default function Booking() {
   const router = useRouter()
-
+  const { id } = router.query
   const [chooseOrderPosition, setChooseOrderPosition] = useState(true)
   const { makeReservation, isAlert, reservationType } = useReservation()
-
+  const { menuInfo } = useMenu(id)
+  console.log(id)
   useEffect(() => {
     const isChooseOrderPosition = Cookies.get('chooseOrderPosition')
     if (isChooseOrderPosition === 'false') {
@@ -78,7 +79,7 @@ export default function Booking() {
           />
         ) : (
           <div>
-            <OrderFood />
+            <OrderFood menuInfo={menuInfo} />
           </div>
         )}
       </div>
