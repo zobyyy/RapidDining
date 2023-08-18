@@ -26,7 +26,7 @@ const useRestaurants = (headcount, cursor, isRefresh) => {
         if (isRefresh) {
             fetchRestaurants();
         }
-    },[isRefresh])
+    },[isRefresh,headcount])
 
     return {restaurants};
 }
