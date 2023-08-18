@@ -74,5 +74,5 @@ app.post(`/api/${process.env.apiVer}/orders/request`, orderRequest);
 app.get(`/api/${process.env.apiVer}/orders/pending`, orderPending);
 
 app.listen(port, () => {
-  console.log(`Canchu backend listening on port:${port}`);
+  console.log(`Rapid dining backend listening on port:${port}`);
 })
