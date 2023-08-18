@@ -53,15 +53,15 @@ export async function restaurantList(req, res, next) { // eslint-disable-line no
   }
   res.status(200).send({
     "data": {
-      "restaurants": restaurants.slice(0, 10).map(rest => {
+      "restaurants": restaurants.slice(0, 5).map(rest => {
         return {
           ...rest,
           "waitTime": rest.waitTime === null ? 0 : Number(rest.waitTime),
           "availability": rest.availability === null ? false : true
         };
       }),
-      "next_cursor": restaurants.length > 10
-        ? new Cursor({ restaurantId: restaurants[10].id }).serialized
+      "next_cursor": restaurants.length > 5
+        ? new Cursor({ restaurantId: restaurants[5].id }).serialized
         : null
     }
   });

@@ -27,7 +27,7 @@ export async function selectAllRestaurantSortedByTime(headCount, smallestId) {
                    picture
                  FROM restaurant
                  WHERE id >= ?
-                 LIMIT 11
+                 LIMIT 6
                )
                SELECT
                  r.id AS id,
