@@ -18,36 +18,44 @@ import '../util/types.js';
  * @returns {Promise<DBRestaurantInfo[]>}
  * */
 export async function selectAllRestaurantSortedByTime(headCount, smallestId) {
-  const sql = `SELECT
-                   r.id AS id,
-                   r.name AS name,
-                   r.phone AS phone,
-                   r.address AS address,
-                   SUM(d.dishTime) AS waitTime,
-                   v.vacancy AS availability,
-                   r.picture AS picture
-               FROM restaurant r
+  const sql = `WITH r AS (
+                 SELECT
+                   id,
+                   name,
+                   phone,
+                   address,
+                   picture
+                 FROM restaurant
+                 WHERE id >= ?
+                 LIMIT 6
+               )
+               SELECT
+                 r.id AS id,
+                 r.name AS name,
+                 r.phone AS phone,
+                 r.address AS address,
+                 d.waitTime AS waitTime,
+                 v.vacancy AS availability,
+                 r.picture AS picture
+               FROM r
                LEFT JOIN (
-                   SELECT
-                       ol.restaurantId,
-                       SUM(d.time) AS dishTime
-                   FROM (
-                       SELECT DISTINCT restaurantId, dishId
-                       FROM OrderList
-                   ) ol
-                   LEFT JOIN dish d on ol.dishId = d.id
-                   GROUP BY ol.restaurantId, ol.dishId
+                 SELECT
+                   ol.restaurantId,
+                   SUM(dish.time) AS waitTime
+                 FROM OrderList ol
+                 LEFT JOIN OrderDish od
+                 ON ol.id = od.orderId
+                 LEFT JOIN dish
+                 ON od.dishId = dish.id
+                 GROUP BY ol.restaurantId
                ) d ON r.id = d.restaurantId
                LEFT JOIN (
-                   SELECT
-                       restaurantId,
-                       MAX(vacancy) AS vacancy
-                   FROM tableList
-                   WHERE vacancy = TRUE AND headcount >= ?
-                   GROUP BY restaurantId
-               ) v ON r.id = v.restaurantId
-               WHERE r.id >= ?
-               GROUP BY r.id
-               LIMIT 11` // TODO: remove after redis built
-  return (await pool.query(sql, [headCount, smallestId]))[0];
+                 SELECT
+                   restaurantId,
+                   MAX(vacancy) AS vacancy
+                 FROM tableList
+                 WHERE vacancy = TRUE AND headcount >= ?
+                 GROUP BY restaurantId
+               ) v ON r.id = v.restaurantId` // TODO: remove after redis built
+  return (await pool.query(sql, [smallestId, headCount]))[0];
 }
