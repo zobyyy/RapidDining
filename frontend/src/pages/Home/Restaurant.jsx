@@ -10,7 +10,7 @@ export default function Restaurant( {type, restaurant} ) {
             {type === 1
                 ?
                     <>
-                        <Link href="/Booking">
+                        <Link href={`/Booking/${restaurant.id}`}>
                             <div style={{position:'absolute', left: '29px', top:'0', width: '85%', height: '85%'}}></div>
                         </Link>
                         <RestaurantInfo restaurant={restaurant} />
