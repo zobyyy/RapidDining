@@ -2,8 +2,12 @@ import React from 'react'
 import styles from './Booking.module.scss'
 import { Field, ErrorMessage, Formik, Form } from 'formik'
 import * as Yup from 'yup'
+import { useRouter } from 'next/router'
+import Cookies from 'js-cookie'
 
 const BookingInfoInput = ({ isOrderPosition, makeReservation }) => {
+  const router = useRouter()
+  const { id } = router.query
   const initialValues = {
     headcount: 1,
     name: '',
@@ -25,6 +29,14 @@ const BookingInfoInput = ({ isOrderPosition, makeReservation }) => {
       phone: values.phoneNumber
     }
     await makeReservation(requestBody)
+    if (Cookies.get('isReserved')) {
+      const isReserved = Cookies.get('isReserved')
+      isReserved.append(id)
+      Cookies.set('isReserved', isReserved)
+    } else {
+      const isReserved = [id]
+      Cookies.set('isReserved', isReserved)
+    }
   }
   const SelectGroup = () => {
     return (
