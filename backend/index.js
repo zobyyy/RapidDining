@@ -64,7 +64,7 @@ app.get(`/api/${process.env.apiVer}/restaurants`, restaurantList);
 app.post(`/api/${process.env.apiVer}/reservations/reserve`, reservationReserve);
 app.get(`/api/${process.env.apiVer}/reservations/pending`, reservationPending);
 app.delete(`/api/${process.env.apiVer}/reservations/cancel`, reservationCancel);
-app.patch(`/api/${process.env.apiVer}/tables/cancel`, tableCancel);
+app.delete(`/api/${process.env.apiVer}/tables/cancel`, tableCancel);
 app.get(`/api/${process.env.apiVer}/restaurants/:restaurantId/vacancy`, restaurantVacancy);
 app.get(`/api/${process.env.apiVer}/menus/search`, menuSearch);
 app.get(`/api/${process.env.apiVer}/menus/:dishId`, dishDetail);
