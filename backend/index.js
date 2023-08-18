@@ -60,6 +60,7 @@ while (1) {  // eslint-disable-line no-constant-condition
 app.all('/', function (req, res) {
   res.send({ "data": "Hello friend from the other side!" });
 })
+app.use(`/pic`, express.static('pic'));
 
 app.get(`/api/${process.env.apiVer}/restaurants`, restaurantList);
 app.get(`/api/${process.env.apiVer}/restaurants/:id/profile`, restaurantProfile);

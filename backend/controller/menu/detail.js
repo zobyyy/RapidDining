@@ -1,19 +1,22 @@
-import {getMenuDetail} from '../../model/dishdetailModel.js'; 
+import { getMenuDetail } from '../../model/dishdetailModel.js';
+import { pictureForFrontend } from '../../util/util.js';
 
 /**
  * @param {import("express").Request} req
  * @param {import("express").Response} res
- * @param {import("express").NextFunction} next
  * */
 export async function dishDetail(req, res) {
   try {
     const dishId = req.params.dishId;
-    const dish = await getMenuDetail(dishId); 
-    return res.status(200).json({ data: dish });
+    const dish = await getMenuDetail(dishId);
+    return res.status(200).json({
+      data: {
+        ...dish,
+        "picture": pictureForFrontend(dish.picture)
+      }
+    });
   } catch (error) {
     console.error('Error in reservationReserve:', error);
     return res.status(500).json({ error: 'internal server error' });
   }
 }
-
-

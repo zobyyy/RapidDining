@@ -1,4 +1,5 @@
 import { restaurantProfile as restProf } from "../../model/restaurant.js";
+import { pictureForFrontend } from "../../util/util.js";
 
 /**
  * @param {import("express").Request} req
@@ -15,7 +16,12 @@ export async function restaurantProfile(req, res, next) { // eslint-disable-line
     if (profile === undefined) {
       return res.status(404).send({ "error": "no such restaurant" });
     }
-    return res.status(200).send({ "data": profile });
+    return res.status(200).send({
+      "data": {
+        ...profile,
+        "picture": pictureForFrontend(profile.picture)
+      }
+    });
   } catch (err) {
     console.error(`Error when getting restaurant profile of restaurant ${restaurantId}:`, err);
     return res.status(500).send({ "error": "internal server error" });

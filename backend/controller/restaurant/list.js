@@ -1,6 +1,7 @@
 import { base64url } from 'jose';
 
 import { selectAllRestaurantSortedByTime } from '../../model/restaurant.js';
+import { pictureForFrontend } from '../../util/util.js';
 
 class Cursor {
   /**
@@ -56,6 +57,7 @@ export async function restaurantList(req, res, next) { // eslint-disable-line no
       "restaurants": restaurants.slice(0, 5).map(rest => {
         return {
           ...rest,
+          "picture": pictureForFrontend(rest.picture),
           "waitTime": rest.waitTime === null ? 0 : Number(rest.waitTime),
           "availability": rest.availability === null ? false : true
         };
