@@ -29,7 +29,7 @@ const useRestaurants = (headcount, isLoading, isScroll) => {
         if (isLoading) {
             fetchRestaurants();
         }
-    },[isLoading])
+    },[isLoading,headcount]);
 
     return {restaurants};
 }

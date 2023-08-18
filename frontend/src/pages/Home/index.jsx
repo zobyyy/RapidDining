@@ -17,6 +17,13 @@ export default function Home() {
   const {restaurants} = useRestaurants(1,isLoading);
   const bookingInfo = [false, true, false, true, false, true];
 
+  const [headCount, setHeadCount] = useState(0);
+
+  function handleSelect (selectPeople) {
+    console.log("select");
+    setHeadCount(selectPeople);
+  }
+
   function handleSelect () {
 
   }
@@ -35,7 +42,7 @@ export default function Home() {
               <div className={styles.selectBlock}>
                   <div className={styles.selectPeople}>
                     <p className={styles.text}>您有幾位</p>
-                    <PeopleSelect/>
+                    <PeopleSelect handleSelect={handleSelect} />
                   </div>
                   <div className={styles.historyOrder} onClick={() => {setIsSearch(!isSearch); setIsHidden(true)}}>
                       <div className={styles.iconOrder}>

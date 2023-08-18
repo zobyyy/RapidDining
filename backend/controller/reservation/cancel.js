@@ -6,3 +6,4 @@
 export function reservationCancel(req, res, next) {
   throw new Error("not implemented");
 }
+

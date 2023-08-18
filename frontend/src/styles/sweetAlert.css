@@ -1,0 +1,6 @@
+.swal2-overlay {
+  background-color: transparent;
+}
+.swal2-height-auto {
+  height: 50px !important;
+}
