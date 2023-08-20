@@ -5,5 +5,5 @@ import 'dotenv/config';
  * @returns {string}
  * */
 export function pictureForFrontend(pictureInDB) {
-  return pictureInDB ? `http://${process.env.dbAddr}/pic/${pictureInDB}` : null;
+  return pictureInDB ? `https://${process.env.dbAddr}/pic/${pictureInDB}` : null;
 }
