@@ -3,12 +3,19 @@ import styles from './Layouts.module.scss'
 
 export default function Layouts({ children, scrollBarHidden }) {
     const layoutRef = useRef(null);
-    const [isAtBottom, setIsAtBottom] = useState(false);
+    const [isBottom, setIsBottom] = useState(false);
 
     const handleScroll = () => {
-        const container = containerRef.current;
-        if (layoutRef.current) {
-            console.log("scroll")
+        const layoutElement = layoutRef.current;
+        const bottomDistance = layoutElement.scrollHeight - (layoutElement.scrollTop + layoutElement.clientHeight);
+
+        console.log("bottom: "+isBottom)
+
+        if (layoutElement) {
+            if (bottomDistance < 40) {
+                console.log('滑到底了！');
+                setIsBottom(true);
+            }
         }
     }
 
@@ -23,7 +30,7 @@ export default function Layouts({ children, scrollBarHidden }) {
         }
     },[])
 
-    return <div className={scrollBarHidden ? styles.layoutsHidden : styles.layouts}>
+    return <div ref={layoutRef} className={scrollBarHidden ? styles.layoutsHidden : styles.layouts}>
         {children}
     </div>
 }
