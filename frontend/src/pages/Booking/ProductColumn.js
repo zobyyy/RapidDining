@@ -9,9 +9,10 @@ const ProductColumn = ({ dish }) => {
     return
   }
   const handleProductClick = () => {
-    Cookies.set('productId', product.id)
-    window.location.href = `/Product/${product.id}`
+    Cookies.set('dishId', dish.id)
+    window.location.href = `/Product/${dish.id}`
   }
+
   return (
     <div className={styles.productCol}>
       <div style={{ width: '100%', display: 'flex', flexDirection: 'row' }}>
@@ -28,11 +29,7 @@ const ProductColumn = ({ dish }) => {
             alignItems: 'center'
           }}
         >
-          <Image
-            src={dish?.data?.picture || '/義大利麵.png'}
-            width={83}
-            height={83}
-          />
+          <Image src={dish.picture || '/義大利麵.png'} width={83} height={83} />
         </div>
       </div>
       <div

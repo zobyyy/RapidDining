@@ -26,7 +26,7 @@ const Menu = ({ menuInfo }) => {
   }, [])
 
   const scrollToKinds = (index) => {
-    if (kindsRefs[index].current) {
+    if (kindsRefs[index]?.current) {
       kindsRefs[index].current.scrollIntoView({
         behavior: 'smooth'
       })
