@@ -1,8 +1,11 @@
 import React, { useState } from 'react'
 import styles from './Booking.module.scss'
 import BookingInfoInput from '@/pages/Booking/BookingInfoInput'
+import useCancel from '@/hook/useCancel'
 import Image from 'next/image'
 import Cookies from 'js-cookie'
+
+const {cancleReservation, cancleBooking} = useCancel();
 
 const OrderPosition = ({
   handleChooseButtonOnclick,
