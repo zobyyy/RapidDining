@@ -3,7 +3,9 @@ const nextConfig = {
   reactStrictMode: true,
   eslint: {
     ignoreDuringBuilds: true
+  },
+  images: {
+    domains: ['107.22.142.48']
   }
-  // pageExtensions: ['page.tsx', 'page.ts', 'page.jsx', 'page.js']
 }
 module.exports = nextConfig
