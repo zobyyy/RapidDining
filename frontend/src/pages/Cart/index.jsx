@@ -28,7 +28,12 @@ export default function Cart() {
     }
   }, [])
   console.log(productChosen)
-  // const totalPrice = Cookies.get('totalPrice')
+  // 在某處的程式碼中
+  const totalPrice = productChosen[0].reduce((total, item) => {
+    // 對每個項目進行價格和數量的乘法操作，然後將結果相加
+    return total + item.price * item.quantity
+  }, 0)
+
   return (
     <Layouts>
       <div style={{ width: '100%' }}>
@@ -62,7 +67,7 @@ export default function Cart() {
         <div className={styles.buttonFixed}>
           <div className={styles.cartTotalSquare}>
             <div>總金額</div>
-            <div>NT${total}</div>
+            <div>NT${totalPrice}</div>
           </div>
           <div className={styles.buttonGruop}>
             <button
