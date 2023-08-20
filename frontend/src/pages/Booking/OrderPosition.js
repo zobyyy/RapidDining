@@ -11,14 +11,9 @@ const OrderPosition = ({
   setChooseOrderPosition
 }) => {
   const [isOrderPosition, setIsOrderPosition] = useState(false)
-  let tableId = 0
-  let reservationId = 0
-  if (reservationType === 'check') {
-    tableId = Cookies.get('tableId')
-  }
-  if (reservationType === 'waiting') {
-    reservationCount = Cookies.get('reservationCount')
-  }
+
+  const tableId = Cookies.get('tableId')
+  const reservationCount = Cookies.get('reservationCount')
 
   const userName = Cookies.get('userName')
   const userGender = Cookies.get('userGender')
@@ -72,7 +67,7 @@ const OrderPosition = ({
           </button>
           <button
             className={styles.orderButton}
-            onClick={handleChooseButtonOnclick}
+            onClick={() => setChooseOrderPosition(false)}
           >
             前往訂餐
           </button>
@@ -142,7 +137,7 @@ const OrderPosition = ({
           </button>
           <button
             className={styles.orderButton}
-            onClick={handleOrderButtonClick}
+            onClick={() => setChooseOrderPosition(false)}
           >
             前往訂餐
           </button>
@@ -151,10 +146,10 @@ const OrderPosition = ({
     )
   }
 
-  const handleOrderButtonClick = () => {
-    setIsOrderPosition(!isOrderPosition)
-    setChooseOrderPosition(false)
-  }
+  // const handleOrderButtonClick = () => {
+  //   setIsOrderPosition(!isOrderPosition)
+  //   setChooseOrderPosition(false)
+  // }
   return (
     <div className={styles.order}>
       <div className={styles.orderInfo}>

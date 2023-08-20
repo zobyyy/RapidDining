@@ -5,22 +5,29 @@ import Image from 'next/image'
 import Cookies from 'js-cookie'
 import ProductColumn from './ProductColumn'
 import { useRouter } from 'next/router'
-
+import Restaurant from '../Home/Restaurant'
+console.log(Cookies.get('allProductChosen'))
 export default function Cart() {
   Cookies.set('chooseOrderPosition', false)
   const router = useRouter()
   const [number, setNumber] = useState(1)
   const [productChosen, setProductChosen] = useState(null)
   const [total, setTotal] = useState(0)
+  const [isAdd, setIsAdd] = useState(false)
+  const restaurantId = Cookies.get('restaurantId')
 
   useEffect(() => {
-    const productChosenString = Cookies.get('productChosen')
-    if (productChosenString) {
-      const parsedProductChosen = JSON.parse(productChosenString)
-
-      setProductChosen(parsedProductChosen)
+    const allProductChosen = Cookies.get('allProductChosen')
+    console.log('allProductChosen', allProductChosen)
+    const productChosenJSON = [JSON.parse(allProductChosen)]
+    setProductChosen(productChosenJSON)
+    if (allProductChosen) {
+      setIsAdd(true)
+    } else {
+      setIsAdd(false)
     }
   }, [])
+  console.log(productChosen)
   // const totalPrice = Cookies.get('totalPrice')
   return (
     <Layouts>
@@ -36,13 +43,21 @@ export default function Cart() {
             }}
           ></div>
         </div>
-
-        <ProductColumn
-          productChosen={productChosen}
-          setProductChosen={setProductChosen}
-          total={total}
-          setTotal={setTotal}
-        />
+        {isAdd && productChosen ? (
+          productChosen[0].map((item, index) => (
+            <ProductColumn
+              key={index}
+              productChosen={item}
+              setProductChosen={setProductChosen}
+              total={total}
+              setTotal={setTotal}
+            />
+          ))
+        ) : (
+          <div className={styles.productCol}>
+            <div className={styles.productName}>尚未有商品加入</div>
+          </div>
+        )}
 
         <div className={styles.buttonFixed}>
           <div className={styles.cartTotalSquare}>
@@ -52,7 +67,7 @@ export default function Cart() {
           <div className={styles.buttonGruop}>
             <button
               className={styles.orderContinueButton}
-              onClick={() => router.push('/Booking')}
+              onClick={() => router.push(`/Booking/${restaurantId}`)}
             >
               繼續點餐
             </button>

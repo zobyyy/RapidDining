@@ -17,19 +17,19 @@ const ProductColumn = ({ productChosen, total, setTotal }) => {
   //     console.log(productChosen)
   //   }
   // }, [number, productChosen])
-  useEffect(() => {
-    if (productChosen) {
-      setNumber(productChosen.quantity)
-      const updatedProductChosen = { ...productChosen, quantity: number }
-      Cookies.set('productChosen', JSON.stringify(updatedProductChosen))
-      const totalPrice = productChosen.price * number
-      Cookies.set(
-        'totalPrice',
-        parseInt(Cookies.get('totalPrice')) + totalPrice
-      )
-      setTotal(total + totalPrice)
-    }
-  }, [number, productChosen, setTotal])
+  // useEffect(() => {
+  //   if (productChosen) {
+  //     setNumber(productChosen.quantity)
+  //     const updatedProductChosen = { ...productChosen, quantity: number }
+  //     Cookies.set('productChosen', JSON.stringify(updatedProductChosen))
+  //     const totalPrice = productChosen.price * number
+  //     Cookies.set(
+  //       'totalPrice',
+  //       parseInt(Cookies.get('totalPrice')) + totalPrice
+  //     )
+  //     setTotal(total + totalPrice)
+  //   }
+  // }, [number, productChosen, setTotal])
   const ProductNumber = () => {
     const handlePlusClick = () => {
       setNumber(number + 1)
@@ -74,14 +74,6 @@ const ProductColumn = ({ productChosen, total, setTotal }) => {
     window.location.reload()
   }
 
-  if (!productChosen) {
-    return (
-      <div className={styles.productCol}>
-        <div className={styles.productName}>尚未有商品加入</div>
-      </div>
-    )
-  }
-
   const totalPrice = productChosen.price * number
 
   Cookies.set('totalPrice', parseInt(Cookies.get('totalPrice')) + totalPrice)
@@ -93,7 +85,12 @@ const ProductColumn = ({ productChosen, total, setTotal }) => {
     <div className={styles.productCol}>
       <div>
         <div style={{ width: '100%', display: 'flex', flexDirection: 'row' }}>
-          <Image src='/義大利麵.png' width={42} height={42} />
+          <Image
+            src={productChosen.picture || '/義大利麵.png'}
+            width={42}
+            height={42}
+            style={{ objectFit: 'cover' }}
+          />
           <div
             style={{
               width: '100%',
@@ -113,11 +110,12 @@ const ProductColumn = ({ productChosen, total, setTotal }) => {
               }}
             >
               <div>
-                {productChosen.customization.map((item, index) => (
-                  <div key={index} className={styles.customizationItem}>
-                    {item}
-                  </div>
-                ))}
+                {productChosen.customization &&
+                  productChosen.customization.map((item, index) => (
+                    <div key={index} className={styles.customizationItem}>
+                      {item}
+                    </div>
+                  ))}
               </div>
             </div>
           </div>

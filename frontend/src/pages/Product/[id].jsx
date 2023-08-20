@@ -12,11 +12,21 @@ export default function Product() {
   const restaurantId = Cookies.get('restaurantId')
   const { id } = router.query
   const { dishData } = useDishDetail(id)
+  const [productChosen, setProductChosen] = useState([])
   let customized = []
+
+  let dish_id = ''
+  let name = ''
+  let price = 0
+  let picture = ''
+
   if (dishData) {
     customized = dishData.data.customized
+    dish_id = dishData.data.dish_id
+    name = dishData.data.name
+    price = dishData.data.price
+    picture = dishData.data.picture
   }
-
   const [selectedOptions, setSelectedOptions] = useState({})
   const [number, setNumber] = useState(1)
   const ProductNumber = () => {
@@ -106,33 +116,81 @@ export default function Product() {
       </div>
     )
   }
+
+  //   要給後端的requestbody：
+  //   tableId (有位置才有/null)
+  //   reservationId (候位/null)
+  //   items:
+  // "dishId": 1,
+  // "customized": [{"dishoptionId": 1}, {"dishoptionId": 3}]
+  //   created_at
+  // total(總價格)
+  // name(外帶/內用null)
+  // phone(外帶/內用null)
+  const selectedIds = Object.values(selectedOptions) //這是要傳給後端的客製化id
+  const selectedNames = selectedIds.map((id) => {
+    const option = customized
+      .flatMap((opt) => opt.option)
+      .find((subOption) => subOption.id === id)
+    return option ? option.taste : ''
+  })
+  //前端呈現在購物車的
+
+  const newProductChosen = {
+    dish_id: dish_id,
+    name: name,
+    price: price,
+    customization: selectedNames,
+    quantity: number,
+    picture: picture
+  }
+  console.log('newProductChosen', newProductChosen)
+  //傳給後端的是商品的「dishId+客製化選項+餐點數量」三個
+  const productChosenToBackend = {
+    dish_id: dishData?.data.dish_id,
+    customization: selectedIds,
+    quantity: number
+  }
   const handleAddToCart = () => {
-    //cookies要存是甚麼商品的客製化+數量
-    const selectedIds = Object.values(selectedOptions)
-    const selectedNames = selectedIds.map((id) => {
-      // 尋找選項
-      const option = customized
-        .flatMap((opt) => opt.option)
-        .find((subOption) => subOption.id === id)
-
-      // 如果找到選項，返回其口味；否則返回空字串
-      return option ? option.taste : ''
-    })
-    const productChosen = {
-      dish_id: dishData.data.dish_id,
-      name: dishData.data.name,
-      price: dishData.data.price,
-      customization: selectedNames,
-      quantity: number
-    }
-
-    // Cookies.set('CustomizationId', JSON.stringify(selectedIds)) //CustomizationId是要回傳給後端的
-    // Cookies.set('CustomizationName', JSON.stringify(selectedNames))
-    Cookies.set('productChosen', JSON.stringify(productChosen))
-    console.log('Product Chosen:', JSON.stringify(productChosen))
-
+    const updatedProductChosen = [...productChosen, newProductChosen]
+    setProductChosen(updatedProductChosen)
+    Cookies.set('allProductChosen', JSON.stringify(updatedProductChosen))
     router.push(`/Booking/${restaurantId}`)
   }
+  useEffect(() => {
+    const allProductChosen = Cookies.get('allProductChosen')
+    const isProductChosen = allProductChosen !== undefined
+
+    if (isProductChosen) {
+      console.log('選過')
+      const productChosenJSON = JSON.parse(allProductChosen)
+      setProductChosen(productChosenJSON)
+    } else {
+      console.log('還沒選過')
+    }
+  }, [])
+  // const allProductChosen = Cookies.get('allProductChosen')
+  // const isProductChosen = allProductChosen !== undefined
+
+  // useEffect(() => {
+  //   if (isProductChosen) {
+  //     //true就是已經選過了
+  //     console.log('選過')
+  //     const productChosenJSON = [JSON.parse(allProductChosen)]
+  //     console.log('productChosenJSON', productChosenJSON)
+  //     const updatedAllProductChosen = [...productChosenJSON, newProductChosen]
+  //     console.log('updatedAllProductChosen', updatedAllProductChosen)
+  //     setProductChosen(JSON.stringify(updatedAllProductChosen))
+  //   } else {
+  //     console.log('還沒選過')
+  //     setProductChosen(JSON.stringify(newProductChosen))
+  //   }
+  // }, [setProductChosen])
+  // const handleAddToCart = () => {
+  //   Cookies.set('allProductChosen', productChosen)
+  //   router.push(`/Booking/${restaurantId}`)
+  // }
+  // console.log('productChosen', productChosen)
   return (
     <Layouts>
       <div style={{ width: '100%' }}>

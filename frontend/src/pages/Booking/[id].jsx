@@ -15,21 +15,27 @@ export default function Booking() {
   const router = useRouter()
   const { id } = router.query
   Cookies.set('restaurantId', id)
-  const [chooseOrderPosition, setChooseOrderPosition] = useState(true)
+  const [chooseOrderPosition, setChooseOrderPosition] = useState(true) //訂位or訂餐
   const { makeReservation, isAlert, reservationType } = useReservation()
   const { menuInfo } = useMenu(id)
   const { profileData } = useRestaurantProfile(id)
-  console.log(profileData)
-
+  const [isEatHere, setIsEatHere] = useState(false)
+  useEffect(() => {
+    if (Cookies.get('isReserved')) {
+      if (Cookies.get('isReserved').includes(id)) {
+        setIsEatHere(true)
+      } else {
+        setIsEatHere(false)
+      }
+    }
+  }, [])
   useEffect(() => {
     const isChooseOrderPosition = Cookies.get('chooseOrderPosition')
     if (isChooseOrderPosition === 'false') {
       setChooseOrderPosition(false)
     }
   }, [])
-  const handleChooseButtonOnclick = () => {
-    setChooseOrderPosition(!chooseOrderPosition)
-  }
+
   return (
     <Layouts>
       <div style={{ width: '100%', position: 'relative' }}>
@@ -68,7 +74,7 @@ export default function Booking() {
             style={{
               borderBottom: !chooseOrderPosition && '8px solid #F5F5F5'
             }}
-            onClick={handleChooseButtonOnclick}
+            onClick={() => setChooseOrderPosition(true)}
           >
             我要訂位
           </button>
@@ -76,21 +82,21 @@ export default function Booking() {
             style={{
               borderBottom: chooseOrderPosition && '8px solid #F5F5F5'
             }}
-            onClick={handleChooseButtonOnclick}
+            onClick={() => setChooseOrderPosition(false)}
           >
             我要訂餐
           </button>
         </div>
         {chooseOrderPosition ? (
           <OrderPosition
-            handleChooseButtonOnclick={handleChooseButtonOnclick}
+            // handleChooseButtonOnclick={handleChooseButtonOnclick}
             reservationType={reservationType}
             makeReservation={makeReservation}
             setChooseOrderPosition={setChooseOrderPosition}
           />
         ) : (
           <div>
-            <OrderFood menuInfo={menuInfo} />
+            <OrderFood menuInfo={menuInfo} isEatHere={isEatHere} />
           </div>
         )}
       </div>
