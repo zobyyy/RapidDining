@@ -7,15 +7,13 @@ export default function Layouts({ children, scrollBarHidden }) {
 
     const handleScroll = () => {
         const layoutElement = layoutRef.current;
+        const bottomDistance = layoutElement.scrollHeight - (layoutElement.scrollTop + layoutElement.clientHeight);
 
-        const total = layoutElement.scrollTop + layoutElement.clientHeight; 
-        console.log("isBottom: "+ isBottom)
-        console.log("scrollHeight: "+(layoutElement.scrollHeight - total))
+        console.log("bottom: "+isBottom)
 
         if (layoutElement) {
-            const isScrolledToBottom = layoutElement.scrollTop + layoutElement.clientHeight >= layoutElement.scrollHeight - 40;
-            if (isScrolledToBottom) {
-                console.log('已滑到底部');
+            if (bottomDistance < 40) {
+                console.log('滑到底了！');
                 setIsBottom(true);
             }
         }
