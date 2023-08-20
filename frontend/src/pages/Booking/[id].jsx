@@ -1,8 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react'
-import * as Yup from 'yup'
 import styles from './Booking.module.scss'
 import Layouts from '@/components/Layouts'
-import { Field, ErrorMessage } from 'formik'
 import Image from 'next/image'
 import Cookies from 'js-cookie'
 import OrderPosition from './OrderPosition'
@@ -11,6 +9,7 @@ import { useRouter } from 'next/router'
 import useReservation from '@/hook/useReservation'
 import Alert from '@/components/Alert'
 import useMenu from '@/hook/useMenu'
+import useRestaurantProfile from '@/hook/useRestaurantProfile'
 
 export default function Booking() {
   const router = useRouter()
@@ -18,7 +17,9 @@ export default function Booking() {
   const [chooseOrderPosition, setChooseOrderPosition] = useState(true)
   const { makeReservation, isAlert, reservationType } = useReservation()
   const { menuInfo } = useMenu(id)
-  console.log(id)
+  const { profileData } = useRestaurantProfile(id)
+  console.log(profileData)
+
   useEffect(() => {
     const isChooseOrderPosition = Cookies.get('chooseOrderPosition')
     if (isChooseOrderPosition === 'false') {
@@ -44,13 +45,22 @@ export default function Booking() {
           onClick={() => router.push('/')}
         />
         {isAlert && <Alert />}
-        <Image src='/餐廳照片.png' width={390} height={220} />
+        <Image
+          src={profileData?.data?.picture || '/餐廳照片.png'}
+          width={390}
+          height={220}
+          alt='餐廳照片'
+        />
         <div className={styles.storeInfo}>
-          <div className={styles.storeName}>AppWorks咖啡廳</div>
-          <div className={styles.storeAddress}>
-            中正區仁愛路二段99號9樓, Taipei, Taiwan
+          <div className={styles.storeName}>
+            {profileData?.data?.name || '餐廳名稱'}
           </div>
-          <div className={styles.storePhone}>02 1234 5678 </div>
+          <div className={styles.storeAddress}>
+            {profileData?.data?.address || '餐廳地址'}
+          </div>
+          <div className={styles.storePhone}>
+            {profileData?.data?.phone || '餐廳電話'}
+          </div>
         </div>
         <div className={styles.orderChoose}>
           <button

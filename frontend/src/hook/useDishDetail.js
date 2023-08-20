@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react'
 import Cookies from 'js-cookie'
 
-const useMenu = (id) => {
-  const [menuInfo, setMenuInfo] = useState(null)
+const useDishDetail = (id) => {
+  const [dishData, setDishData] = useState(null)
 
-  async function fetchMenu() {
+  async function fetchDishDetail() {
     try {
       const response = await fetch(
-        `https://107.22.142.48/api/1.0/menus/search?restaurantId=${id}`,
+        `https://107.22.142.48/api/1.0/menus/${id}`,
         {
           method: 'GET',
           headers: {
@@ -18,19 +18,19 @@ const useMenu = (id) => {
 
       if (response.ok) {
         const data = await response.json()
-        setMenuInfo(data)
+        setDishData(data)
       }
     } catch (error) {
       console.error(error)
     }
   }
   useEffect(() => {
-    fetchMenu()
+    fetchDishDetail()
   }, [id])
   return {
-    fetchMenu,
-    menuInfo
+    fetchDishDetail,
+    dishData
   }
 }
 
-export default useMenu
+export default useDishDetail

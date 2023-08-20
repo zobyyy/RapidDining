@@ -129,6 +129,3 @@ export async function menuSearch(req, res, next) { // eslint-disable-line no-unu
     return res.status(500).send({ "error": "internal server error" });
   }
 }
-
-
-
