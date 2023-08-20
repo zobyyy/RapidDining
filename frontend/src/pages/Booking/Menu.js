@@ -5,36 +5,15 @@ import ProductColumn from './ProductColumn'
 
 const Menu = ({ menuInfo }) => {
   const [activeKindIndex, setActiveKindIndex] = useState(0)
-
-  // const kindsRefs = menuInfo?.data.menu.map(() => useRef(null))
-
-  // useEffect(() => {
-  //   kindsRefs.forEach((ref, index) => {
-  //     kindsRefs[index] = ref
-  //   })
-  // }, [kindsRefs])
-  const kindsRefs = useRef([])
-
-  useEffect(() => {
-    kindsRefs.current = kindsRefs.current.slice(0, menuInfo?.data?.menu.length)
-  }, [menuInfo])
-
-  useEffect(() => {
-    kindsRefs.current.forEach((ref, index) => {
-      kindsRefs.current[index] = ref
-    })
-  }, [])
-
-  const scrollToKinds = (index) => {
-    if (kindsRefs[index]?.current) {
-      kindsRefs[index].current.scrollIntoView({
-        behavior: 'smooth'
-      })
-    }
-  }
   const handleKindClick = (index) => {
     setActiveKindIndex(index)
-    scrollToKinds(index)
+
+    const kindId = `kind-${index}`
+
+    const kindElement = document.getElementById(kindId)
+    if (kindElement) {
+      kindElement.scrollIntoView({ behavior: 'smooth' })
+    }
   }
 
   const Kinds = () => {
@@ -61,10 +40,11 @@ const Menu = ({ menuInfo }) => {
           <>
             <div
               key={index}
-              ref={kindsRefs[index]}
+              // ref={kindsRefs[index]}
               className={styles.kindsTitle}
+              id={`kind-${index}`}
             >
-              {type.type}
+              {type.type}{' '}
             </div>
             {type.dishes.map((dish, index) => (
               <ProductColumn dish={dish} key={index} />

@@ -29,7 +29,12 @@ const ProductColumn = ({ dish }) => {
             alignItems: 'center'
           }}
         >
-          <Image src={dish.picture || '/義大利麵.png'} width={83} height={83} />
+          <Image
+            src={dish.picture || '/義大利麵.png'}
+            width={83}
+            height={83}
+            style={{ objectFit: 'cover' }}
+          />
         </div>
       </div>
       <div
