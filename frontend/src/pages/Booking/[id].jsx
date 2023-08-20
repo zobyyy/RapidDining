@@ -14,6 +14,7 @@ import useRestaurantProfile from '@/hook/useRestaurantProfile'
 export default function Booking() {
   const router = useRouter()
   const { id } = router.query
+  Cookies.set('restaurantId', id)
   const [chooseOrderPosition, setChooseOrderPosition] = useState(true)
   const { makeReservation, isAlert, reservationType } = useReservation()
   const { menuInfo } = useMenu(id)

@@ -9,8 +9,8 @@ const ProductColumn = ({ dish }) => {
     return
   }
   const handleProductClick = () => {
-    Cookies.set('productId', product.id)
-    window.location.href = `/Product/${product.id}`
+    Cookies.set('dishId', dish.id)
+    window.location.href = `/Product/${dish.id}`
   }
 
   return (

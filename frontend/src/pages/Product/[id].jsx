@@ -9,6 +9,7 @@ import useDishDetail from '@/hook/useDishDetail'
 export default function Product() {
   Cookies.set('chooseOrderPosition', false)
   const router = useRouter()
+  const restaurantId = Cookies.get('restaurantId')
   const { id } = router.query
   const { dishData } = useDishDetail(id)
   let customized = []
@@ -129,7 +130,7 @@ export default function Product() {
     // Cookies.set('CustomizationName', JSON.stringify(selectedNames))
     Cookies.set('productChosen', JSON.stringify(productChosen))
     console.log('Product Chosen:', JSON.stringify(productChosen))
-    Cookies.get('restaurantId')
+
     router.push(`/Booking/${restaurantId}`)
   }
   return (
@@ -145,20 +146,20 @@ export default function Product() {
             margin: '3%',
             cursor: ' pointer'
           }}
-          onClick={() => router.push('/Booking')}
+          onClick={() => router.push(`/Booking/${restaurantId}`)}
         />
         <Image
-          src='/product_義大利麵.png'
+          src={dishData?.data.picture || '/product_義大利麵.png'}
           width={390}
           height={220}
-          style={{ zIndex: '1', position: 'absolute' }}
+          style={{ zIndex: '1', position: 'absolute', objectFit: 'cover' }}
         />
         <div className={styles.product}>
           <div className={styles.storeInfo}>
             <div className={styles.storeName}>{dishData?.data.name}</div>
             <div className={styles.storeName}>NT${dishData?.data.price}</div>
             <div className={styles.storeAddress}>
-              新鮮番茄醬與香料搭配，經典美味{' '}
+              {dishData?.data.description}
             </div>
           </div>
         </div>
