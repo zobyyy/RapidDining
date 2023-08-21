@@ -17,6 +17,7 @@ import { orderRequest } from './controller/order/request.js';
 import { orderPending } from './controller/order/pending.js';
 import { tableCancel } from './controller/reservation/tableCancel.js';
 
+import { orderCheckout } from './controller/order/checkout.js';
 
 /*************************
   * global config
@@ -73,6 +74,8 @@ app.get(`/api/${process.env.apiVer}/menus/search`, menuSearch);
 app.get(`/api/${process.env.apiVer}/menus/:dishId`, dishDetail);
 app.post(`/api/${process.env.apiVer}/orders/request`, orderRequest);
 app.get(`/api/${process.env.apiVer}/orders/pending`, orderPending);
+
+app.post(`/api/${process.env.apiVer}/orders/:orderId/checkout`, orderCheckout);
 
 app.listen(port, () => {
   console.log(`Rapid dining backend listening on port:${port}`);
