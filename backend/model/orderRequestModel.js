@@ -11,15 +11,14 @@ export async function createOrder(orderData){
         const orderId = insertOrderResults.insertId;
         console.log(`order is inserting to id...${orderId}`);
 
-
         //what dish is in this order
         for (const item of orderData.items) {
             const insertDishQuery = `
-      INSERT INTO OrderDish (orderId, dishId)
-      VALUES (?, ?);
+      INSERT INTO OrderDish (orderId, dishId,quantity)
+      VALUES (?, ?, ?);
     `;
 
-            const [insertDishResults] = await pool.query(insertDishQuery, [orderId, item.dishId]);
+            const [insertDishResults] = await pool.query(insertDishQuery, [orderId, item.dishId, item.quantity]);
             const orderDishId = insertDishResults.insertId;
             console.log(`add dish ${item.dishId} to orderId...${orderId}`);
 
@@ -30,9 +29,9 @@ export async function createOrder(orderData){
         VALUES (?, ?);
       `;
 
-            console.log(`check dishOptionId =${customization.dishoptionId}`);
-            await pool.query(insertCustomizationQuery, [orderDishId, customization.dishoptionId]);
-            console.log(`orderDishId ${orderDishId} is customized with ${customization.dishoptionId}`);
+            console.log(`check dishOptionId =${customization}`);
+            await pool.query(insertCustomizationQuery, [orderDishId, customization]);
+            console.log(`orderDishId ${orderDishId} is customized with ${customization}`);
             }
          }
   
