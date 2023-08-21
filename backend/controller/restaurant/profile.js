@@ -19,7 +19,8 @@ export async function restaurantProfile(req, res, next) { // eslint-disable-line
     return res.status(200).send({
       "data": {
         ...profile,
-        "picture": pictureForFrontend(profile.picture)
+        "picture": pictureForFrontend(profile.picture),
+        "banner": pictureForFrontend(profile.banner)
       }
     });
   } catch (err) {
