@@ -70,20 +70,22 @@ const ProductColumn = ({
       'allProductChosenToBackend',
       JSON.stringify(updatedProductChosenToBackend)
     )
-
-    setTimeout(() => {
-      window.location.reload()
-    }, 500)
+    setProductChosen((prevProductChosen) =>
+      prevProductChosen.filter((item) => item.dish_id !== productChosen.dish_id)
+    )
+    // setTimeout(() => {
+    //   window.location.reload()
+    // }, 500)
   }
 
-  const totalPrice = productChosen.price * number
+  const totalPrice = productChosen?.price * number
 
   return (
     <div className={styles.productCol}>
       <div>
         <div style={{ width: '100%', display: 'flex', flexDirection: 'row' }}>
           <Image
-            src={productChosen.picture || '/義大利麵.png'}
+            src={productChosen?.picture || '/義大利麵.png'}
             width={42}
             height={42}
             style={{ objectFit: 'cover' }}
@@ -96,8 +98,8 @@ const ProductColumn = ({
               marginLeft: '5px'
             }}
           >
-            <div className={styles.productName}>{productChosen.name}</div>
-            <div className={styles.productPrice}>NT${productChosen.price}</div>
+            <div className={styles.productName}>{productChosen?.name}</div>
+            <div className={styles.productPrice}>NT${productChosen?.price}</div>
             <div
               style={{
                 width: '100%',
@@ -107,8 +109,8 @@ const ProductColumn = ({
               }}
             >
               <div>
-                {productChosen.customization &&
-                  productChosen.customization.map((item, index) => (
+                {productChosen?.customization &&
+                  productChosen?.customization.map((item, index) => (
                     <div key={index} className={styles.customizationItem}>
                       {item}
                     </div>
@@ -143,7 +145,7 @@ const ProductColumn = ({
             src='/delete.png'
             width={24}
             height={24}
-            onClick={() => handleDeleteClick(productChosen.dish_id)}
+            onClick={() => handleDeleteClick(productChosen?.dish_id)}
             style={{
               cursor: ' pointer'
             }}
