@@ -25,7 +25,7 @@ const OrderFood = ({ menuInfo, profileData, isEatHere }) => {
   }, [chooseOrderPosition, productChosen])
   return (
     <div className={styles.order}>
-      <div className={styles.storeIntro}>{profileData?.data?.name}</div>
+      <div className={styles.storeIntro}>{profileData?.data?.description}</div>
 
       <div className={styles.orderFoodEatWhere}>
         {isEatHere ? '內用餐點' : '外帶自取'}
