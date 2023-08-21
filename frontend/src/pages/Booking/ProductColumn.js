@@ -15,8 +15,8 @@ const ProductColumn = ({ dish }) => {
     window.location.href = `/Product/${dish.id}`
   }
   useEffect(() => {
-    const allProductChosen = JSON.parse(Cookies.get('allProductChosen'))
-    if (allProductChosen) {
+    if (Cookies.get('allProductChosen')) {
+      const allProductChosen = JSON.parse(Cookies.get('allProductChosen'))
       const chosenItem = allProductChosen.find(
         (item) => item.dish_id === dish.id
       )
@@ -50,6 +50,7 @@ const ProductColumn = ({ dish }) => {
             width={83}
             height={83}
             style={{ objectFit: 'cover' }}
+            alt='product'
           />
         </div>
       </div>
@@ -70,8 +71,12 @@ const ProductColumn = ({ dish }) => {
             gap: '5px'
           }}
         >
-          {dish.spicy && <Image src='/辣.png' width={36} height={22} />}
-          {dish.vegan && <Image src='/素食.png' width={45} height={22} />}
+          {dish.spicy && (
+            <Image src='/辣.png' width={36} height={22} alt='辣' />
+          )}
+          {dish.vegan && (
+            <Image src='/素食.png' width={45} height={22} alt='素食' />
+          )}
         </div>
         <div
           style={{
@@ -81,11 +86,12 @@ const ProductColumn = ({ dish }) => {
           }}
         >
           <div className={styles.productPrice}>NT${dish.price}</div>
-          {isChosen && (
+          {chosenQuantity !== 0 && (
             <div className={styles.productChosenQuantity}>{chosenQuantity}</div>
           )}
 
           <Image
+            alt='AddProduct'
             src='/AddProduct.png'
             width={27}
             height={27}

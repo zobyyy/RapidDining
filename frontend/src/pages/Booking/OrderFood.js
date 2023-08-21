@@ -23,7 +23,6 @@ const OrderFood = ({ menuInfo, profileData, isEatHere }) => {
       const parsedProductChosen = JSON.parse(productChosenCookie)
       setProductChosen(parsedProductChosen)
       calculateCartInfo(parsedProductChosen)
-      console.log(productChosen)
     }
   }, [chooseOrderPosition, productChosen])
 
