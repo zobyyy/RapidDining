@@ -14,10 +14,9 @@ import { pool } from "./util.js";
 
 /**
  * @param {number} restaurantId
- * @param {number} minDishId
  * @returns {Promise<DBDishInList[]>}
  * */
-export async function getDishesOfRestaurant(restaurantId, minDishId) {
+export async function getDishesOfRestaurant(restaurantId) {
   const sql = `SELECT
                  d.*,
                  CASE
@@ -39,25 +38,12 @@ export async function getDishesOfRestaurant(restaurantId, minDishId) {
                    type,
                    isVegan
                  FROM dish
-                 WHERE restaurantId = ? AND id >= ?
-                 LIMIT 11
+                 WHERE restaurantId = ?
                ) AS d
                LEFT JOIN dish_dishOption d_do
                ON d.id = d_do.dishId
                LEFT JOIN dishOption do
                ON d_do.dishOptionId = do.id
                GROUP BY d.id`;
-  return (await pool.query(sql, [restaurantId, minDishId]))[0];
-}
-
-/**
-  * @param {number} restaurantId
-  * @param {string} type
-  * @returns {Promise<null | number>}
-  * */
-export async function getMinDishIdInTypeOfRestaurant(restaurantId, type) {
-  const sql = `SELECT MIN(id) AS id
-               FROM dish
-               WHERE restaurantId = ? AND type = ?`;
-  return (await pool.query(sql, [restaurantId, type]))[0][0].id;
+  return (await pool.query(sql, [restaurantId]))[0];
 }
