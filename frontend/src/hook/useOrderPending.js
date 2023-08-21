@@ -5,7 +5,6 @@ const useOrderPending = () => {
 
   async function fetchOrderPending(phone) {
     try {
-        console.log(phone);
       const response = await fetch(
         `https://107.22.142.48/api/1.0/orders/pending?phone=${phone}`,
         {
@@ -16,8 +15,8 @@ const useOrderPending = () => {
         }
       )
       if (response.ok) {
-        console.log("order: "+response)
-        setOrder(response.json().data);
+        const data = await response.json();
+        setOrder(data.data.order);
       }
     } catch (error) {
       console.error(error)

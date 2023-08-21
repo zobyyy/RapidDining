@@ -1,21 +1,29 @@
 import styles from './Home.module.scss'
 import Restaurant from './Restaurant'
 import useOrderPending from '@/hook/useOrderPending';
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 export default function SearchOrder({setIsSearch,setIsHidden}) {
   const [phone, setPhone] = useState('');
   const [errorState, setErrorState] = useState(false);
+  const [orderIsLoading, setOrderIsLoading] = useState(false); // 判斷Loading動畫和抓取資料
   const {order, fetchOrderPending} = useOrderPending();
 
   function validatePhone(phone) {
     if (phone.trim() !== '' && phone.length === 10) {
+      setOrderIsLoading(true);
       setErrorState(false);
       fetchOrderPending(phone);
     } else {
       setErrorState(true);
     }
   }
+  
+  // order更新後會把orderIsLoading設成true
+  useEffect(() => {
+    console.log("order: ", order);
+    setOrderIsLoading(false);
+  },[order])
 
   return (
     <div className={styles.overlay}>
