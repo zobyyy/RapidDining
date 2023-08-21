@@ -13,6 +13,7 @@ export default function Product() {
   const { id } = router.query
   const { dishData } = useDishDetail(id)
   const [productChosen, setProductChosen] = useState([])
+  const [productChosenToBackend, setProductChosenToBackend] = useState([])
   let customized = []
 
   let dish_id = ''
@@ -146,51 +147,41 @@ export default function Product() {
   }
   console.log('newProductChosen', newProductChosen)
   //傳給後端的是商品的「dishId+客製化選項+餐點數量」三個
-  const productChosenToBackend = {
-    dish_id: dishData?.data.dish_id,
-    customization: selectedIds,
+  const newProductChosenToBackend = {
+    dishId: dishData?.data.dish_id,
+    customized: selectedIds,
     quantity: number
   }
   const handleAddToCart = () => {
     const updatedProductChosen = [...productChosen, newProductChosen]
+    const updatedProductChosenToBackend = [
+      ...productChosenToBackend,
+      newProductChosenToBackend
+    ]
     setProductChosen(updatedProductChosen)
+    setProductChosenToBackend(updatedProductChosenToBackend)
     Cookies.set('allProductChosen', JSON.stringify(updatedProductChosen))
+    Cookies.set(
+      'allProductChosenToBackend',
+      JSON.stringify(updatedProductChosenToBackend)
+    )
     router.push(`/Booking/${restaurantId}`)
   }
   useEffect(() => {
     const allProductChosen = Cookies.get('allProductChosen')
+    const allProductChosenToBackend = Cookies.get('allProductChosenToBackend')
     const isProductChosen = allProductChosen !== undefined
 
     if (isProductChosen) {
       console.log('選過')
       const productChosenJSON = JSON.parse(allProductChosen)
+      const productChosenJSONToBackend = JSON.parse(allProductChosenToBackend)
       setProductChosen(productChosenJSON)
+      setProductChosenToBackend(productChosenJSONToBackend)
     } else {
       console.log('還沒選過')
     }
   }, [])
-  // const allProductChosen = Cookies.get('allProductChosen')
-  // const isProductChosen = allProductChosen !== undefined
-
-  // useEffect(() => {
-  //   if (isProductChosen) {
-  //     //true就是已經選過了
-  //     console.log('選過')
-  //     const productChosenJSON = [JSON.parse(allProductChosen)]
-  //     console.log('productChosenJSON', productChosenJSON)
-  //     const updatedAllProductChosen = [...productChosenJSON, newProductChosen]
-  //     console.log('updatedAllProductChosen', updatedAllProductChosen)
-  //     setProductChosen(JSON.stringify(updatedAllProductChosen))
-  //   } else {
-  //     console.log('還沒選過')
-  //     setProductChosen(JSON.stringify(newProductChosen))
-  //   }
-  // }, [setProductChosen])
-  // const handleAddToCart = () => {
-  //   Cookies.set('allProductChosen', productChosen)
-  //   router.push(`/Booking/${restaurantId}`)
-  // }
-  // console.log('productChosen', productChosen)
   return (
     <Layouts>
       <div style={{ width: '100%' }}>

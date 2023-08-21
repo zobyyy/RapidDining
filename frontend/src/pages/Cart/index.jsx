@@ -6,6 +6,8 @@ import Cookies from 'js-cookie'
 import ProductColumn from './ProductColumn'
 import { useRouter } from 'next/router'
 import Restaurant from '../Home/Restaurant'
+import BookingInfoInput from './BookingInfoInput'
+import useOrderRequest from '@/hook/useOrderReqest'
 console.log(Cookies.get('allProductChosen'))
 export default function Cart() {
   Cookies.set('chooseOrderPosition', false)
@@ -15,7 +17,8 @@ export default function Cart() {
   const [total, setTotal] = useState(0)
   const [isAdd, setIsAdd] = useState(false)
   const restaurantId = Cookies.get('restaurantId')
-
+  const isEatHere = Cookies.get('isEatHere')
+  const { orderRequest } = useOrderRequest()
   useEffect(() => {
     const allProductChosen = Cookies.get('allProductChosen')
     console.log('allProductChosen', allProductChosen)
@@ -28,11 +31,15 @@ export default function Cart() {
     }
   }, [])
   console.log(productChosen)
-  // 在某處的程式碼中
-  const totalPrice = productChosen[0].reduce((total, item) => {
-    // 對每個項目進行價格和數量的乘法操作，然後將結果相加
-    return total + item.price * item.quantity
-  }, 0)
+
+  useEffect(() => {
+    if (productChosen) {
+      const totalPrice = productChosen[0].reduce((total, item) => {
+        return total + item.price * item.quantity
+      }, 0)
+      setTotal(totalPrice)
+    }
+  }, [productChosen])
 
   return (
     <Layouts>
@@ -63,22 +70,35 @@ export default function Cart() {
             <div className={styles.productName}>尚未有商品加入</div>
           </div>
         )}
-
-        <div className={styles.buttonFixed}>
-          <div className={styles.cartTotalSquare}>
-            <div>總金額</div>
-            <div>NT${totalPrice}</div>
+        {isEatHere ? (
+          <div className={styles.buttonFixed}>
+            <div className={styles.cartTotalSquare}>
+              <div>總金額</div>
+              <div>NT${total}</div>
+            </div>
+            <div className={styles.buttonGruop}>
+              <button
+                className={styles.orderContinueButton}
+                onClick={() => router.push(`/Booking/${restaurantId}`)}
+              >
+                繼續點餐
+              </button>
+              <button className={styles.submitButton}>提交訂單</button>
+            </div>
           </div>
-          <div className={styles.buttonGruop}>
-            <button
-              className={styles.orderContinueButton}
-              onClick={() => router.push(`/Booking/${restaurantId}`)}
-            >
-              繼續點餐
-            </button>
-            <button className={styles.submitButton}>提交訂單</button>
+        ) : (
+          <div className={styles.buttonFixed}>
+            <div className={styles.cartTotalSquare}>
+              <div>總金額</div>
+              <div>NT${total}</div>
+            </div>
+            <BookingInfoInput
+              restaurantId={restaurantId}
+              total={total}
+              orderRequest={orderRequest}
+            />
           </div>
-        </div>
+        )}
       </div>
     </Layouts>
   )

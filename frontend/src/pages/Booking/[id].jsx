@@ -24,8 +24,10 @@ export default function Booking() {
     if (Cookies.get('isReserved')) {
       if (Cookies.get('isReserved').includes(id)) {
         setIsEatHere(true)
+        Cookies.set('isEatHere', true)
       } else {
         setIsEatHere(false)
+        Cookies.set('isEatHere', false)
       }
     }
   }, [])

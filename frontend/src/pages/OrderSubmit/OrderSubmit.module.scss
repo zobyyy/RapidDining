@@ -2,40 +2,42 @@
 @import '../../styles/global.scss';
 
 .devide {
-    width: 90%;
-    height: 8px;
-    background-color: $mainYellow;
-    margin: 18% auto 40%;
-    z-index: 99;
+  width: 90%;
+  height: 8px;
+  background-color: $mainYellow;
+  margin: 18% auto 40%;
+  z-index: 99;
 }
 
 .info {
-    width: 100%;
-    position: relative;
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30%;
+
+  .orderNumber {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 30%;
+  }
 
-    .orderNumber {
-        display: flex;
-    }
-
-    p {
-        font-size: 20px;
-        font-weight: 700;
-        line-height: 5px;
-    }
+  p {
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 5px;
+  }
 }
 
 .submit {
-    width: 35%;
-    height: 3rem;
-    text-align: center;
-    background-color: $mainRed;
-    border: none;
-    border-radius: 10px;
-    font-size: 20px;
-    color: white;
+  width: 35%;
+  height: 3rem;
+  text-align: center;
+  background-color: $mainRed;
+  border: none;
+  border-radius: 10px;
+  font-size: 20px;
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
 }
