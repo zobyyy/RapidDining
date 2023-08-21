@@ -11,6 +11,7 @@ export default function SearchOrder({setIsSearch,setIsHidden}) {
   function validatePhone(phone) {
     if (phone.trim() !== '' && phone.length === 10) {
       setErrorState(false);
+      fetchOrderPending(phone);
     } else {
       setErrorState(true);
     }
@@ -29,7 +30,7 @@ export default function SearchOrder({setIsSearch,setIsHidden}) {
             <input type="tel"
             value={phone}
             onChange={(e) => setPhone(e.target.value) } />
-            <button type="button" className={styles.submit} onClick={() => fetchOrderPending}>送出</button>
+            <button type="button" className={styles.submit} onClick={() => validatePhone(phone)}>送出</button>
           </div>
           {errorState 
             && 
