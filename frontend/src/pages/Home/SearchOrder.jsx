@@ -1,9 +1,11 @@
 import styles from './Home.module.scss'
 import Restaurant from './Restaurant'
+import useOrderPending from '@/hook/useOrderPending';
 import { useState } from 'react'
 
 export default function SearchOrder({setIsSearch,setIsHidden}) {
   const [phone, setPhone] = useState('');
+  const {order, fetchOrderPending} = useOrderPending();
   return (
     <div className={styles.overlay}>
       <div className={styles.searchBlock}>
@@ -17,7 +19,7 @@ export default function SearchOrder({setIsSearch,setIsHidden}) {
             <input type="tel"
             value={phone}
             onChange={(e) => setPhone(e.target.value) } />
-            <button type="button" className={styles.submit} onClick={() => setPhone('')}>送出</button>
+            <button type="button" className={styles.submit} onClick={() => {fetchOrderPending(phone.toString()); setPhone('')}}>送出</button>
           </div>
         </div>
         <Restaurant type={2} isBooking={true}/>
