@@ -72,7 +72,7 @@ export async function selectAllRestaurantSortedByTime(headCount, smallestId) {
 
 /**
  * @param {number} restaurantId
- * @returns {Promise<DBRestaurantProfile>}
+ * @returns {Promise<undefined | DBRestaurantProfile>}
  * */
 export async function restaurantProfile(restaurantId) {
   const sql = `SELECT
