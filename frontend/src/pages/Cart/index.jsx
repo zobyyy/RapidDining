@@ -81,21 +81,27 @@ export default function Cart() {
             }}
           ></div>
         </div>
-        {isAdd && productChosen ? (
-          productChosen[0].map((item, index) => (
-            <ProductColumn
-              key={index}
-              productChosen={item}
-              setProductChosen={setProductChosen}
-              total={total}
-              setTotal={setTotal}
-            />
-          ))
-        ) : (
-          <div className={styles.productCol}>
-            <div className={styles.productName}>尚未有商品加入</div>
-          </div>
-        )}
+        <div
+          className={
+            isEatHere ? styles.productContainerNoInput : styles.productContainer
+          }
+        >
+          {isAdd && productChosen ? (
+            productChosen[0].map((item, index) => (
+              <ProductColumn
+                key={index}
+                productChosen={item}
+                setProductChosen={setProductChosen}
+                total={total}
+                setTotal={setTotal}
+              />
+            ))
+          ) : (
+            <div className={styles.productCol}>
+              <div className={styles.productName}>尚未有商品加入</div>
+            </div>
+          )}
+        </div>
         {isEatHere ? (
           <div className={styles.buttonFixed}>
             <div className={styles.cartTotalSquare}>

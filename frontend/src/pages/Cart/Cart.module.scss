@@ -15,6 +15,20 @@
   box-sizing: border-box;
   gap: 20px;
 }
+.productContainer {
+  height: 360px;
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    width: 0px;
+  }
+}
+.productContainerNoInput {
+  height: 560px;
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    width: 0px;
+  }
+}
 .productNumber {
   display: flex;
   flex-direction: row;
