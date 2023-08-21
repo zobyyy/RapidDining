@@ -70,12 +70,12 @@ const ProductColumn = ({
       'allProductChosenToBackend',
       JSON.stringify(updatedProductChosenToBackend)
     )
-    setProductChosen((prevProductChosen) =>
-      prevProductChosen.filter((item) => item.dish_id !== productChosen.dish_id)
-    )
-    // setTimeout(() => {
-    //   window.location.reload()
-    // }, 500)
+    // setProductChosen((prevProductChosen) =>
+    //   prevProductChosen.filter((item) => item.dish_id !== productChosen.dish_id)
+    // )
+    setTimeout(() => {
+      window.location.reload()
+    }, 500)
   }
 
   const totalPrice = productChosen?.price * number
@@ -142,12 +142,13 @@ const ProductColumn = ({
         >
           <div className={styles.productPrice}>NT${totalPrice}</div>
           <Image
+            alt='delete'
             src='/delete.png'
             width={24}
             height={24}
             onClick={() => handleDeleteClick(productChosen?.dish_id)}
             style={{
-              cursor: ' pointer'
+              cursor: 'pointer'
             }}
           />
         </div>
