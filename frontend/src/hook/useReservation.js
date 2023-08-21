@@ -28,9 +28,11 @@ const useReservation = () => {
         if (data.data.tableId !== null) {
           setReservationType('check')
           Cookies.set('tableId', data.data.tableId)
+          Cookies.set('reservationId', null)
         } else if (data.data.tableId === null) {
           setReservationType('waiting')
-          Cookies.set('reservationCount', data.data.reservationCount)
+          Cookies.set('tableId', null)
+          Cookies.set('reservationId', data.data.reservationCount)
           Cookies.set('userName', requestBody.name)
           Cookies.set('userGender', requestBody.gender)
         }

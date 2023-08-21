@@ -27,8 +27,17 @@ const useOrderRequest = () => {
 
         Cookies.remove('allProductChosenToBackend')
         Cookies.remove('allProductChosen')
+        Cookies.remove('userName')
+        Cookies.remove('dishId')
+        Cookies.remove('reservationId')
+        Cookies.remove('userGender')
+        Cookies.remove('isEatHere')
+        Cookies.remove('tableId')
+        Cookies.remove('phone')
+        Cookies.remove('isReserved')
+        Cookies.remove('totalPrice')
+        Cookies.remove('chooseOrderPosition')
         router.push('/OrderSubmit')
-        // window.location.href = '/OrderSubmit'
       }
     } catch (error) {
       console.error(error)

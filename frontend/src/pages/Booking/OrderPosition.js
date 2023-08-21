@@ -13,7 +13,7 @@ const OrderPosition = ({
   const [isOrderPosition, setIsOrderPosition] = useState(false)
 
   const tableId = Cookies.get('tableId')
-  const reservationCount = Cookies.get('reservationCount')
+  const reservationId = Cookies.get('reservationId')
 
   const userName = Cookies.get('userName')
   const userGender = Cookies.get('userGender')
@@ -61,7 +61,7 @@ const OrderPosition = ({
         <>
           <button
             className={styles.orderButtonCancel}
-            onClick={handleOrderButtonClick}
+            // onClick={handleOrderButtonClick}
           >
             取消訂位
           </button>

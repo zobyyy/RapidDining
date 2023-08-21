@@ -30,7 +30,7 @@ export default function Booking() {
         Cookies.set('isEatHere', false)
       }
     }
-  }, [])
+  }, [chooseOrderPosition])
   useEffect(() => {
     const isChooseOrderPosition = Cookies.get('chooseOrderPosition')
     if (isChooseOrderPosition === 'false') {

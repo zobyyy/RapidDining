@@ -40,7 +40,33 @@ export default function Cart() {
       setTotal(totalPrice)
     }
   }, [productChosen])
+  const phone = Cookies.get('phone')
 
+  let tableId = 0
+  if (Cookies.get('tableId') !== 'null') {
+    tableId = Cookies.get('tableId')
+  } else {
+    tableId = null
+  }
+  let reservationId = 0
+  if (Cookies.get('reservationId') !== 'null') {
+    reservationId = Cookies.get('reservationId')
+  } else {
+    reservationId = null
+  }
+  const allProductChosenToBackend = Cookies.get('allProductChosenToBackend')
+  const handleSubmit = async () => {
+    const requestBody = {
+      restaurantId: 1,
+      tableId: tableId,
+      reservationId: reservationId,
+      items: JSON.parse(allProductChosenToBackend),
+      total: total,
+      phone: phone
+    }
+    console.log(requestBody)
+    await orderRequest(requestBody)
+  }
   return (
     <Layouts>
       <div style={{ width: '100%' }}>
@@ -83,7 +109,9 @@ export default function Cart() {
               >
                 繼續點餐
               </button>
-              <button className={styles.submitButton}>提交訂單</button>
+              <button className={styles.submitButton} onClick={handleSubmit}>
+                提交訂單
+              </button>
             </div>
           </div>
         ) : (
