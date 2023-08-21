@@ -98,7 +98,11 @@ export default function Booking() {
           />
         ) : (
           <div>
-            <OrderFood menuInfo={menuInfo} isEatHere={isEatHere} />
+            <OrderFood
+              menuInfo={menuInfo}
+              isEatHere={isEatHere}
+              profileData={profileData}
+            />
           </div>
         )}
       </div>
