@@ -1,10 +1,12 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styles from './Booking.module.scss'
 import Image from 'next/image'
 import Cookies from 'js-cookie'
 
 const ProductColumn = ({ dish }) => {
   const [isChosen, setIsChosen] = useState(true)
+  const [chosenQuantity, setChosenQuantity] = useState(0)
+
   if (dish === undefined) {
     return
   }
@@ -12,7 +14,21 @@ const ProductColumn = ({ dish }) => {
     Cookies.set('dishId', dish.id)
     window.location.href = `/Product/${dish.id}`
   }
-
+  useEffect(() => {
+    const allProductChosen = JSON.parse(Cookies.get('allProductChosen'))
+    if (allProductChosen) {
+      const chosenItem = allProductChosen.find(
+        (item) => item.dish_id === dish.id
+      )
+      if (chosenItem) {
+        setIsChosen(true)
+        setChosenQuantity(chosenItem.quantity)
+      } else {
+        setIsChosen(false)
+        setChosenQuantity(0)
+      }
+    }
+  }, [dish.id])
   return (
     <div className={styles.productCol}>
       <div style={{ width: '100%', display: 'flex', flexDirection: 'row' }}>
@@ -65,7 +81,9 @@ const ProductColumn = ({ dish }) => {
           }}
         >
           <div className={styles.productPrice}>NT${dish.price}</div>
-          {isChosen && <div className={styles.productChosenQuantity}>1</div>}
+          {isChosen && (
+            <div className={styles.productChosenQuantity}>{chosenQuantity}</div>
+          )}
 
           <Image
             src='/AddProduct.png'
