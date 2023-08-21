@@ -9,16 +9,47 @@ const ProductColumn = ({
   setTotal,
   setProductChosen
 }) => {
-  const [number, setNumber] = useState(1)
+  const [number, setNumber] = useState(productChosen.quantity)
+  useEffect(() => {
+    const allProductChosenToBackend = JSON.parse(
+      Cookies.get('allProductChosenToBackend')
+    )
+    const allProductChosen = JSON.parse(Cookies.get('allProductChosen'))
 
+    const updatedProductChosen = allProductChosen.map((item) => {
+      if (item.dish_id === productChosen.dish_id) {
+        return { ...item, quantity: number }
+      }
+      return item
+    })
+
+    const updatedProductChosenToBackend = allProductChosenToBackend.map(
+      (item) => {
+        if (item.dishId === productChosen.dish_id) {
+          return { ...item, quantity: number }
+        }
+        return item
+      }
+    )
+
+    Cookies.set('allProductChosen', JSON.stringify(updatedProductChosen))
+    Cookies.set(
+      'allProductChosenToBackend',
+      JSON.stringify(updatedProductChosenToBackend)
+    )
+    const totalPrice = productChosen?.price * number
+    // setTotal(totalPrice)
+  }, [number])
   const ProductNumber = () => {
     const handlePlusClick = () => {
       setNumber(number + 1)
+      window.location.reload()
     }
 
     const handleMinusClick = () => {
       if (number > 1) {
         setNumber(number - 1)
+        window.location.reload()
       }
     }
     return (

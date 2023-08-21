@@ -20,14 +20,11 @@ export default function Cart() {
   const restaurantId = Cookies.get('restaurantId')
   const isEatHere = Cookies.get('isEatHere')
   const { orderRequest } = useOrderRequest()
+  const [productColumnTotalPrices, setProductColumnTotalPrices] = useState([])
 
   useEffect(() => {
     const allProductChosen = Cookies.get('allProductChosen')
-    console.log('allProductChosen', allProductChosen)
-    console.log(
-      'allProductChosenToBackend',
-      Cookies.get('allProductChosenToBackend')
-    )
+
     const productChosenJSON = [JSON.parse(allProductChosen)]
     setProductChosen(productChosenJSON)
     if (allProductChosen) {
@@ -35,16 +32,22 @@ export default function Cart() {
     } else {
       setIsAdd(false)
     }
-  }, [])
-
-  useEffect(() => {
-    if (productChosen) {
-      const totalPrice = productChosen[0].reduce((total, item) => {
+    if (productChosenJSON && productChosenJSON[0]) {
+      const totalPrice = productChosenJSON[0].reduce((total, item) => {
         return total + item.price * item.quantity
       }, 0)
       setTotal(totalPrice)
     }
-  }, [productChosen])
+  }, [total])
+
+  // useEffect(() => {
+  //   if (productChosen) {
+  //     const totalPrice = productChosen[0].reduce((total, item) => {
+  //       return total + item.price * item.quantity
+  //     }, 0)
+  //     setTotal(totalPrice)
+  //   }
+  // }, [productChosen])
   const phone = Cookies.get('phone')
 
   let tableId = 0
