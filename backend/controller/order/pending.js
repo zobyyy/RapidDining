@@ -1,7 +1,8 @@
 import { getPendingOrders } from '../../model/getorderModel.js';
 
 export async function orderPending(req, res) {
-  const { phone } = req.body;
+  const { phone } = req.query;
+  console.log('phone is',phone);
   if (!phone||!phone.startsWith('09')) {
     return res.status(400).json({ error: 'Invalid phone format.' });
   }

@@ -11,7 +11,7 @@ export default function Restaurant( {type, restaurant} ) {
                 ?
                     <>
                         <Link href={`/Booking/${restaurant.id}`}>
-                            <div style={{position:'absolute', left: '29px', top:'0', width: '85%', height: '85%'}}></div>
+                            <div style={{position:'absolute', left: '29px', top:'0', width: '85%', height: '8rem'}}></div>
                         </Link>
                         <RestaurantInfo restaurant={restaurant} />
                     </>
