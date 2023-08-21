@@ -5,7 +5,17 @@ import { useState } from 'react'
 
 export default function SearchOrder({setIsSearch,setIsHidden}) {
   const [phone, setPhone] = useState('');
+  const [errorState, setErrorState] = useState(false);
   const {order, fetchOrderPending} = useOrderPending();
+
+  function validatePhone(phone) {
+    if (phone.trim() !== '' && phone.length === 10) {
+      setErrorState(false);
+    } else {
+      setErrorState(true);
+    }
+  }
+
   return (
     <div className={styles.overlay}>
       <div className={styles.searchBlock}>
@@ -19,8 +29,12 @@ export default function SearchOrder({setIsSearch,setIsHidden}) {
             <input type="tel"
             value={phone}
             onChange={(e) => setPhone(e.target.value) } />
-            <button type="button" className={styles.submit} onClick={() => {fetchOrderPending(phone.toString()); setPhone('')}}>送出</button>
+            <button type="button" className={styles.submit} onClick={() => fetchOrderPending}>送出</button>
           </div>
+          {errorState 
+            && 
+            <p className={styles.inputLabel} style={{color:'red',margin:'3px 0px 0px'}}>手機格式錯誤，請重新確認</p>
+          }
         </div>
         <Restaurant type={2} isBooking={true}/>
         <Restaurant type={2} isBooking={true}/>

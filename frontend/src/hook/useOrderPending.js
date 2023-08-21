@@ -5,15 +5,13 @@ const useOrderPending = () => {
 
   async function fetchOrderPending(phone) {
     try {
+        console.log(phone);
       const response = await fetch(
-        `https://107.22.142.48/api/1.0/orders/pending`,
+        `https://107.22.142.48/api/1.0/orders/pending?phone=${phone}`,
         {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json'
-          },
-          body: {
-            phone: phone
           }
         }
       )
