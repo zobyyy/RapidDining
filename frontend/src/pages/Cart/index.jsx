@@ -8,20 +8,26 @@ import { useRouter } from 'next/router'
 import Restaurant from '../Home/Restaurant'
 import BookingInfoInput from './BookingInfoInput'
 import useOrderRequest from '@/hook/useOrderReqest'
-console.log(Cookies.get('allProductChosen'))
+
 export default function Cart() {
   Cookies.set('chooseOrderPosition', false)
   const router = useRouter()
   const [number, setNumber] = useState(1)
   const [productChosen, setProductChosen] = useState(null)
+  const [productChosenToBack, setProductChosenToBack] = useState(null)
   const [total, setTotal] = useState(0)
   const [isAdd, setIsAdd] = useState(false)
   const restaurantId = Cookies.get('restaurantId')
   const isEatHere = Cookies.get('isEatHere')
   const { orderRequest } = useOrderRequest()
+
   useEffect(() => {
     const allProductChosen = Cookies.get('allProductChosen')
     console.log('allProductChosen', allProductChosen)
+    console.log(
+      'allProductChosenToBackend',
+      Cookies.get('allProductChosenToBackend')
+    )
     const productChosenJSON = [JSON.parse(allProductChosen)]
     setProductChosen(productChosenJSON)
     if (allProductChosen) {
@@ -30,7 +36,6 @@ export default function Cart() {
       setIsAdd(false)
     }
   }, [])
-  console.log(productChosen)
 
   useEffect(() => {
     if (productChosen) {
@@ -64,7 +69,6 @@ export default function Cart() {
       total: total,
       phone: phone
     }
-    console.log(requestBody)
     await orderRequest(requestBody)
   }
   return (
@@ -81,21 +85,27 @@ export default function Cart() {
             }}
           ></div>
         </div>
-        {isAdd && productChosen ? (
-          productChosen[0].map((item, index) => (
-            <ProductColumn
-              key={index}
-              productChosen={item}
-              setProductChosen={setProductChosen}
-              total={total}
-              setTotal={setTotal}
-            />
-          ))
-        ) : (
-          <div className={styles.productCol}>
-            <div className={styles.productName}>尚未有商品加入</div>
-          </div>
-        )}
+        <div
+          className={
+            isEatHere ? styles.productContainerNoInput : styles.productContainer
+          }
+        >
+          {isAdd && productChosen ? (
+            productChosen[0].map((item, index) => (
+              <ProductColumn
+                key={index}
+                productChosen={item}
+                setProductChosen={setProductChosen}
+                total={total}
+                setTotal={setTotal}
+              />
+            ))
+          ) : (
+            <div className={styles.productCol}>
+              <div className={styles.productName}>尚未有商品加入</div>
+            </div>
+          )}
+        </div>
         {isEatHere ? (
           <div className={styles.buttonFixed}>
             <div className={styles.cartTotalSquare}>

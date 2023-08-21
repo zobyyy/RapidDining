@@ -3,33 +3,14 @@ import styles from './Cart.module.scss'
 import Image from 'next/image'
 import Cookies from 'js-cookie'
 
-const ProductColumn = ({ productChosen, total, setTotal }) => {
+const ProductColumn = ({
+  productChosen,
+  total,
+  setTotal,
+  setProductChosen
+}) => {
   const [number, setNumber] = useState(1)
-  // useEffect(() => {
-  //   if (productChosen) {
-  //     setNumber(productChosen.quantity)
-  //   }
-  // }, [productChosen])
-  // useEffect(() => {
-  //   if (productChosen) {
-  //     const updatedProductChosen = { ...productChosen, quantity: number }
-  //     Cookies.set('productChosen', JSON.stringify(updatedProductChosen))
-  //     console.log(productChosen)
-  //   }
-  // }, [number, productChosen])
-  // useEffect(() => {
-  //   if (productChosen) {
-  //     setNumber(productChosen.quantity)
-  //     const updatedProductChosen = { ...productChosen, quantity: number }
-  //     Cookies.set('productChosen', JSON.stringify(updatedProductChosen))
-  //     const totalPrice = productChosen.price * number
-  //     Cookies.set(
-  //       'totalPrice',
-  //       parseInt(Cookies.get('totalPrice')) + totalPrice
-  //     )
-  //     setTotal(total + totalPrice)
-  //   }
-  // }, [number, productChosen, setTotal])
+
   const ProductNumber = () => {
     const handlePlusClick = () => {
       setNumber(number + 1)
@@ -70,17 +51,33 @@ const ProductColumn = ({ productChosen, total, setTotal }) => {
   }
 
   const handleDeleteClick = () => {
-    Cookies.remove('productChosen')
-    window.location.reload()
+    console.log('productChosen', productChosen)
+    const allProductChosenToBackend = JSON.parse(
+      Cookies.get('allProductChosenToBackend')
+    )
+    const allProductChosen = JSON.parse(Cookies.get('allProductChosen'))
+
+    const updatedProductChosen = allProductChosen.filter(
+      (item) => item.dish_id !== productChosen.dish_id
+    )
+    Cookies.set('allProductChosen', JSON.stringify(updatedProductChosen))
+
+    const updatedProductChosenToBackend = allProductChosenToBackend.filter(
+      (item) => item.dishId !== productChosen.dish_id
+    )
+
+    Cookies.set(
+      'allProductChosenToBackend',
+      JSON.stringify(updatedProductChosenToBackend)
+    )
+
+    setTimeout(() => {
+      window.location.reload()
+    }, 500)
   }
 
   const totalPrice = productChosen.price * number
 
-  Cookies.set('totalPrice', parseInt(Cookies.get('totalPrice')) + totalPrice)
-
-  // useEffect(() => {
-  //   setTotal(total + totalPrice)
-  // }, [totalPrice])
   return (
     <div className={styles.productCol}>
       <div>
@@ -146,7 +143,7 @@ const ProductColumn = ({ productChosen, total, setTotal }) => {
             src='/delete.png'
             width={24}
             height={24}
-            onClick={handleDeleteClick}
+            onClick={() => handleDeleteClick(productChosen.dish_id)}
             style={{
               cursor: ' pointer'
             }}

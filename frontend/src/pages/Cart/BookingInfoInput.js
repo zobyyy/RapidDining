@@ -79,7 +79,9 @@ const BookingInfoInput = ({ restaurantId, total, orderRequest }) => {
           <InputField title='訂位人姓名' name='name' type='text' />
           <RadioGroup />
         </div>
-        <InputField title='訂位人手機號碼' name='phoneNumber' type='text' />
+        <div>
+          <InputField title='訂位人手機號碼' name='phoneNumber' type='text' />
+        </div>
         <div className={styles.buttonGruop}>
           <button
             className={styles.orderContinueButton}
