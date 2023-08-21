@@ -67,11 +67,12 @@ export async function selectAllRestaurantSortedByTime(headCount, smallestId) {
   * @property {string} phone
   * @property {string} address
   * @property {string} picture
+  * @property {string} description
   * */
 
 /**
  * @param {number} restaurantId
- * @returns {Promise<DBRestaurantProfile>}
+ * @returns {Promise<undefined | DBRestaurantProfile>}
  * */
 export async function restaurantProfile(restaurantId) {
   const sql = `SELECT
@@ -79,7 +80,8 @@ export async function restaurantProfile(restaurantId) {
                  name,
                  phone,
                  address,
-                 picture
+                 picture,
+                 description
                FROM restaurant
                WHERE id = ?`;
   return (await pool.query(sql, [restaurantId]))[0][0];
