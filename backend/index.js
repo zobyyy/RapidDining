@@ -15,9 +15,15 @@ import { menuSearch } from './controller/menu/search.js';
 import { dishDetail } from './controller/menu/detail.js';
 import { orderRequest } from './controller/order/request.js';
 import { orderPending } from './controller/order/pending.js';
+import { inOrderSummary } from './controller/order/inorder.js';
+import { outOrderSummary } from './controller/order/outorder.js';
+import { orderDetail } from './controller/order/detail.js';
 import { tableCancel } from './controller/reservation/tableCancel.js';
 
 import { orderCheckout } from './controller/order/checkout.js';
+
+
+
 
 /*************************
   * global config
@@ -74,6 +80,11 @@ app.get(`/api/${process.env.apiVer}/menus/search`, menuSearch);
 app.get(`/api/${process.env.apiVer}/menus/:dishId`, dishDetail);
 app.post(`/api/${process.env.apiVer}/orders/request`, orderRequest);
 app.get(`/api/${process.env.apiVer}/orders/pending`, orderPending);
+app.get(`/api/${process.env.apiVer}/orders/detail`, orderDetail);
+app.get(`/api/${process.env.apiVer}/orders/inorder`, inOrderSummary);
+app.get(`/api/${process.env.apiVer}/orders/outorder`, outOrderSummary);
+
+
 
 app.post(`/api/${process.env.apiVer}/orders/:orderId/checkout`, orderCheckout);
 
