@@ -5,10 +5,9 @@ import useCancel from '@/hook/useCancel'
 import Image from 'next/image'
 import Cookies from 'js-cookie'
 
-const {cancleReservation, cancleBooking} = useCancel();
+const { cancleReservation, cancleBooking } = useCancel()
 
 const OrderPosition = ({
-  handleChooseButtonOnclick,
   makeReservation,
   reservationType,
   setChooseOrderPosition
@@ -17,9 +16,28 @@ const OrderPosition = ({
 
   const tableId = Cookies.get('tableId')
   const reservationId = Cookies.get('reservationId')
-
   const userName = Cookies.get('userName')
   const userGender = Cookies.get('userGender')
+  const handleWaitingCancel = () => {
+    Cookies.remove('reservationId')
+    Cookies.remove('isReserved')
+    Cookies.remove('isEatHere')
+    Cookies.remove('userGender')
+    Cookies.remove('userName')
+    Cookies.remove('phone')
+    Cookies.remove('tableId')
+    cancleReservation()
+  }
+  const handleBookingCancel = () => {
+    Cookies.remove('reservationId')
+    Cookies.remove('isReserved')
+    Cookies.remove('isEatHere')
+    Cookies.remove('userGender')
+    Cookies.remove('userName')
+    Cookies.remove('phone')
+    Cookies.remove('tableId')
+    cancleBooking()
+  }
   const BookingCheck = ({ handleChooseButtonOnclick }) => {
     return (
       <div
@@ -64,7 +82,7 @@ const OrderPosition = ({
         <>
           <button
             className={styles.orderButtonCancel}
-            // onClick={handleOrderButtonClick}
+            onClick={handleBookingCancel}
           >
             取消訂位
           </button>
@@ -128,13 +146,14 @@ const OrderPosition = ({
             >
               {reservationId}
             </div>
+            組
           </div>
           <div>如有位置會立即連絡您，謝謝！</div>
         </div>
         <>
           <button
             className={styles.orderButtonCancel}
-            // onClick={handleOrderButtonClick}
+            onClick={handleWaitingCancel}
           >
             取消候位
           </button>
