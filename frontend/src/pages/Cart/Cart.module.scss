@@ -119,6 +119,15 @@
   font-weight: 700;
 }
 //外帶填寫資料
+.inputSquare {
+  margin: 0 8%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 20px;
+}
 .inputGroup {
   width: 100%;
   position: relative;
