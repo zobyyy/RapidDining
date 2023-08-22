@@ -1,32 +1,44 @@
 import styles from './Checkout.module.scss'
 
-export default function OrderDetail(detail) {
+export default function OrderDetail( {detail} ) {
     return (
         <div className={styles.orderDetail}>
             <div className={styles.yellowBox}>
-                <p>編號：1234</p>
+                <p>編號：{detail.orderId}</p>
             </div>
             <p style={{alignSelf:'flex-start', margin:'2.5rem 1rem 1.5rem'}}>訂單內容：</p>
             <div className={styles.separator} />
             <div className={styles.detailList}>
-                
-                <DetailItem/>
+                {detail?.items?.map((item)=>(
+                    <DetailItem item = {item} />
+                ))}
             </div>
             <div className={styles.yellowBox} style={{marginTop:'auto',justifyContent:'space-between'}}>
                 <p>總金額</p>
-                <p>NT$295</p>
+                <p>NT${detail.total}</p>
             </div>
             <button>結帳</button>
         </div>
     )
 }
 
-function DetailItem () {
+function DetailItem ({item}) {
+    const customized = () => {
+        let customizedList = []
+        item.customized.map((flavor)=>(
+            customizedList.push(flavor.dishoption)
+        ))
+        return customizedList; 
+    }
     return(
         <div className={styles.detailItem}>
             <img src="/義大利麵.png" alt="" />
-            <p style={{fontSize:'16px',fontWeight:'400',margin:'0'}}>經典番茄義大利麵</p>
-            <p style={{fontSize:'40px',fontWeight:'700', color:'#F58873', marginLeft:'auto', marginTop:'0',marginRight:'1.5rem'}}>1</p>
+            <div>
+                <p style={{fontSize:'16px',fontWeight:'400',margin:'0'}}>{item.dishName}</p>
+                <p style={{fontSize:'16px',fontWeight:'400',color:'#959595',margin:'0.5rem 0px'}}>{customized()}</p>
+            </div>
+            
+            <p style={{fontSize:'40px',fontWeight:'700', color:'#F58873', marginLeft:'auto', marginTop:'0',marginRight:'1.5rem'}}>{item.quantity}</p>
         </div>
     )
 }

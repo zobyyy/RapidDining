@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react'
 export default function CheckoutPage() {
     const {order} = useOrderSummary();
     const {detail} = useOrderGet();
+    console.log("detail: ",detail.total)
   return (
     <Layouts>
         <div className={styles.sideBar}>
@@ -31,7 +32,7 @@ export default function CheckoutPage() {
                         <Order order={order} />
                     ))}
                 </div>
-                <OrderDetail detail = {detail} />
+                {detail && <OrderDetail detail = {detail} />}
             </div>
         </div>
     </Layouts>

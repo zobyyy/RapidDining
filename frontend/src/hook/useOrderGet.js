@@ -4,7 +4,7 @@ const useOrderGet = (orderId) => {
   const [detail, setDetail] = useState([])
 
   function fetchOrderDetail() {
-    fetch(`https://107.22.142.48/api/1.0/orders/detail?orderId=16`)
+    fetch(`https://107.22.142.48/api/1.0/orders/detail?orderId=41`)
         .then(response => {
         if (!response.ok) {
             throw new Error('Network response was not ok');
@@ -12,7 +12,7 @@ const useOrderGet = (orderId) => {
         return response.json();
         })
         .then(data => {
-            setDetail(data.data.items);
+            setDetail(data.data);
         })
         .catch(error => {
             console.error('Error fetching data:', error);
