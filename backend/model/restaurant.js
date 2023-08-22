@@ -37,7 +37,7 @@ export async function selectAllRestaurantSortedByTime(headCount) {
                LEFT JOIN (
                  SELECT
                    ol.restaurantId,
-                   SUM(dish.time) AS waitTime
+                   SUM(dish.time * od.quantity) AS waitTime
                  FROM OrderList ol
                  LEFT JOIN OrderDish od
                  ON ol.id = od.orderId

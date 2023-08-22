@@ -42,6 +42,7 @@ export async function reservationReserve(req, res) {
   
       return res.status(200).json({data:{
         "tableId": updateTableId,
+        "reservationId":null,
         "reservationCount": null,
       }});
      
@@ -49,11 +50,12 @@ export async function reservationReserve(req, res) {
     console.log("there is no vancancy")
 
     
-    await insertReservation(phone, headcount, restaurantId);
+    const inserReservationId = await insertReservation(phone, headcount, restaurantId);
     const reserveCount = await getWaitCount(restaurantId);
       console.log(`Sorry, you need to wait a while...${reserveCount}`);
       return res.status(200).json({data:{
         "tableId": null,
+        "reservationId": inserReservationId,
         "reservationCount": reserveCount,
       }});
 
