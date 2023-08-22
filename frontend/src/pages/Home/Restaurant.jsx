@@ -2,12 +2,15 @@ import Link from 'next/link'
 import { useState } from 'react'
 import styles from './Home.module.scss'
 import Image from 'next/image'
+import useCancel from '@/hook/useCancel'
+import Alert from '@/components/Alert'
 
 function getOrderContent(order) {
   if (
     order.tableId !== null &&
     order.reservationId === null &&
-    order.status === null
+    order.status === null &&
+    order.orderId === null
   ) {
     return (
       //只有訂位 沒訂餐
@@ -16,7 +19,7 @@ function getOrderContent(order) {
       </div>
     )
   } else if (
-    order.tableId === null &&
+    order.tableId !== null &&
     order.orderId !== null &&
     order.status === null
   ) {
@@ -67,28 +70,56 @@ function getTags(order) {
   if (
     order.tableId !== null &&
     order.reservationId === null &&
-    order.status === null
+    order.status === null &&
+    order.orderId === null
   ) {
     return <Tag tag={'已訂位'} />
-  } else if (order.tableId === null && order.orderId !== null) {
+  } else if (
+    order.tableId === null &&
+    order.reservationId !== null &&
+    order.status !== null &&
+    order.orderId !== null
+  ) {
     return (
       <>
         <Tag tag={'已訂位'} />
         <Tag tag={'已訂餐'} />
       </>
     )
-  } else if (order.tableId === null && order.orderId === null) {
+  } else if (
+    order.tableId !== null &&
+    order.reservationId === null &&
+    order.status !== null &&
+    order.orderId !== null
+  ) {
+    return (
+      <>
+        <Tag tag={'已訂位'} />
+        <Tag tag={'已訂餐'} />
+      </>
+    )
+  } else if (
+    order.tableId === null &&
+    order.reservationId !== null &&
+    order.status === null &&
+    order.orderId === null
+  ) {
     return <Tag tag={'已訂位'} />
   } else if (
     order.tableId === null &&
     order.reservationId === null &&
-    order.status === null
+    order.status === null &&
+    order.orderId !== null
   ) {
     return <Tag tag={'已訂餐'} />
   }
 }
 
-export default function Restaurant({ type, restaurant, order }) {
+export default function Restaurant({ type, restaurant, order, phone }) {
+  const { cancleReservation, cancleBooking } = useCancel({
+    phone,
+    restaurantId: order?.restaurantId
+  })
   return (
     <div
       style={
@@ -113,7 +144,14 @@ export default function Restaurant({ type, restaurant, order }) {
           <RestaurantInfo restaurant={restaurant} />
         </>
       ) : (
-        order && <OrderHistory order={order} />
+        order && (
+          <OrderHistory
+            order={order}
+            phone={phone}
+            cancleReservation={cancleReservation}
+            cancleBooking={cancleBooking}
+          />
+        )
       )}
     </div>
   )
@@ -141,10 +179,40 @@ function RestaurantInfo({ restaurant }) {
   )
 }
 
-function OrderHistory({ order }) {
+function OrderHistory({ order, cancleReservation, cancleBooking }) {
+  const [isCancelAlert, setIsCancelAlert] = useState(false)
+  const handleCancel = () => {
+    if (
+      order.tableId !== null &&
+      order.reservationId === null &&
+      order.status === null
+    ) {
+      // 訂位
+      cancleBooking()
+    } else if (
+      order.tableId === null &&
+      order.orderId !== null &&
+      order.status !== null
+    ) {
+      // 候位
+      cancleReservation()
+    }
+  }
+
   const pictureURL = 'https://107.22.142.48/pic/' + order.restaurantPic
   return (
     <div className={styles.order}>
+      {isCancelAlert && (
+        <Alert
+          setIsAlert={setIsCancelAlert}
+          title='確定取消？'
+          context='真的要取消？'
+          status='option'
+          yes='保留'
+          no='取消訂位'
+          onClickHandle={handleCancel}
+        />
+      )}
       <div className={styles.picture}>
         <Image
           width={75}
@@ -170,11 +238,17 @@ function OrderHistory({ order }) {
             display: 'flex',
             flexDirection: 'row',
             alignItems: 'center',
-            justifyContent: 'center'
+            justifyContent: 'space-around',
+            width: '100%'
           }}
         >
-          {getOrderContent(order)}{' '}
-          <button className={styles.orderHistoryButton}>取消</button>
+          {getOrderContent(order)}
+          <button
+            className={styles.orderHistoryButton}
+            onClick={() => setIsCancelAlert(true)}
+          >
+            取消
+          </button>
         </div>
       </div>
     </div>

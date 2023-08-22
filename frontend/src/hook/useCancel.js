@@ -1,8 +1,8 @@
 import Cookies from 'js-cookie'
 
-const useCancel = () => {
-  const restaurantId = parseInt(Cookies.get('restaurantsId'))
-  const phone = Cookies.get('phone')
+const useCancel = ({ phone, restaurantId }) => {
+  // const restaurantId = parseInt(Cookies.get('restaurantsId'))
+  // const phone = Cookies.get('phone')
 
   const requestBody = JSON.stringify({
     restaurantId: restaurantId,
@@ -31,7 +31,7 @@ const useCancel = () => {
         Cookies.remove('tableId')
         setTimeout(() => {
           window.location.reload()
-        }, 1000)
+        }, 100)
       }
       if (!response.ok) {
         throw new Error('Network response was not ok')
@@ -67,7 +67,7 @@ const useCancel = () => {
         Cookies.remove('tableId')
         setTimeout(() => {
           window.location.reload()
-        }, 1000)
+        }, 100)
       }
       console.log('取消訂位 response: ', response.json())
     } catch (error) {
