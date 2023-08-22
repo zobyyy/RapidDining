@@ -5,7 +5,12 @@ import * as Yup from 'yup'
 import { useRouter } from 'next/router'
 import Cookies from 'js-cookie'
 
-const BookingInfoInput = ({ isOrderPosition, makeReservation }) => {
+const BookingInfoInput = ({
+  isOrderPosition,
+  makeReservation,
+  setPhone,
+  phone
+}) => {
   const router = useRouter()
   const { id } = router.query
   const initialValues = {
@@ -22,12 +27,13 @@ const BookingInfoInput = ({ isOrderPosition, makeReservation }) => {
   })
   const handleSubmit = async (values) => {
     const requestBody = {
-      restaurantId: 1,
+      restaurantId: parseInt(id),
       headcount: parseInt(values.headcount),
       name: values.name,
       gender: values.gender,
       phone: values.phoneNumber
     }
+
     await makeReservation(requestBody)
     if (Cookies.get('isReserved')) {
       const isReserved = Cookies.get('isReserved')
@@ -37,7 +43,7 @@ const BookingInfoInput = ({ isOrderPosition, makeReservation }) => {
       const isReserved = [id]
       Cookies.set('isReserved', isReserved)
     }
-    Cookies.set('phone', values.phoneNumber)
+    // setPhone(values.phoneNumber)
   }
   const SelectGroup = () => {
     return (
