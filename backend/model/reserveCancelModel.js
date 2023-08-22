@@ -25,7 +25,6 @@ export async function cancelReservation(id) {
 
 
 export async function searchTableAndUpdate(phone, restaurantId) {
-  try {
     const connection = await pool.getConnection();
 
     try {
@@ -54,12 +53,9 @@ export async function searchTableAndUpdate(phone, restaurantId) {
     } finally {
       connection.release(); 
     }
-   
-  } catch (error) {
-    console.error('Error in searchTableAndUpdate:', error);
-    throw error;
   }
-}
+   
+
 
 
     
