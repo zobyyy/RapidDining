@@ -21,7 +21,7 @@ export default function Cart() {
 
     const productChosenJSON = [JSON.parse(allProductChosen)]
     setProductChosen(productChosenJSON)
-    if (allProductChosen === []) {
+    if (allProductChosen) {
       setIsAdd(true)
     } else {
       setIsAdd(false)
