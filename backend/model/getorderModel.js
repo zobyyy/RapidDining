@@ -78,7 +78,7 @@ export async function getPendingOrders(phone) {
       pendingOrders.push({
         tableId: null,
         reservationId: null,
-        orderId: orderInfo.id || null,
+        orderId: orderInfo.orderId || null,
         status: null,
         restaurantId: orderInfo.restaurantId || null,
         restaurantName: orderInfo.restaurantName || null,

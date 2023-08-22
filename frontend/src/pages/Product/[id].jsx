@@ -10,7 +10,7 @@ import { isEmptyArray } from 'formik'
 export default function Product() {
   Cookies.set('chooseOrderPosition', false)
   const router = useRouter()
-  const restaurantId = Cookies.get('restaurantId')
+  const restaurantId = Cookies.get('restaurantsId')
   const { id } = router.query
   const { dishData, isLoading } = useDishDetail(id)
   const [productChosen, setProductChosen] = useState([])

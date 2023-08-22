@@ -17,7 +17,7 @@ export default function Cart() {
   const [productChosenToBack, setProductChosenToBack] = useState(null)
   const [total, setTotal] = useState(0)
   const [isAdd, setIsAdd] = useState(false)
-  const restaurantId = Cookies.get('restaurantId')
+  const restaurantId = Cookies.get('restaurantsId')
   const isEatHere = Cookies.get('isEatHere')
   const { orderRequest } = useOrderRequest()
   const [productColumnTotalPrices, setProductColumnTotalPrices] = useState([])
@@ -58,14 +58,14 @@ export default function Cart() {
   }
   let reservationId = 0
   if (Cookies.get('reservationId') !== 'null') {
-    reservationId = Cookies.get('reservationId')
+    reservationId = parseInt(Cookies.get('reservationId'))
   } else {
     reservationId = null
   }
   const allProductChosenToBackend = Cookies.get('allProductChosenToBackend')
   const handleSubmit = async () => {
     const requestBody = {
-      restaurantId: 1,
+      restaurantId: parseInt(restaurantId),
       tableId: tableId,
       reservationId: reservationId,
       items: JSON.parse(allProductChosenToBackend),
