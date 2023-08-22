@@ -5,6 +5,7 @@ import Image from 'next/image'
 import Cookies from 'js-cookie'
 import { useRouter } from 'next/router'
 import useDishDetail from '@/hook/useDishDetail'
+import { isEmptyArray } from 'formik'
 
 export default function Product() {
   Cookies.set('chooseOrderPosition', false)
@@ -83,37 +84,44 @@ export default function Product() {
         return newSelectedOptions
       })
     }
+
     return (
       <div>
-        <div
-          style={{
-            padding: '2% 10%',
-            fontSize: '16px',
-            borderBottom: '1px solid #F5F5F5'
-          }}
-        >
-          依你喜好
-        </div>
-        {customized.map((option, index) => (
-          <div key={index} className={styles.type}>
-            {option.type}
-            <div className={styles.options}>
-              {option.option.map((subOption, subIndex) => (
-                <div
-                  key={subIndex}
-                  className={`${styles.optionsName} ${
-                    selectedOptions[option.type] === subOption.id
-                      ? styles.selectedOption
-                      : ''
-                  }`}
-                  onClick={() => handleOptionClick(option.type, subOption.id)}
-                >
-                  {subOption.taste}
-                </div>
-              ))}
+        {customized[0]?.type !== null && (
+          <>
+            <div
+              style={{
+                padding: '2% 10%',
+                fontSize: '16px',
+                borderBottom: '1px solid #F5F5F5'
+              }}
+            >
+              依你喜好
             </div>
-          </div>
-        ))}
+            {customized.map((option, index) => (
+              <div key={index} className={styles.type}>
+                {option.type}
+                <div className={styles.options}>
+                  {option.option.map((subOption, subIndex) => (
+                    <div
+                      key={subIndex}
+                      className={`${styles.optionsName} ${
+                        selectedOptions[option.type] === subOption.id
+                          ? styles.selectedOption
+                          : ''
+                      }`}
+                      onClick={() =>
+                        handleOptionClick(option.type, subOption.id)
+                      }
+                    >
+                      {subOption.taste}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </>
+        )}
       </div>
     )
   }

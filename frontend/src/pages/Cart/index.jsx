@@ -8,20 +8,23 @@ import { useRouter } from 'next/router'
 import Restaurant from '../Home/Restaurant'
 import BookingInfoInput from './BookingInfoInput'
 import useOrderRequest from '@/hook/useOrderReqest'
-console.log(Cookies.get('allProductChosen'))
+
 export default function Cart() {
   Cookies.set('chooseOrderPosition', false)
   const router = useRouter()
   const [number, setNumber] = useState(1)
   const [productChosen, setProductChosen] = useState(null)
+  const [productChosenToBack, setProductChosenToBack] = useState(null)
   const [total, setTotal] = useState(0)
   const [isAdd, setIsAdd] = useState(false)
   const restaurantId = Cookies.get('restaurantId')
   const isEatHere = Cookies.get('isEatHere')
   const { orderRequest } = useOrderRequest()
+  const [productColumnTotalPrices, setProductColumnTotalPrices] = useState([])
+
   useEffect(() => {
     const allProductChosen = Cookies.get('allProductChosen')
-    console.log('allProductChosen', allProductChosen)
+
     const productChosenJSON = [JSON.parse(allProductChosen)]
     setProductChosen(productChosenJSON)
     if (allProductChosen) {
@@ -29,17 +32,22 @@ export default function Cart() {
     } else {
       setIsAdd(false)
     }
-  }, [])
-  console.log(productChosen)
-
-  useEffect(() => {
-    if (productChosen) {
-      const totalPrice = productChosen[0].reduce((total, item) => {
+    if (productChosenJSON && productChosenJSON[0]) {
+      const totalPrice = productChosenJSON[0].reduce((total, item) => {
         return total + item.price * item.quantity
       }, 0)
       setTotal(totalPrice)
     }
-  }, [productChosen])
+  }, [total])
+
+  // useEffect(() => {
+  //   if (productChosen) {
+  //     const totalPrice = productChosen[0].reduce((total, item) => {
+  //       return total + item.price * item.quantity
+  //     }, 0)
+  //     setTotal(totalPrice)
+  //   }
+  // }, [productChosen])
   const phone = Cookies.get('phone')
 
   let tableId = 0
@@ -64,7 +72,6 @@ export default function Cart() {
       total: total,
       phone: phone
     }
-    console.log(requestBody)
     await orderRequest(requestBody)
   }
   return (
@@ -81,21 +88,27 @@ export default function Cart() {
             }}
           ></div>
         </div>
-        {isAdd && productChosen ? (
-          productChosen[0].map((item, index) => (
-            <ProductColumn
-              key={index}
-              productChosen={item}
-              setProductChosen={setProductChosen}
-              total={total}
-              setTotal={setTotal}
-            />
-          ))
-        ) : (
-          <div className={styles.productCol}>
-            <div className={styles.productName}>尚未有商品加入</div>
-          </div>
-        )}
+        <div
+          className={
+            isEatHere ? styles.productContainerNoInput : styles.productContainer
+          }
+        >
+          {isAdd && productChosen ? (
+            productChosen[0].map((item, index) => (
+              <ProductColumn
+                key={index}
+                productChosen={item}
+                setProductChosen={setProductChosen}
+                total={total}
+                setTotal={setTotal}
+              />
+            ))
+          ) : (
+            <div className={styles.productCol}>
+              <div className={styles.productName}>尚未有商品加入</div>
+            </div>
+          )}
+        </div>
         {isEatHere ? (
           <div className={styles.buttonFixed}>
             <div className={styles.cartTotalSquare}>

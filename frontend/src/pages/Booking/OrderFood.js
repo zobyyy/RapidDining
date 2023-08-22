@@ -9,6 +9,8 @@ const OrderFood = ({ menuInfo, profileData, isEatHere }) => {
   const { id } = router.query
   const [chooseOrderPosition, setChooseOrderPosition] = useState(true)
   const [productChosen, setProductChosen] = useState({})
+  const [cartQuantity, setCartQuantity] = useState(0)
+  const [cartTotalPrice, setCartTotalPrice] = useState(0)
 
   useEffect(() => {
     const isChooseOrderPosition = Cookies.get('chooseOrderPosition')
@@ -18,11 +20,25 @@ const OrderFood = ({ menuInfo, profileData, isEatHere }) => {
     }
     const productChosenCookie = Cookies.get('allProductChosen')
     if (productChosenCookie && !Object.keys(productChosen).length) {
-      // const parsedProductChosen = JSON.parse(productChosenCookie)
-      const parsedProductChosen = productChosenCookie
+      const parsedProductChosen = JSON.parse(productChosenCookie)
       setProductChosen(parsedProductChosen)
+      calculateCartInfo(parsedProductChosen)
     }
   }, [chooseOrderPosition, productChosen])
+
+  const calculateCartInfo = (chosenProducts) => {
+    let quantity = 0
+    let totalPrice = 0
+
+    chosenProducts.forEach((product) => {
+      quantity += product.quantity
+      totalPrice += product.price * product.quantity
+    })
+
+    setCartQuantity(quantity)
+    setCartTotalPrice(totalPrice)
+  }
+
   return (
     <div className={styles.order}>
       <div className={styles.storeIntro}>{profileData?.data?.description}</div>
@@ -45,9 +61,9 @@ const OrderFood = ({ menuInfo, profileData, isEatHere }) => {
             className={styles.cartButton}
             onClick={() => router.push('/Cart')}
           >
-            <div className={styles.cartButtonText}>1</div>
+            <div className={styles.cartButtonText}>{cartQuantity}</div>
             購物車
-            <div className={styles.cartButtonPrice}>NT$100</div>
+            <div className={styles.cartButtonPrice}>NT${cartTotalPrice}</div>
           </button>
         </div>
       )}

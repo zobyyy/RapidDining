@@ -3,41 +3,53 @@ import styles from './Cart.module.scss'
 import Image from 'next/image'
 import Cookies from 'js-cookie'
 
-const ProductColumn = ({ productChosen, total, setTotal }) => {
-  const [number, setNumber] = useState(1)
-  // useEffect(() => {
-  //   if (productChosen) {
-  //     setNumber(productChosen.quantity)
-  //   }
-  // }, [productChosen])
-  // useEffect(() => {
-  //   if (productChosen) {
-  //     const updatedProductChosen = { ...productChosen, quantity: number }
-  //     Cookies.set('productChosen', JSON.stringify(updatedProductChosen))
-  //     console.log(productChosen)
-  //   }
-  // }, [number, productChosen])
-  // useEffect(() => {
-  //   if (productChosen) {
-  //     setNumber(productChosen.quantity)
-  //     const updatedProductChosen = { ...productChosen, quantity: number }
-  //     Cookies.set('productChosen', JSON.stringify(updatedProductChosen))
-  //     const totalPrice = productChosen.price * number
-  //     Cookies.set(
-  //       'totalPrice',
-  //       parseInt(Cookies.get('totalPrice')) + totalPrice
-  //     )
-  //     setTotal(total + totalPrice)
-  //   }
-  // }, [number, productChosen, setTotal])
+const ProductColumn = ({
+  productChosen,
+  total,
+  setTotal,
+  setProductChosen
+}) => {
+  const [number, setNumber] = useState(productChosen.quantity)
+  useEffect(() => {
+    const allProductChosenToBackend = JSON.parse(
+      Cookies.get('allProductChosenToBackend')
+    )
+    const allProductChosen = JSON.parse(Cookies.get('allProductChosen'))
+
+    const updatedProductChosen = allProductChosen.map((item) => {
+      if (item.dish_id === productChosen.dish_id) {
+        return { ...item, quantity: number }
+      }
+      return item
+    })
+
+    const updatedProductChosenToBackend = allProductChosenToBackend.map(
+      (item) => {
+        if (item.dishId === productChosen.dish_id) {
+          return { ...item, quantity: number }
+        }
+        return item
+      }
+    )
+
+    Cookies.set('allProductChosen', JSON.stringify(updatedProductChosen))
+    Cookies.set(
+      'allProductChosenToBackend',
+      JSON.stringify(updatedProductChosenToBackend)
+    )
+    const totalPrice = productChosen?.price * number
+    // setTotal(totalPrice)
+  }, [number])
   const ProductNumber = () => {
     const handlePlusClick = () => {
       setNumber(number + 1)
+      window.location.reload()
     }
 
     const handleMinusClick = () => {
       if (number > 1) {
         setNumber(number - 1)
+        window.location.reload()
       }
     }
     return (
@@ -70,23 +82,41 @@ const ProductColumn = ({ productChosen, total, setTotal }) => {
   }
 
   const handleDeleteClick = () => {
-    Cookies.remove('productChosen')
-    window.location.reload()
+    console.log('productChosen', productChosen)
+    const allProductChosenToBackend = JSON.parse(
+      Cookies.get('allProductChosenToBackend')
+    )
+    const allProductChosen = JSON.parse(Cookies.get('allProductChosen'))
+
+    const updatedProductChosen = allProductChosen.filter(
+      (item) => item.dish_id !== productChosen.dish_id
+    )
+    Cookies.set('allProductChosen', JSON.stringify(updatedProductChosen))
+
+    const updatedProductChosenToBackend = allProductChosenToBackend.filter(
+      (item) => item.dishId !== productChosen.dish_id
+    )
+
+    Cookies.set(
+      'allProductChosenToBackend',
+      JSON.stringify(updatedProductChosenToBackend)
+    )
+    // setProductChosen((prevProductChosen) =>
+    //   prevProductChosen.filter((item) => item.dish_id !== productChosen.dish_id)
+    // )
+    setTimeout(() => {
+      window.location.reload()
+    }, 500)
   }
 
-  const totalPrice = productChosen.price * number
+  const totalPrice = productChosen?.price * number
 
-  Cookies.set('totalPrice', parseInt(Cookies.get('totalPrice')) + totalPrice)
-
-  // useEffect(() => {
-  //   setTotal(total + totalPrice)
-  // }, [totalPrice])
   return (
     <div className={styles.productCol}>
       <div>
         <div style={{ width: '100%', display: 'flex', flexDirection: 'row' }}>
           <Image
-            src={productChosen.picture || '/義大利麵.png'}
+            src={productChosen?.picture || '/義大利麵.png'}
             width={42}
             height={42}
             style={{ objectFit: 'cover' }}
@@ -99,8 +129,8 @@ const ProductColumn = ({ productChosen, total, setTotal }) => {
               marginLeft: '5px'
             }}
           >
-            <div className={styles.productName}>{productChosen.name}</div>
-            <div className={styles.productPrice}>NT${productChosen.price}</div>
+            <div className={styles.productName}>{productChosen?.name}</div>
+            <div className={styles.productPrice}>NT${productChosen?.price}</div>
             <div
               style={{
                 width: '100%',
@@ -110,8 +140,8 @@ const ProductColumn = ({ productChosen, total, setTotal }) => {
               }}
             >
               <div>
-                {productChosen.customization &&
-                  productChosen.customization.map((item, index) => (
+                {productChosen?.customization &&
+                  productChosen?.customization.map((item, index) => (
                     <div key={index} className={styles.customizationItem}>
                       {item}
                     </div>
@@ -143,12 +173,13 @@ const ProductColumn = ({ productChosen, total, setTotal }) => {
         >
           <div className={styles.productPrice}>NT${totalPrice}</div>
           <Image
+            alt='delete'
             src='/delete.png'
             width={24}
             height={24}
-            onClick={handleDeleteClick}
+            onClick={() => handleDeleteClick(productChosen?.dish_id)}
             style={{
-              cursor: ' pointer'
+              cursor: 'pointer'
             }}
           />
         </div>

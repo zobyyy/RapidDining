@@ -6,6 +6,9 @@ function ReqIsNumber(s) {
 
 export async function orderRequest(req, res) {
   const requestData = req.body;
+  console.log("reqbody",req.body);
+
+  
   if (
     !requestData.restaurantId ||
     !requestData.phone ||

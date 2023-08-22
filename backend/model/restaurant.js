@@ -68,6 +68,7 @@ export async function selectAllRestaurantSortedByTime(headCount, smallestId) {
   * @property {string} address
   * @property {string} picture
   * @property {string} description
+  * @property {null | string} banner
   * */
 
 /**
@@ -81,7 +82,8 @@ export async function restaurantProfile(restaurantId) {
                  phone,
                  address,
                  picture,
-                 description
+                 description,
+                 banner
                FROM restaurant
                WHERE id = ?`;
   return (await pool.query(sql, [restaurantId]))[0][0];
