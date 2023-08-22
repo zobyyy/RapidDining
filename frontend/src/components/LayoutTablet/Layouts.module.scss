@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+@import '../../styles/global.scss';
+
 .layouts {
   position: relative;
   margin-top: 5%;
@@ -7,7 +10,7 @@
   align-items: center;
   height: 1024px;
   width: 1366px; 
-  background: white;
+  background: #F4F5F8;
   flex-direction: column;
   overflow-y: auto;
   position: relative;
