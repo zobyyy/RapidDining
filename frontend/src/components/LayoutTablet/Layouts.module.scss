@@ -6,14 +6,13 @@
   margin-top: 5%;
   border: 5px solid black;
   display: flex;
+  flex-direction: row;
+  // gap: 2.5rem;
   justify-content: flex-start;
-  align-items: center;
   height: 1024px;
   width: 1366px; 
   background: #F4F5F8;
-  flex-direction: column;
-  overflow-y: auto;
-  position: relative;
+  overflow-y: hidden;
   &::-webkit-scrollbar {
     width: 0px;
   }
