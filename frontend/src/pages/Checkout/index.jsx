@@ -1,9 +1,14 @@
 import Layouts from '../../components/LayoutTablet'
 import Order from './Order'
 import OrderDetail from './OrderDetail'
+import useOrderSummary from '@/hook/useOrderSummary'
+import useOrderGet from '@/hook/useOrderGet'
 import styles from './Checkout.module.scss'
+import { useEffect, useState } from 'react'
 
 export default function CheckoutPage() {
+    const {order} = useOrderSummary();
+    const {detail} = useOrderGet();
   return (
     <Layouts>
         <div className={styles.sideBar}>
@@ -22,8 +27,9 @@ export default function CheckoutPage() {
             </div>
             <div className={styles.orderView}>
                 <div className={styles.orderList}>
-                    <Order type={1} />
-                    <Order type={2} />
+                    {order.map((order)=> (
+                        <Order type={1} />
+                    ))}
                 </div>
                 <OrderDetail />
             </div>
