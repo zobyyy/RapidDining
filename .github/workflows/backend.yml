@@ -1,0 +1,97 @@
+name: Backend CI
+on:
+  - push
+  - workflow_dispatch
+
+jobs:
+  emit_secrets:
+    name: write environment variables
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: .env
+        run: |
+          cd backend
+          echo '${{ secrets.BACKEND_ENV }}' > .env
+      - name: Cache secrets
+        uses: actions/cache/save@v3
+        with:
+          path: |
+            backend/.env
+          key: backendSecrets-${{ github.sha }}
+  packages:
+    name: Install Node Packages
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - name: Install packages
+        run: |
+          cd backend
+          npm install --omit=optional
+      - name: Restore installed packages
+        uses: actions/cache/save@v3
+        with:
+          path: |
+            ${{ vars.REPO_BASE }}/node_modules
+          key: backendNode_packages-${{ github.sha }}
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    needs:
+      - emit_secrets
+      - packages
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Restore installed packages
+        uses: actions/cache/restore@v3
+        with:
+          path: |
+            ${{ vars.REPO_BASE }}/node_modules
+          key: backendNode_packages-${{ github.sha }}
+          fail-on-cache-miss: true
+      - name: Check packages installation
+        run: |
+          cd backend
+          npm install --omit=optional
+      - name: Run ESlint
+        run: |
+          cd backend
+          npm run lint
+  test:
+    name: test
+    runs-on: ubuntu-latest
+    needs:
+      - emit_secrets
+      - packages
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Restore secrets
+        uses: actions/cache/restore@v3
+        with:
+          path: |
+            backend/.env
+          key: backendSecrets-${{ github.sha }}
+          fail-on-cache-miss: true
+      - name: Restore installed packages
+        uses: actions/cache/restore@v3
+        with:
+          path: |
+            ${{ vars.REPO_BASE }}/node_modules
+          key: backendNode_packages-${{ github.sha }}
+          fail-on-cache-miss: true
+      - name: Check packages installation
+        run: |
+          cd backend
+          npm install --omit=optional
+      - name: Run test
+        run: |
+          cd backend
+          npm run test
