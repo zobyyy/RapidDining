@@ -16,7 +16,8 @@ export default function Restaurant( {type, restaurant, order} ) {
                         <RestaurantInfo restaurant={restaurant} />
                     </>
                 :
-                    <OrderHistory order={order} />
+                    (order && <OrderHistory order={order} />)
+                    
             }
         </div>
     )
@@ -49,7 +50,6 @@ function RestaurantInfo ( { restaurant } ) {
 }
 
 function OrderHistory ( { order } ) {
-    let isBooking = true;
     const pictureURL = "https://107.22.142.48/pic/" + order.restaurantPic;
     return (
         <div className={styles.order}>
