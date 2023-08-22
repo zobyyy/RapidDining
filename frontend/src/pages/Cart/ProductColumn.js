@@ -37,19 +37,21 @@ const ProductColumn = ({
       'allProductChosenToBackend',
       JSON.stringify(updatedProductChosenToBackend)
     )
-    const totalPrice = productChosen?.price * number
-    // setTotal(totalPrice)
   }, [number])
   const ProductNumber = () => {
     const handlePlusClick = () => {
-      setNumber(number + 1)
-      window.location.reload()
+      const newNumber = number + 1
+      setNumber(newNumber)
+      const newTotalPrice = productChosen?.price * newNumber
+      setTotal(newTotalPrice)
     }
 
     const handleMinusClick = () => {
       if (number > 1) {
-        setNumber(number - 1)
-        window.location.reload()
+        const newNumber = number - 1
+        setNumber(newNumber)
+        const newTotalPrice = productChosen?.price * newNumber
+        setTotal(newTotalPrice)
       }
     }
     return (

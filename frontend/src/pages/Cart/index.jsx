@@ -1,27 +1,21 @@
 import React, { useRef, useEffect, useState } from 'react'
 import styles from './Cart.module.scss'
 import Layouts from '@/components/Layouts'
-import Image from 'next/image'
 import Cookies from 'js-cookie'
 import ProductColumn from './ProductColumn'
 import { useRouter } from 'next/router'
-import Restaurant from '../Home/Restaurant'
 import BookingInfoInput from './BookingInfoInput'
 import useOrderRequest from '@/hook/useOrderReqest'
 
 export default function Cart() {
   Cookies.set('chooseOrderPosition', false)
   const router = useRouter()
-  const [number, setNumber] = useState(1)
   const [productChosen, setProductChosen] = useState(null)
-  const [productChosenToBack, setProductChosenToBack] = useState(null)
   const [total, setTotal] = useState(0)
   const [isAdd, setIsAdd] = useState(false)
   const restaurantId = Cookies.get('restaurantsId')
   const isEatHere = Cookies.get('isEatHere')
   const { orderRequest } = useOrderRequest()
-  const [productColumnTotalPrices, setProductColumnTotalPrices] = useState([])
-
   useEffect(() => {
     const allProductChosen = Cookies.get('allProductChosen')
 
@@ -32,6 +26,7 @@ export default function Cart() {
     } else {
       setIsAdd(false)
     }
+
     if (productChosenJSON && productChosenJSON[0]) {
       const totalPrice = productChosenJSON[0].reduce((total, item) => {
         return total + item.price * item.quantity
@@ -40,14 +35,6 @@ export default function Cart() {
     }
   }, [total])
 
-  // useEffect(() => {
-  //   if (productChosen) {
-  //     const totalPrice = productChosen[0].reduce((total, item) => {
-  //       return total + item.price * item.quantity
-  //     }, 0)
-  //     setTotal(totalPrice)
-  //   }
-  // }, [productChosen])
   const phone = Cookies.get('phone')
 
   let tableId = 0

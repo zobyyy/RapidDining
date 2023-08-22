@@ -36,7 +36,7 @@ export default function SearchOrder({ setIsSearch, setIsHidden }) {
           onClick={() => {
             setIsSearch(false)
             setIsHidden(false)
-            setPhone([])
+            // setPhone([])
           }}
         >
           <img src='/icon_cancel.svg' alt='' />
@@ -58,7 +58,7 @@ export default function SearchOrder({ setIsSearch, setIsHidden }) {
               type='button'
               className={styles.submit}
               onClick={() => {
-                setPhone('')
+                // setPhone('')
                 validatePhone(phone)
               }}
             >
@@ -94,7 +94,7 @@ export default function SearchOrder({ setIsSearch, setIsHidden }) {
           </div>
         ) : (
           order.map((orderItem, index) => (
-            <Restaurant key={index} type={2} order={orderItem} />
+            <Restaurant key={index} type={2} order={orderItem} phone={phone} />
           ))
         )}
       </div>
