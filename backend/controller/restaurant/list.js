@@ -4,9 +4,8 @@ import { pictureForFrontend } from '../../util/util.js';
 /**
  * @param {import("express").Request} req
  * @param {import("express").Response} res
- * @param {import("express").NextFunction} next
  * */
-export async function restaurantList(req, res, next) { // eslint-disable-line no-unused-vars
+export async function restaurantList(req, res) {
   const headcount = +req.query.headcount;
   if (Number.isNaN(headcount)) {
     return res.status(400).send({ "error": "invalid headcount" })
