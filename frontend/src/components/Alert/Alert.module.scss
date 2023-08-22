@@ -1,7 +1,8 @@
+@import '@/styles/global.scss';
 .layouts {
   background: #fff;
   width: 80%;
-  height: 200px;
+  height: 230px;
   position: relative;
   display: flex;
   z-index: 50;
@@ -41,4 +42,41 @@
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+}
+.OKbutton {
+  color: #fff;
+  background: $mainLinear;
+  border-radius: 10px;
+  width: 80px;
+  height: 25px;
+  border: 0px;
+  cursor: pointer;
+  margin-top: 10px;
+  font-weight: 700;
+}
+.buttonGroup {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  > button {
+    border: 0px;
+    border-radius: 10px;
+    width: 80px;
+    height: 25px;
+    cursor: pointer;
+    margin-top: 10px;
+    font-weight: 700;
+    border-color: 1px solid #f58873;
+  }
+}
+.buttonYes {
+  border: 1px solid #f58873;
+  color: #f58873;
+  background: transparent;
+}
+.buttonNo {
+  border: 0px;
+  color: $DarkGrey;
+  background: transparent;
+  border: 1px solid $DarkGrey;
 }

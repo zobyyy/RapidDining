@@ -1,11 +1,11 @@
 import Cookies from 'js-cookie'
 
 const useCancel = () => {
-  const restaurantId = Cookies.get('restaurantId')
+  const restaurantId = parseInt(Cookies.get('restaurantsId'))
   const phone = Cookies.get('phone')
 
   const requestBody = JSON.stringify({
-    restaurantsId: restaurantId,
+    restaurantId: restaurantId,
     phone: phone
   })
 
@@ -15,10 +15,20 @@ const useCancel = () => {
         `https://107.22.142.48/api/1.0/reservations/cancel`,
         {
           method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json'
+          },
           body: requestBody
         }
       )
       if (response.ok) {
+        Cookies.remove('reservationId')
+        Cookies.remove('isReserved')
+        Cookies.remove('isEatHere')
+        Cookies.remove('userGender')
+        Cookies.remove('userName')
+        Cookies.remove('phone')
+        Cookies.remove('tableId')
         setTimeout(() => {
           window.location.reload()
         }, 1000)
@@ -38,11 +48,26 @@ const useCancel = () => {
         `https://107.22.142.48/api/1.0/tables/cancel`,
         {
           method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json'
+          },
           body: requestBody
         }
       )
       if (!response.ok) {
         throw new Error('Network response was not ok')
+      }
+      if (response.ok) {
+        Cookies.remove('reservationId')
+        Cookies.remove('isReserved')
+        Cookies.remove('isEatHere')
+        Cookies.remove('userGender')
+        Cookies.remove('userName')
+        Cookies.remove('phone')
+        Cookies.remove('tableId')
+        setTimeout(() => {
+          window.location.reload()
+        }, 1000)
       }
       console.log('取消訂位 response: ', response.json())
     } catch (error) {
