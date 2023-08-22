@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "dbDatabase=test mocha",
     "lint": "eslint ."
   },
   "type": "module",
@@ -28,10 +28,17 @@
   },
   "devDependencies": {
     "@types/body-parser": "^1.19.2",
+    "@types/chai": "^4.3.5",
     "@types/cors": "^2.8.13",
     "@types/eslint": "^8.44.2",
     "@types/express": "^4.17.17",
+    "@types/mocha": "^10.0.1",
+    "@types/supertest": "^2.0.12",
+    "chai": "^4.3.7",
     "eslint": "^8.47.0",
-    "eslint-plugin-jsdoc": "^46.4.6"
+    "eslint-plugin-jsdoc": "^46.4.6",
+    "eslint-plugin-mocha": "^10.1.0",
+    "mocha": "^10.2.0",
+    "supertest": "^6.3.3"
   }
 }
