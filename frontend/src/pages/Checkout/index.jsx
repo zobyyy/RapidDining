@@ -1,9 +1,12 @@
 import Layouts from '../../components/LayoutTablet'
 import Order from './Order'
 import OrderDetail from './OrderDetail'
+import useOrderSummary from '@/hook/useOrderSummary'
 import styles from './Checkout.module.scss'
+import { useState } from 'react'
 
 export default function CheckoutPage() {
+    const {order} = useOrderSummary();
   return (
     <Layouts>
         <div className={styles.sideBar}>
