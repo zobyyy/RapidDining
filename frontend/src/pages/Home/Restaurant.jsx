@@ -50,7 +50,7 @@ function RestaurantInfo({ restaurant }) {
         <p className={styles.restaurantName}>{restaurant.name}</p>
         {/* mockData 現在用訂位狀況判斷 */}
         <div className={styles.tag}>
-          {restaurant.availability ? '無空位' : '有空位'}
+          {restaurant.availability ? '有空位' : '無空位'}
         </div>
         <div className={styles.waitTime}>
           <p className={styles.text}>平均等待時間</p>
@@ -67,7 +67,7 @@ function OrderHistory({ order }) {
   return (
     <div className={styles.order}>
       <div className={styles.picture}>
-        <img src={pictureURL} alt='' />
+        <img src={pictureURL} className={styles.restaurantPicture} alt='' />
         {(order.tableId !== null || order.reservationId !== null) && (
           <Tag tag={'已訂位'} />
         )}
@@ -86,6 +86,7 @@ function OrderHistory({ order }) {
             <p className={styles.text}>訂餐編號：{order.orderId}</p>
           </div>
         )}
+        <button className={styles.orderHistoryButton}>取消</button>
       </div>
     </div>
   )

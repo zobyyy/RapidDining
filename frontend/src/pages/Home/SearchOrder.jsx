@@ -7,7 +7,7 @@ export default function SearchOrder({ setIsSearch, setIsHidden }) {
   const [phone, setPhone] = useState('')
   const [errorState, setErrorState] = useState(false)
   const [orderIsLoading, setOrderIsLoading] = useState(false) // 判斷Loading動畫和抓取資料
-  const { order, fetchOrderPending } = useOrderPending()
+  const { order, fetchOrderPending, isLoading } = useOrderPending()
 
   function validatePhone(phone) {
     if (phone.trim() !== '' && phone.length === 10) {
@@ -74,14 +74,28 @@ export default function SearchOrder({ setIsSearch, setIsHidden }) {
             </p>
           )}
         </div>
-        {order.length !== 0 ? (
-          order.map((order) => <Restaurant type={2} order={order} />)
-        ) : (
-          <p
-            style={{ textAlign: 'center', fontSize: '14px', marginTop: '0px' }}
+
+        {isLoading ? (
+          <div
+            style={{
+              position: 'relative',
+              display: 'flex',
+              width: '100px',
+              height: '100px',
+              justifyContent: 'center',
+              alignItems: 'center'
+            }}
           >
-            目前沒有訂單
-          </p>
+            <div className={styles.ldsfacebook}>
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+          </div>
+        ) : (
+          order.map((orderItem, index) => (
+            <Restaurant key={index} type={2} order={orderItem} />
+          ))
         )}
       </div>
     </div>

@@ -271,7 +271,7 @@
     }
   }
 }
-
+//loading
 .ldsfacebook {
   display: inline-block;
   position: relative;
@@ -319,231 +319,249 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: 130%;
+  height: 100%;
   background-color: rgba(0, 0, 0, 0.3);
   z-index: 100;
+}
+.searchBlock {
+  position: relative;
+  display: flex;
+  width: 83.5%;
+  max-height: 35rem;
+  padding: 10px 0;
 
-  .searchBlock {
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  background-color: #fff;
+  border-radius: 20px;
+  overflow-y: auto;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  .cancle {
     position: absolute;
-    width: 83.5%;
-    max-height: 35rem;
-    top: 13rem;
-    display: flex;
-    flex-wrap: wrap;
+    border: none;
+    background: rgba(0, 0, 0, 0);
+    right: 7px;
+    top: 7px;
+    cursor: pointer;
+  }
+
+  .title {
     justify-content: center;
-    align-items: flex-start;
-    background-color: #fff;
-    border-radius: 20px;
-    overflow-y: auto;
-    &::-webkit-scrollbar {
-      display: none;
+    align-items: center;
+    display: flex;
+    width: 85%;
+    font-size: 16px;
+    font-weight: 500;
+    margin-top: 1.5rem;
+    border-bottom: 5px $mainYellow solid;
+    padding-bottom: 20px;
+  }
+
+  .inputBlock {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 0px 8% 1rem;
+
+    .inputLabel {
+      font-size: 14px;
+      align-self: flex-start;
     }
 
-    .cancle {
-      position: absolute;
-      border: none;
-      background: rgba(0, 0, 0, 0);
-      right: 7px;
-      top: 7px;
-      cursor: pointer;
+    .inputBar {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      width: 95%;
+      border: 1px solid $DarkGrey;
+      border-radius: 10px;
+      padding: 2.5%;
+
+      input {
+        width: 80%;
+        border: none;
+        outline: none;
+      }
+
+      .submit {
+        background-color: $Grey;
+        border: none;
+        border-radius: 10px;
+        padding: 1.5% 3%;
+        cursor: pointer;
+      }
     }
 
-    .title {
-      font-size: 16px;
-      font-weight: 500;
-      margin-top: 1.5rem;
-    }
+    .inputBar_red {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      width: 95%;
+      border: 1px solid $mainRed;
+      border-radius: 10px;
+      padding: 2.5%;
 
-    .inputBlock {
+      input {
+        width: 80%;
+        border: none;
+        outline: none;
+      }
+
+      .submit {
+        background-color: $mainRed;
+        border: none;
+        border-radius: 10px;
+        padding: 1.5% 3%;
+        color: #fff;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .order {
+    width: 85%;
+    height: 6rem;
+    display: flex;
+    border: 1px solid $Grey;
+    border-radius: 10px;
+    margin: 1% auto 1rem;
+
+    .picture {
+      position: relative;
       display: flex;
       flex-direction: column;
+      width: 40%;
+      height: 100%;
       justify-content: center;
       align-items: center;
-      width: 100%;
-      padding: 0px 8% 1rem;
+      border-radius: 10px 0px 0px 10px;
+      background-color: $mainRed;
 
-      .inputLabel {
-        font-size: 14px;
-        align-self: flex-start;
+      img {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border-radius: 10px 0px 0px 10px;
+        object-fit: cover;
       }
 
-      .inputBar {
+      .bookingTag {
+        position: relative;
         display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        width: 95%;
-        border: 1px solid $DarkGrey;
-        border-radius: 10px;
-        padding: 2.5%;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        width: 100px;
+        height: 2rem;
 
-        input {
-          width: 80%;
-          border: none;
-          outline: none;
+        .tick {
+          position: absolute;
+          left: 19px;
+          width: min-content;
+          height: min-content;
         }
 
-        .submit {
-          background-color: $Grey;
-          border: none;
-          border-radius: 10px;
-          padding: 1.5% 3%;
-          cursor: pointer;
-        }
-      }
-
-      .inputBar_red {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        width: 95%;
-        border: 1px solid $mainRed;
-        border-radius: 10px;
-        padding: 2.5%;
-
-        input {
-          width: 80%;
-          border: none;
-          outline: none;
-        }
-
-        .submit {
-          background-color: $mainRed;
-          border: none;
-          border-radius: 10px;
-          padding: 1.5% 3%;
+        .text {
+          position: absolute;
+          left: 45px;
+          font-size: 12px;
+          font-weight: 700;
           color: #fff;
-          cursor: pointer;
+          z-index: 999;
         }
       }
     }
 
-    .order {
-      width: 85%;
-      height: 6rem;
+    .info {
+      width: 60%;
+      height: 100%;
       display: flex;
-      border: 1px solid $Grey;
-      border-radius: 10px;
-      margin: 1% auto 1rem;
+      flex-direction: column;
+      padding: 0px 6%;
 
-      .picture {
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        width: 40%;
-        height: 100%;
-        justify-content: center;
-        align-items: center;
-        border-radius: 10px 0px 0px 10px;
-        background-color: $mainRed;
-
-        img {
-          position: absolute;
-          width: 100%;
-          height: 100%;
-          border-radius: 10px 0px 0px 10px;
-          object-fit: cover;
-        }
-
-        .bookingTag {
-          position: relative;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 5px;
-          width: 100px;
-          height: 2rem;
-
-          .tick {
-            position: absolute;
-            left: 19px;
-            width: min-content;
-            height: min-content;
-          }
-
-          .text {
-            position: absolute;
-            left: 45px;
-            font-size: 12px;
-            font-weight: 700;
-            color: #fff;
-            z-index: 999;
-          }
-        }
+      .restaurantName {
+        font-size: 14px;
+        font-weight: 700;
+        line-height: 14px;
       }
 
-      .info {
-        width: 60%;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        padding: 0px 6%;
+      .orderInfo {
+        width: 100%;
 
-        .restaurantName {
-          font-size: 14px;
-          font-weight: 700;
-          line-height: 14px;
-        }
-
-        .orderInfo {
-          width: 100%;
-
-          .text {
-            font-size: 12px;
-            font-weight: 400;
-            color: $DarkGrey;
-            line-height: 8px;
-          }
-        }
-      }
-
-      .info_isBooking {
-        width: 60%;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        padding: 0px 6%;
-
-        .restaurantName {
-          font-size: 16px;
-          font-weight: 700;
-          line-height: 15px;
+        .text {
+          font-size: 12px;
+          font-weight: 400;
           color: $DarkGrey;
+          line-height: 8px;
         }
+      }
+    }
 
-        .tag {
-          width: 33%;
-          height: 25%;
-          background-color: $lightGrey;
-          border-radius: 20px;
+    .info_isBooking {
+      width: 60%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      padding: 0px 6%;
+
+      .restaurantName {
+        font-size: 16px;
+        font-weight: 700;
+        line-height: 15px;
+        color: $DarkGrey;
+      }
+
+      .tag {
+        width: 33%;
+        height: 25%;
+        background-color: $lightGrey;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 24px;
+        text-align: center;
+        color: $DarkGrey;
+      }
+
+      .waitTime {
+        width: 100%;
+        display: flex;
+        align-items: flex-start;
+
+        .text {
           font-size: 12px;
           font-weight: 400;
           line-height: 24px;
-          text-align: center;
-          color: $DarkGrey;
+          color: $Grey;
         }
 
-        .waitTime {
-          width: 100%;
-          display: flex;
-          align-items: flex-start;
-
-          .text {
-            font-size: 12px;
-            font-weight: 400;
-            line-height: 24px;
-            color: $Grey;
-          }
-
-          .time {
-            font-size: 23px;
-            font-weight: 700;
-            line-height: 0px;
-            margin-left: auto;
-            margin-right: 2%;
-            color: $Grey;
-          }
+        .time {
+          font-size: 23px;
+          font-weight: 700;
+          line-height: 0px;
+          margin-left: auto;
+          margin-right: 2%;
+          color: $Grey;
         }
       }
     }
   }
+}
+.restaurantPicture {
+  -webkit-filter: brightness(0.7);
+}
+.orderHistoryButton {
+  width: 50px;
+  height: 25px;
+  border-radius: 10px;
+  border: 1px solid var(--unnamed, $DarkGrey);
+  color: $DarkGrey;
+  background: transparent;
+  font-size: 12px;
 }

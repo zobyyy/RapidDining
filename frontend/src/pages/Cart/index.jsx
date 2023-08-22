@@ -67,7 +67,7 @@ export default function Cart() {
     const requestBody = {
       restaurantId: 1,
       tableId: tableId,
-      reservationId: reservationId,
+      reservationId: parseInt(reservationId),
       items: JSON.parse(allProductChosenToBackend),
       total: total,
       phone: phone
