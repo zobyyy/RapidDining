@@ -10,21 +10,44 @@ function getOrderContent(order) {
     order.status === null
   ) {
     return (
+      //只有訂位 沒訂餐
       <div className={styles.orderInfo}>
-        <p className={styles.text}>請於10分鐘內抵達</p>
+        <div className={styles.text}>請於10分鐘內抵達</div>
       </div>
     )
-  } else if (order.tableId === null && order.orderId !== null) {
+  } else if (
+    order.tableId === null &&
+    order.orderId !== null &&
+    order.status === null
+  ) {
     return (
+      //訂位+訂餐
       <div className={styles.orderInfo}>
-        <p className={styles.text}>候位第{order.status}組</p>
-        <p className={styles.text}>訂餐編號：{order.orderId}</p>
+        <div className={styles.text}>請於10分鐘內抵達</div>
+        <div className={styles.text}>訂餐編號：{order.orderId}</div>
       </div>
     )
-  } else if (order.tableId === null && order.orderId === null) {
+  } else if (
+    order.tableId === null &&
+    order.orderId !== null &&
+    order.status !== null
+  ) {
     return (
+      //候位有訂餐
       <div className={styles.orderInfo}>
-        <p className={styles.text}>候位第{order.status}組</p>
+        <div className={styles.text}>候位第{order.status}組</div>
+        <div className={styles.text}>訂餐編號：{order.orderId}</div>
+      </div>
+    )
+  } else if (
+    order.tableId === null &&
+    order.orderId === null &&
+    order.reservationId === null
+  ) {
+    return (
+      //只有候位沒訂餐
+      <div className={styles.orderInfo}>
+        <div className={styles.text}>候位第{order.status}組</div>
       </div>
     )
   } else if (
@@ -32,9 +55,10 @@ function getOrderContent(order) {
     order.reservationId === null &&
     order.status === null
   ) {
+    //外帶
     return (
       <div className={styles.orderInfo}>
-        <p className={styles.text}>訂餐編號：{order.orderId}</p>
+        <div className={styles.text}>訂餐編號：{order.orderId}</div>
       </div>
     )
   }
@@ -131,13 +155,22 @@ function OrderHistory({ order }) {
         />
         {getTags(order)}
       </div>
-      <div className={styles.info}>
+      <div
+        className={styles.info}
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'flex-start',
+          justifyContent: 'space-around'
+        }}
+      >
         <p className={styles.restaurantName}>{order.restaurantName}</p>
         <div
           style={{
             display: 'flex',
             flexDirection: 'row',
-            alignItems: 'center'
+            alignItems: 'center',
+            justifyContent: 'center'
           }}
         >
           {getOrderContent(order)}{' '}
