@@ -4,8 +4,8 @@ import 'dotenv/config';
 
 import { app } from "../index.js";
 
-describe("restaurant list", () => {
-  it("normal query", async () => {
+describe("restaurant list", function () {
+  it("normal query", async function () {
     const response = await supertest(app)
       .get(`/api/${process.env.apiVer}/restaurants/?headcount=1`)
       .send();
@@ -13,7 +13,7 @@ describe("restaurant list", () => {
     expect(response.body).to.have.property("data");
     expect(response.body.data).to.have.property("restaurants");
     expect(response.body.data.restaurants).to.be.an("array");
-    for(const rest of response.body.data.restaurants){
+    for (const rest of response.body.data.restaurants) {
       expect(rest).to.have.property("id").which.is.a("number");
       expect(rest).to.have.property("name").which.is.a("string");
       expect(rest).to.have.property("phone").which.is.a("string").and.length('12');
@@ -24,7 +24,7 @@ describe("restaurant list", () => {
     }
   })
 
-  it("no headcount", async () => {
+  it("no headcount", async function () {
     const response = await supertest(app)
       .get(`/api/${process.env.apiVer}/restaurants`)
       .send();
@@ -32,7 +32,7 @@ describe("restaurant list", () => {
     expect(response.body.error).string("invalid headcount");
   })
 
-  it("non numeric headcount", async () => {
+  it("non numeric headcount", async function () {
     const response = await supertest(app)
       .get(`/api/${process.env.apiVer}/restaurants/?headcount=arbitraryString`)
       .send();
