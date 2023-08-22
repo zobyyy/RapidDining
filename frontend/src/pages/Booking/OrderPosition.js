@@ -5,40 +5,25 @@ import useCancel from '@/hook/useCancel'
 import Image from 'next/image'
 import Cookies from 'js-cookie'
 
-const { cancleReservation, cancleBooking } = useCancel()
-
 const OrderPosition = ({
   makeReservation,
   reservationType,
   setChooseOrderPosition
 }) => {
   const [isOrderPosition, setIsOrderPosition] = useState(false)
-
+  const [phone, setPhone] = useState('')
+  const { cancleReservation, cancleBooking } = useCancel({ phone })
   const tableId = Cookies.get('tableId')
   const reservationId = Cookies.get('reservationId')
   const userName = Cookies.get('userName')
   const userGender = Cookies.get('userGender')
   const handleWaitingCancel = () => {
-    Cookies.remove('reservationId')
-    Cookies.remove('isReserved')
-    Cookies.remove('isEatHere')
-    Cookies.remove('userGender')
-    Cookies.remove('userName')
-    Cookies.remove('phone')
-    Cookies.remove('tableId')
     cancleReservation()
   }
   const handleBookingCancel = () => {
-    Cookies.remove('reservationId')
-    Cookies.remove('isReserved')
-    Cookies.remove('isEatHere')
-    Cookies.remove('userGender')
-    Cookies.remove('userName')
-    Cookies.remove('phone')
-    Cookies.remove('tableId')
     cancleBooking()
   }
-  const BookingCheck = ({ handleChooseButtonOnclick }) => {
+  const BookingCheck = () => {
     return (
       <div
         style={{
@@ -181,6 +166,8 @@ const OrderPosition = ({
           <BookingWaiting />
         ) : (
           <BookingInfoInput
+            phone={phone}
+            setPhone={setPhone}
             isOrderPosition={isOrderPosition}
             makeReservation={makeReservation}
           />

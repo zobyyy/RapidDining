@@ -14,9 +14,10 @@ import useRestaurantProfile from '@/hook/useRestaurantProfile'
 export default function Booking() {
   const router = useRouter()
   const { id } = router.query
-  Cookies.set('restaurantId', id)
+  Cookies.set('restaurantsId', id)
   const [chooseOrderPosition, setChooseOrderPosition] = useState(true) //訂位or訂餐
-  const { makeReservation, isAlert, reservationType } = useReservation()
+  const { makeReservation, isAlert, setIsAlert, reservationType } =
+    useReservation()
   const { menuInfo } = useMenu(id)
   const { profileData, isLoading } = useRestaurantProfile(id)
   const [isEatHere, setIsEatHere] = useState(false)
@@ -71,12 +72,20 @@ export default function Booking() {
             }}
             onClick={() => router.push('/')}
           />
-          {isAlert && <Alert />}
+          {isAlert && (
+            <Alert
+              setIsAlert={setIsAlert}
+              title='訂位失敗'
+              context='您已預訂過此餐廳'
+              status='ok'
+            />
+          )}
           <Image
             src={profileData?.data?.picture || '/餐廳照片.png'}
             width={390}
             height={220}
             alt='餐廳照片'
+            style={{ objectFit: 'cover' }}
           />
           <div className={styles.storeInfo}>
             <div className={styles.storeName}>
