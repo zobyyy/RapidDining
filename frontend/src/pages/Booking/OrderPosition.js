@@ -164,7 +164,7 @@ const OrderPosition = ({
     <div className={styles.order}>
       <div className={styles.orderInfo}>
         {reservationType === 'check' ? (
-          <BookingCheck handleChooseButtonOnclick={handleChooseButtonOnclick} />
+          <BookingCheck />
         ) : reservationType === 'waiting' ? (
           <BookingWaiting />
         ) : (

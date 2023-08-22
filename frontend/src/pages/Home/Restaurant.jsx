@@ -1,10 +1,70 @@
 import Link from 'next/link'
 import { useState } from 'react'
 import styles from './Home.module.scss'
+import Image from 'next/image'
+
+function getOrderContent(order) {
+  if (
+    order.tableId !== null &&
+    order.reservationId === null &&
+    order.status === null
+  ) {
+    return (
+      <div className={styles.orderInfo}>
+        <p className={styles.text}>請於10分鐘內抵達</p>
+      </div>
+    )
+  } else if (order.tableId === null && order.orderId !== null) {
+    return (
+      <div className={styles.orderInfo}>
+        <p className={styles.text}>候位第{order.status}組</p>
+        <p className={styles.text}>訂餐編號：{order.orderId}</p>
+      </div>
+    )
+  } else if (order.tableId === null && order.orderId === null) {
+    return (
+      <div className={styles.orderInfo}>
+        <p className={styles.text}>候位第{order.status}組</p>
+      </div>
+    )
+  } else if (
+    order.tableId === null &&
+    order.reservationId === null &&
+    order.status === null
+  ) {
+    return (
+      <div className={styles.orderInfo}>
+        <p className={styles.text}>訂餐編號：{order.orderId}</p>
+      </div>
+    )
+  }
+}
+function getTags(order) {
+  if (
+    order.tableId !== null &&
+    order.reservationId === null &&
+    order.status === null
+  ) {
+    return <Tag tag={'已訂位'} />
+  } else if (order.tableId === null && order.orderId !== null) {
+    return (
+      <>
+        <Tag tag={'已訂位'} />
+        <Tag tag={'已訂餐'} />
+      </>
+    )
+  } else if (order.tableId === null && order.orderId === null) {
+    return <Tag tag={'已訂位'} />
+  } else if (
+    order.tableId === null &&
+    order.reservationId === null &&
+    order.status === null
+  ) {
+    return <Tag tag={'已訂餐'} />
+  }
+}
 
 export default function Restaurant({ type, restaurant, order }) {
-  // type 1 restaurant list
-  // type 2 order
   return (
     <div
       style={
@@ -39,14 +99,9 @@ function RestaurantInfo({ restaurant }) {
   return (
     <div className={styles.Restaurant}>
       <div className={styles.picture}>
-        <img src={restaurant.picture} alt='' />
-        {restaurant.availability && <Tag tag={'已訂位'} />}
+        <Image width={128} height={123} src={restaurant.picture} alt='' />
       </div>
-      <div
-        className={
-          restaurant.availability ? styles.info_isBooking : styles.info
-        }
-      >
+      <div className={styles.info}>
         <p className={styles.restaurantName}>{restaurant.name}</p>
         {/* mockData 現在用訂位狀況判斷 */}
         <div className={styles.tag}>
@@ -67,26 +122,27 @@ function OrderHistory({ order }) {
   return (
     <div className={styles.order}>
       <div className={styles.picture}>
-        <img src={pictureURL} className={styles.restaurantPicture} alt='' />
-        {(order.tableId !== null || order.reservationId !== null) && (
-          <Tag tag={'已訂位'} />
-        )}
-        {order.orderId !== null && <Tag tag={'已訂餐'} />}
+        <Image
+          width={75}
+          height={78}
+          src={pictureURL}
+          className={styles.restaurantPicture}
+          alt=''
+        />
+        {getTags(order)}
       </div>
       <div className={styles.info}>
         <p className={styles.restaurantName}>{order.restaurantName}</p>
-        {/* mockData 現在用訂位狀況判斷 */}
-        {order.status !== null ? (
-          <div className={styles.orderInfo}>
-            <p className={styles.text}>候位第{order.status}組</p>
-          </div>
-        ) : (
-          <div className={styles.orderInfo}>
-            <p className={styles.text}>請於10分鐘內抵達</p>
-            <p className={styles.text}>訂餐編號：{order.orderId}</p>
-          </div>
-        )}
-        <button className={styles.orderHistoryButton}>取消</button>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center'
+          }}
+        >
+          {getOrderContent(order)}{' '}
+          <button className={styles.orderHistoryButton}>取消</button>
+        </div>
       </div>
     </div>
   )
