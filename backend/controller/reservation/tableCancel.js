@@ -1,5 +1,5 @@
 
-import {searchTable ,updateTable } from '../../model/reserveCancelModel.js';
+import {searchTableAndUpdate} from '../../model/reserveCancelModel.js';
 
 function ReqIsNumber(s) {
   return parseFloat(s).toString() !== "NaN"; 
@@ -14,19 +14,21 @@ export async function tableCancel(req, res) {
     }
     const phoneNum = parseInt(phone, 10); 
 
-    const searchTableRes = await searchTable (phoneNum,restaurantId)
+    const searchandupdate = await searchTableAndUpdate (phoneNum,restaurantId)
 
-    if(searchTableRes !== null){
-      await updateTable(searchTableRes);
+    if(searchandupdate){
+
       return res.status(200).json({
         data: {
-          tableId: searchTableRes,
+          tableId: searchandupdate,
         }
       });
     }  
+
     return res.status(404).json({
         error: 'Phone not found in tableList.',
       });
+      
   } catch (error) {
     console.error('Error in tableCancel:', error);
     return res.status(500).json({ error: 'Internal server error' });
