@@ -1,11 +1,12 @@
-import { useCheckoutContext } from './CheckoutContext'
+import CheckoutProvider,{ useCheckoutContext } from './CheckoutContext'
 import useOrderGet from '@/hook/useOrderGet';
 import styles from './Checkout.module.scss'
 
 export default function OrderDetail( {detail11} ) {
-    const {selectedOrderId, setSelectedOrderId} = useCheckoutContext();
+    const {selectedOrderId} = useCheckoutContext();
     const {detail} = useOrderGet(selectedOrderId);
     return (
+
         <div className={styles.orderDetail}>
             <div className={styles.yellowBox}>
                 <p>編號：{detail?.orderId}</p>

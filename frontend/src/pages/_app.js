@@ -2,6 +2,7 @@ import '@/styles/globals.css'
 import '@/styles/sweetAlert.css'
 import { ThemeProvider } from '@mui/material/styles'
 import { createTheme } from '@mui/material/styles'
+import CheckoutProvider from './Checkout/CheckoutContext'
 const theme = createTheme({
   palette: {
     primary: {
@@ -20,8 +21,11 @@ const theme = createTheme({
 })
 export default function App({ Component, pageProps }) {
   return (
-    <ThemeProvider theme={theme}>
+    // <ThemeProvider theme={theme}>
+    //   <Component {...pageProps} />
+    // </ThemeProvider>
+    <CheckoutProvider theme={theme}>
       <Component {...pageProps} />
-    </ThemeProvider>
+    </CheckoutProvider>
   )
 }
