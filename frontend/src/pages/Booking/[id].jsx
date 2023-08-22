@@ -24,8 +24,12 @@ export default function Booking() {
   const [isEatHere, setIsEatHere] = useState(false)
   const [isCancelAlert, setIsCancelAlert] = useState(false)
   const [isWaitingCancelAlert, setIsWaitingCancelAlert] = useState(false)
-  // const [phone, setPhone] = useState('')
-  const { cancleReservation, cancleBooking } = useCancel()
+  const phone = Cookies.get('phone')
+  const restaurantId = parseInt(Cookies.get('restaurantsId'))
+  const { cancleReservation, cancleBooking } = useCancel({
+    phone,
+    restaurantId
+  })
   useEffect(() => {
     if (Cookies.get('isReserved')) {
       if (Cookies.get('isReserved').includes(id)) {
