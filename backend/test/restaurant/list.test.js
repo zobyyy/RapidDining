@@ -2,7 +2,7 @@ import { expect } from "chai";
 import supertest from "supertest";
 import 'dotenv/config';
 
-import { app } from "../index.js";
+import { app } from "../../index.js";
 
 describe("restaurant list", function () {
   it("normal query", async function () {
