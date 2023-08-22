@@ -43,7 +43,7 @@ const BookingInfoInput = ({
       const isReserved = [id]
       Cookies.set('isReserved', isReserved)
     }
-    setPhone(values.phoneNumber)
+    // setPhone(values.phoneNumber)
   }
   const SelectGroup = () => {
     return (

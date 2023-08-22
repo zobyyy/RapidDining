@@ -1,8 +1,8 @@
 import Cookies from 'js-cookie'
 
-const useCancel = ({ phone }) => {
+const useCancel = () => {
   const restaurantId = parseInt(Cookies.get('restaurantsId'))
-  // const phone = Cookies.get('phone')
+  const phone = Cookies.get('phone')
 
   const requestBody = JSON.stringify({
     restaurantId: restaurantId,
@@ -48,6 +48,9 @@ const useCancel = ({ phone }) => {
         `https://107.22.142.48/api/1.0/tables/cancel`,
         {
           method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json'
+          },
           body: requestBody
         }
       )

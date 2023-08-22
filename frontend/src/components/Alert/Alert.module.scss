@@ -59,22 +59,24 @@
   flex-direction: row;
   gap: 20px;
   > button {
-    color: #fff;
+    border: 0px;
     border-radius: 10px;
     width: 80px;
     height: 25px;
     cursor: pointer;
     margin-top: 10px;
     font-weight: 700;
+    border-color: 1px solid #f58873;
   }
 }
 .buttonYes {
-  border: 0px;
-  color: #000;
-  background: $Grey;
-}
-.buttonNo {
-  border-color: 1px solid #f58873;
+  border: 1px solid #f58873;
   color: #f58873;
   background: transparent;
+}
+.buttonNo {
+  border: 0px;
+  color: $DarkGrey;
+  background: transparent;
+  border: 1px solid $DarkGrey;
 }

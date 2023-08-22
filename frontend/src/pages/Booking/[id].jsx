@@ -10,6 +10,7 @@ import useReservation from '@/hook/useReservation'
 import Alert from '@/components/Alert'
 import useMenu from '@/hook/useMenu'
 import useRestaurantProfile from '@/hook/useRestaurantProfile'
+import useCancel from '@/hook/useCancel'
 
 export default function Booking() {
   const router = useRouter()
@@ -21,6 +22,10 @@ export default function Booking() {
   const { menuInfo } = useMenu(id)
   const { profileData, isLoading } = useRestaurantProfile(id)
   const [isEatHere, setIsEatHere] = useState(false)
+  const [isCancelAlert, setIsCancelAlert] = useState(false)
+  const [isWaitingCancelAlert, setIsWaitingCancelAlert] = useState(false)
+  // const [phone, setPhone] = useState('')
+  const { cancleReservation, cancleBooking } = useCancel()
   useEffect(() => {
     if (Cookies.get('isReserved')) {
       if (Cookies.get('isReserved').includes(id)) {
@@ -80,6 +85,28 @@ export default function Booking() {
               status='ok'
             />
           )}
+          {isCancelAlert && (
+            <Alert
+              setIsAlert={setIsCancelAlert}
+              title='確定取消？'
+              context='真的要取消？'
+              status='option'
+              yes='保留'
+              no='取消訂位'
+              onClickHandle={cancleBooking}
+            />
+          )}
+          {isWaitingCancelAlert && (
+            <Alert
+              setIsAlert={setIsWaitingCancelAlert}
+              title='確定取消？'
+              context='真的要取消？'
+              status='option'
+              yes='保留'
+              no='取消候位'
+              onClickHandle={cancleReservation}
+            />
+          )}
           <Image
             src={profileData?.data?.picture || '/餐廳照片.png'}
             width={390}
@@ -118,10 +145,13 @@ export default function Booking() {
           </div>
           {chooseOrderPosition ? (
             <OrderPosition
-              // handleChooseButtonOnclick={handleChooseButtonOnclick}
+              // phone={phone}
+              // setPhone={setPhone}
               reservationType={reservationType}
               makeReservation={makeReservation}
               setChooseOrderPosition={setChooseOrderPosition}
+              setIsWaitingCancelAlert={setIsWaitingCancelAlert}
+              setIsCancelAlert={setIsCancelAlert}
             />
           ) : (
             <div>

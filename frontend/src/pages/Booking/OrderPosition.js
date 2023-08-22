@@ -8,20 +8,23 @@ import Cookies from 'js-cookie'
 const OrderPosition = ({
   makeReservation,
   reservationType,
-  setChooseOrderPosition
+  setChooseOrderPosition,
+  phone,
+  setPhone,
+  setIsWaitingCancelAlert,
+  setIsCancelAlert
 }) => {
   const [isOrderPosition, setIsOrderPosition] = useState(false)
-  const [phone, setPhone] = useState('')
-  const { cancleReservation, cancleBooking } = useCancel({ phone })
+
   const tableId = Cookies.get('tableId')
   const reservationId = Cookies.get('reservationId')
   const userName = Cookies.get('userName')
   const userGender = Cookies.get('userGender')
   const handleWaitingCancel = () => {
-    cancleReservation()
+    setIsWaitingCancelAlert(true)
   }
   const handleBookingCancel = () => {
-    cancleBooking()
+    setIsCancelAlert(true)
   }
   const BookingCheck = () => {
     return (
@@ -166,8 +169,8 @@ const OrderPosition = ({
           <BookingWaiting />
         ) : (
           <BookingInfoInput
-            phone={phone}
-            setPhone={setPhone}
+            // phone={phone}
+            // setPhone={setPhone}
             isOrderPosition={isOrderPosition}
             makeReservation={makeReservation}
           />
