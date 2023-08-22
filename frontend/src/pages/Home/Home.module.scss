@@ -428,6 +428,7 @@
             margin: 1% auto 1rem;
 
             .picture {
+                position: relative;
                 display: flex;
                 flex-direction: column;
                 width: 40%;
@@ -437,12 +438,13 @@
                 border-radius: 10px 0px 0px 10px;
                 background-color: $mainRed;
 
-                // img {
-                //     width: 100%;
-                //     height: 100%;
-                //     border-radius: 10px 0px 0px 10px;
-                //     object-fit: cover;
-                // }
+                img {
+                    position: absolute;
+                    width: 100%;
+                    height: 100%;
+                    border-radius: 10px 0px 0px 10px;
+                    object-fit: cover;
+                }
 
                 .bookingTag {
                     display: flex;
@@ -453,11 +455,8 @@
                     line-height: 8px;
 
                     .tick {
-                        max-width: 100%;
-                        height: auto;
-                        display: flex;
-                        align-items: center;
-                        text-align: center;
+                        width: min-content;
+                        height: min-content;
                     }
 
                     .text {
@@ -466,6 +465,8 @@
                         color: #fff;
                     }
                 }
+
+                
             }
 
             .info {

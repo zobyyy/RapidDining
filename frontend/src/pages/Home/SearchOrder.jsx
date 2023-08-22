@@ -47,9 +47,17 @@ export default function SearchOrder({setIsSearch,setIsHidden}) {
             <p className={styles.inputLabel} style={{color:'red',margin:'3px 0px 0px'}}>手機格式錯誤，請重新確認</p>
           }
         </div>
-        <Restaurant type={2} isBooking={true}/>
-        <Restaurant type={2} isBooking={true}/>
-        <Restaurant type={2} isBooking={true}/>
+        {
+          order.length !== 0
+            ?
+                order.map((order) => (
+                  <Restaurant type={2} order={order}/>
+                ))
+            :
+                <p style={{textAlign:'center',fontSize:'14px', marginTop:'0px'}}>
+                  目前沒有訂單
+                </p>
+        }
       </div>
     </div>
   )
