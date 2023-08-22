@@ -1,16 +1,15 @@
 
-import { getOutOrderSummary } from '../../model/orderSummaryModel.js';
+import { getOrderSummary } from '../../model/orderSummaryModel.js';
 
 // function ReqIsNumber(s) {
 //     return parseFloat(s).toString() !== "NaN"; 
 //   }
 
-export async function outOrderSummary(req, res) {
+export async function OrderSummary(req, res) {
   try {
-    //const { restaurantId } = req.body;
-    const { restaurantId,cursor } = req.query;
-    console.log('cursor in controller is',cursor);
-  
+    // const { restaurantId } = req.body;
+    const { restaurantId} = req.query;
+    
     // if ((ReqIsNumber(tableId) && ReqIsNumber(reservationId))|| (!tableId && !reservationId)) {
     //   return res.status(400).json({ error: 'Please Provide either tableId or reservationId.' });
     // }
@@ -19,8 +18,8 @@ export async function outOrderSummary(req, res) {
         return res.status(400).json({ error: 'Please Provide restaurantId.' });
       }
 
-    const orderSummary = await getOutOrderSummary(restaurantId,cursor);
-    return res.status(200).json( {data:orderSummary.data} );
+    const orderSummary = await getOrderSummary(restaurantId);
+    return res.status(200).json({ data:orderSummary});
   } catch (error) {
     console.error('Error in getOrderSummary:', error);
     return res.status(500).json({ error: 'Internal server error' });
