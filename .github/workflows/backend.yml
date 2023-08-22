@@ -38,7 +38,7 @@ jobs:
         uses: actions/cache/save@v3
         with:
           path: |
-            ${{ vars.REPO_BASE }}/backend/node_modules
+            backend/node_modules
           key: backendNode_packages-${{ github.sha }}
   lint:
     name: Lint
@@ -53,7 +53,7 @@ jobs:
         uses: actions/cache/restore@v3
         with:
           path: |
-            ${{ vars.REPO_BASE }}/backend/node_modules
+            backend/node_modules
           key: backendNode_packages-${{ github.sha }}
           fail-on-cache-miss: true
       - name: Check packages installation
@@ -84,7 +84,7 @@ jobs:
         uses: actions/cache/restore@v3
         with:
           path: |
-            ${{ vars.REPO_BASE }}/backend/node_modules
+            backend/node_modules
           key: backendNode_packages-${{ github.sha }}
           fail-on-cache-miss: true
       - name: Check packages installation
