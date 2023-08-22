@@ -89,3 +89,5 @@ app.post(`/api/${process.env.apiVer}/orders/:orderId/checkout`, orderCheckout);
 app.listen(port, () => {
   console.log(`Rapid dining backend listening on port:${port}`);
 })
+
+export { app };
