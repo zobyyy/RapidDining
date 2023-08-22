@@ -9,7 +9,7 @@ const ProductColumn = ({
   setTotal,
   setProductChosen
 }) => {
-  const [number, setNumber] = useState(productChosen.quantity)
+  const [number, setNumber] = useState(productChosen?.quantity)
   useEffect(() => {
     const allProductChosenToBackend = JSON.parse(
       Cookies.get('allProductChosenToBackend')
