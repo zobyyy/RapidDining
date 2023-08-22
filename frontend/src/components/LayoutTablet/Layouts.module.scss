@@ -1,0 +1,17 @@
+.layouts {
+  position: relative;
+  margin-top: 5%;
+  border: 5px solid black;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  height: 1024px;
+  width: 1366px; 
+  background: white;
+  flex-direction: column;
+  overflow-y: auto;
+  position: relative;
+  &::-webkit-scrollbar {
+    width: 0px;
+  }
+}
