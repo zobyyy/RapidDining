@@ -17,7 +17,7 @@ const OrderPosition = ({
   const [isOrderPosition, setIsOrderPosition] = useState(false)
 
   const tableId = Cookies.get('tableId')
-  const reservationId = Cookies.get('reservationId')
+  const reservationCount = Cookies.get('reservationCount')
   const userName = Cookies.get('userName')
   const userGender = Cookies.get('userGender')
   const handleWaitingCancel = () => {
@@ -132,7 +132,7 @@ const OrderPosition = ({
                 marginTop: '0'
               }}
             >
-              {reservationId}
+              {reservationCount}
             </div>
             組
           </div>
