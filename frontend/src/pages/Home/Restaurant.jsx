@@ -5,7 +5,6 @@ import styles from './Home.module.scss'
 export default function Restaurant( {type, restaurant, order} ) {
     // type 1 restaurant list
     // type 2 order
-    console.log("res order: ", order?.restaurantName);
     return (
         <div style={type === 1 ? {position: 'relative', width: '100%',height:'9.5rem'} : {width: '100%'}}>
             {type === 1
@@ -56,15 +55,31 @@ function OrderHistory ( { order } ) {
         <div className={styles.order}>
             <div className={styles.picture}>
                 <img src={pictureURL} alt="" />
-                <Tag tag={"已訂位"} />
+                {(
+                    order.tableId !== null || order.reservationId !== null
+                    ) && (
+                    <Tag tag={"已訂位"} />
+                )}
+                {
+                    order.orderId !== null && <Tag tag={"已訂餐"} />
+                }
             </div>
             <div className={styles.info}>
                 <p className={styles.restaurantName}>{order.restaurantName}</p>
                 {/* mockData 現在用訂位狀況判斷 */}
-                <div className={styles.orderInfo}>
-                    <p className={styles.text}>請於10分鐘內抵達</p>
-                    <p className={styles.text}>訂餐編號：1234</p>
-                </div>
+                {
+                    order.status !== null
+                        ?
+                            <div className={styles.orderInfo}>
+                                <p className={styles.text}>候位第{order.status}組</p>
+                            </div>
+                        :
+                            <div className={styles.orderInfo}>
+                                <p className={styles.text}>請於10分鐘內抵達</p>
+                                <p className={styles.text}>訂餐編號：{order.orderId}</p>
+                            </div>
+                }
+                
             </div>
         </div>
     )
