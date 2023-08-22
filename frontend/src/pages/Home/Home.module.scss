@@ -2,274 +2,274 @@
 @import '../../styles/global.scss';
 
 .header {
-    width: 100%;
-    position: relative;
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 3.5rem;
+
+  .Logo {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-top: 3.5rem;
+    align-items: flex-end;
 
-    .Logo {
-        display: flex;
-        align-items: flex-end;
-
-        .first {
-            font-size: 36px;
-            font-weight: 700;
-            color: $mainRed;
-        }
-
-        .others {
-            font-size: 24px;
-            font-weight: 700;
-            color: $mainYellow;
-            margin-bottom: 2.5%;
-        }
+    .first {
+      font-size: 36px;
+      font-weight: 700;
+      color: $mainRed;
     }
 
-    .selectBlock {
-        width: 85%;
-        display: flex;
-        justify-content: space-between;
-        margin: 3% auto;
+    .others {
+      font-size: 24px;
+      font-weight: 700;
+      color: $mainYellow;
+      margin-bottom: 2.5%;
+    }
+  }
 
-        .selectPeople {
-            width: 55%;
-            display: flex;
-            column-gap: 10%;
-            justify-content: center;
-            align-items: center;
-            border: 1px solid $mainRed;
-            border-radius: 10px;
+  .selectBlock {
+    width: 85%;
+    display: flex;
+    justify-content: space-between;
+    margin: 3% auto;
 
-            .selectText {
-                color: $Grey;
-            }
+    .selectPeople {
+      width: 55%;
+      display: flex;
+      column-gap: 10%;
+      justify-content: center;
+      align-items: center;
+      border: 1px solid $mainRed;
+      border-radius: 10px;
 
-            .text {
-                font-size: 14px;
-                font-weight: 500;
-                color: $mainRed;
-            }
-        }
+      .selectText {
+        color: $Grey;
+      }
 
-        .historyOrder {
-            width: 40%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            column-gap: 10%;
-            border: 1px solid $mainRed;
-            border-radius: 10px;
-            cursor: pointer;
-
-            .iconOrder {
-                position: relative;
-                width: 10.5px;
-                height: 14px;
-                border: 1px solid $mainRed;
-                border-radius: 1px;
-
-                .icon2 {
-                    position: absolute;
-                    bottom: 1px;
-                    left: 0.5px;
-                }
-            }
-
-            .text {
-                font-size: 14px;
-                font-weight: 500;
-                color: $mainRed;
-            }
-        }
+      .text {
+        font-size: 14px;
+        font-weight: 500;
+        color: $mainRed;
+      }
     }
 
-    .devide {
-        width: 85%;
-        height: 4px;
-        background-color: $mainYellow;
-        margin: 3% auto 4.5%;
-        z-index: 99;
+    .historyOrder {
+      width: 40%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      column-gap: 10%;
+      border: 1px solid $mainRed;
+      border-radius: 10px;
+      cursor: pointer;
+
+      .iconOrder {
+        position: relative;
+        width: 10.5px;
+        height: 14px;
+        border: 1px solid $mainRed;
+        border-radius: 1px;
+
+        .icon2 {
+          position: absolute;
+          bottom: 1px;
+          left: 0.5px;
+        }
+      }
+
+      .text {
+        font-size: 14px;
+        font-weight: 500;
+        color: $mainRed;
+      }
     }
+  }
+
+  .devide {
+    width: 85%;
+    height: 4px;
+    background-color: $mainYellow;
+    margin: 3% auto 4.5%;
+    z-index: 99;
+  }
 }
 
 .displayBar {
-    width: 85%;
-    position: relative;
+  width: 85%;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 3.5%;
+
+  .distance {
+    font-size: 16px;
+    font-weight: 400;
+  }
+
+  .refresh {
+    width: 3rem;
+    height: 1rem;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    margin-bottom: 3.5%;
+    column-gap: 10%;
+    padding: 1% 2%;
+    border: 1px solid $mainRed;
+    border-radius: 10px;
+    cursor: pointer;
 
-    .distance {
-        font-size: 16px;
-        font-weight: 400;
+    .text {
+      font-size: 12px;
+      font-weight: 400;
+      color: $mainRed;
     }
-
-    .refresh {
-        width: 3rem;
-        height: 1rem;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        column-gap: 10%;
-        padding: 1% 2%;
-        border: 1px solid $mainRed;
-        border-radius: 10px;
-        cursor: pointer;
-
-        .text {
-            font-size: 12px;
-            font-weight: 400;
-            color: $mainRed;
-        }
-    }
+  }
 }
 
 .Restaurant {
-    width: 85%;
-    height: 8rem;
+  width: 85%;
+  height: 8rem;
+  display: flex;
+  border: 1px solid $Grey;
+  border-radius: 10px;
+  margin: 0 auto 1rem;
+
+  p {
+    text-decoration: none;
+  }
+
+  .picture {
     display: flex;
-    border: 1px solid $Grey;
-    border-radius: 10px;
-    margin: 0 auto 1rem;
+    width: 40%;
+    height: full;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px 0px 0px 10px;
 
-    p {
-        text-decoration: none;
+    img {
+      width: 100%;
+      height: 100%;
+      border-radius: 10px 0px 0px 10px;
+      object-fit: cover;
     }
 
-    .picture {
+    .bookingTag {
+      display: flex;
+      justify-content: center;
+      column-gap: 5%;
+      width: 100px;
+
+      .tick {
         display: flex;
-        width: 40%;
-        height: full;
-        justify-content: center;
         align-items: center;
-        border-radius: 10px 0px 0px 10px;
+        text-align: center;
+      }
 
-        img {
-            width: 100%;
-            height: 100%;
-            border-radius: 10px 0px 0px 10px;
-            object-fit: cover;
-        }
+      .text {
+        font-size: 12px;
+        font-weight: 700;
+        color: #fff;
+      }
+    }
+  }
 
-        .bookingTag {
-            display: flex;
-            justify-content: center;
-            column-gap: 5%;
-            width: 100px;
+  .info {
+    width: 60%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 0px 6%;
 
-            .tick {
-                display: flex;
-                align-items: center;
-                text-align: center;
-            }
-
-            .text {
-                font-size: 12px;
-                font-weight: 700;
-                color: #fff;
-            }
-        }
+    .restaurantName {
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 15px;
     }
 
-    .info {
-        width: 60%;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        padding: 0px 6%;
-            
-        .restaurantName {
-            font-size: 16px;
-            font-weight: 700;
-            line-height: 15px;
-        }
-
-        .tag {
-            width: 33%;
-            height: 1.5rem;
-            background-color: $lightGrey;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 400;
-            line-height: 24px;
-            text-align: center;
-            margin-bottom: 0.5rem;
-        }
-
-        .waitTime {
-            width: 100%;
-            display: flex;
-            align-items: flex-start;
-
-            .text {
-                font-size: 13px;
-                font-weight: 400;
-                line-height: 24px;
-            }
-
-            .time {
-                font-size: 23px;
-                font-weight: 700;
-                line-height: 0px;
-                margin-left: auto;
-                margin-right: 2%;
-                color: $mainRed;
-            }
-        }
+    .tag {
+      width: 33%;
+      height: 1.5rem;
+      background-color: $lightGrey;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 24px;
+      text-align: center;
+      margin-bottom: 0.5rem;
     }
 
-    .info_isBooking {
-        width: 60%;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        padding: 0px 6%;
-            
-        .restaurantName {
-            font-size: 16px;
-            font-weight: 700;
-            line-height: 15px;
-            color: $DarkGrey;
-        }
+    .waitTime {
+      width: 100%;
+      display: flex;
+      align-items: flex-start;
 
-        .tag {
-            width: 33%;
-            height: 1.5rem;
-            background-color: $lightGrey;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 400;
-            line-height: 24px;
-            text-align: center;
-            color: $DarkGrey;
-        }
+      .text {
+        font-size: 13px;
+        font-weight: 400;
+        line-height: 24px;
+      }
 
-        .waitTime {
-            width: 100%;
-            display: flex;
-            align-items: flex-start;
-
-            .text {
-                font-size: 12px;
-                font-weight: 400;
-                line-height: 24px;
-                color: $Grey;
-            }
-
-            .time {
-                font-size: 23px;
-                font-weight: 700;
-                line-height: 0px;
-                margin-left: auto;
-                margin-right: 2%;
-                color: $Grey;
-            }
-        }
+      .time {
+        font-size: 23px;
+        font-weight: 700;
+        line-height: 0px;
+        margin-left: auto;
+        margin-right: 2%;
+        color: $mainRed;
+      }
     }
+  }
+
+  .info_isBooking {
+    width: 60%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 0px 6%;
+
+    .restaurantName {
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 15px;
+      color: $DarkGrey;
+    }
+
+    .tag {
+      width: 33%;
+      height: 1.5rem;
+      background-color: $lightGrey;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 24px;
+      text-align: center;
+      color: $DarkGrey;
+    }
+
+    .waitTime {
+      width: 100%;
+      display: flex;
+      align-items: flex-start;
+
+      .text {
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 24px;
+        color: $Grey;
+      }
+
+      .time {
+        font-size: 23px;
+        font-weight: 700;
+        line-height: 0px;
+        margin-left: auto;
+        margin-right: 2%;
+        color: $Grey;
+      }
+    }
+  }
 }
 
 .ldsfacebook {
@@ -303,256 +303,247 @@
     top: 8px;
     height: 64px;
   }
-  50%, 100% {
+  50%,
+  100% {
     top: 24px;
     height: 32px;
   }
 }
 
-
-
 .overlay {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 130%;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 100;
+
+  .searchBlock {
     position: absolute;
+    width: 83.5%;
+    max-height: 35rem;
+    top: 13rem;
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
     justify-content: center;
-    align-items: center;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 130%;
-    background-color: rgba(0, 0, 0, 0.3);
-    z-index: 100;
-
-    .searchBlock {
-        position: absolute;
-        width: 83.5%;
-        max-height: 35rem;
-        top: 13rem;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        align-items: flex-start;
-        background-color: #fff;
-        border-radius: 20px;
-        overflow-y: auto;
-        &::-webkit-scrollbar {
-            display: none;
-        }
-
-        .cancle {
-            position: absolute;
-            border: none;
-            background: rgba(0, 0, 0, 0);
-            right: 7px;
-            top: 7px;
-            cursor: pointer;
-        }
-
-        .title {
-            font-size: 16px;
-            font-weight: 500;
-            margin-top: 1.5rem;
-        }
-        
-        .inputBlock {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-            padding: 0px 8% 1rem;
-
-            .inputLabel {
-                font-size: 14px;
-                align-self: flex-start;
-
-            }
-
-            .inputBar {
-                display: flex;
-                flex-direction: row;
-                justify-content: space-between;
-                width: 95%;
-                border: 1px solid $DarkGrey;
-                border-radius: 10px;
-                padding: 2.5%;
-
-                input {
-                    width: 80%;
-                    border: none;
-                    outline: none;
-                }
-
-                .submit {
-                    background-color: $Grey;
-                    border: none;
-                    border-radius: 10px;
-                    padding: 1.5% 3%;
-                    cursor: pointer;
-                }
-            }
-
-            .inputBar_red {
-                display: flex;
-                flex-direction: row;
-                justify-content: space-between;
-                width: 95%;
-                border: 1px solid $mainRed;
-                border-radius: 10px;
-                padding: 2.5%;
-
-                input {
-                    width: 80%;
-                    border: none;
-                    outline: none;
-                }
-
-                .submit {
-                    background-color: $mainRed;
-                    border: none;
-                    border-radius: 10px;
-                    padding: 1.5% 3%;
-                    color:#fff;
-                    cursor: pointer;
-                }
-            }
-        }
-
-        .order {
-            width: 85%;
-            height: 6rem;
-            display: flex;
-            border: 1px solid $Grey;
-            border-radius: 10px;
-            margin: 1% auto 1rem;
-
-            .picture {
-                position: relative;
-                display: flex;
-                flex-direction: column;
-                width: 40%;
-                height: 100%;
-                justify-content: center;
-                align-items: center;
-                border-radius: 10px 0px 0px 10px;
-                background-color: $mainRed;
-
-                img {
-                    position: absolute;
-                    width: 100%;
-                    height: 100%;
-                    border-radius: 10px 0px 0px 10px;
-                    object-fit: cover;
-                }
-
-                .bookingTag {
-                    position: relative;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    gap: 5px;
-                    width: 100px;
-                    height: 2rem;
-
-                    .tick {
-                        position: absolute;
-                        left: 19px;
-                        width: min-content;
-                        height: min-content;
-                    }
-
-                    .text {
-                        position: absolute;
-                        left: 45px;
-                        font-size: 12px;
-                        font-weight: 700;
-                        color: #fff;
-                        z-index: 999;
-                    }
-                }
-
-                
-            }
-
-            .info {
-                width: 60%;
-                height: 100%;
-                display: flex;
-                flex-direction: column;
-                padding: 0px 6%;
-                
-                .restaurantName {
-                    font-size: 14px;
-                    font-weight: 700;
-                    line-height: 14px;
-                }
-
-                .orderInfo {
-                    width: 100%;
-
-                    .text {
-                        font-size: 12px;
-                        font-weight: 400;
-                        color: $DarkGrey;
-                        line-height: 8px;
-                    }
-                }
-
-                
-                
-            }
-
-            .info_isBooking {
-                width: 60%;
-                height: 100%;
-                display: flex;
-                flex-direction: column;
-                padding: 0px 6%;
-                
-                .restaurantName {
-                    font-size: 16px;
-                    font-weight: 700;
-                    line-height: 15px;
-                    color: $DarkGrey;
-                }
-
-                .tag {
-                    width: 33%;
-                    height: 25%;
-                    background-color: $lightGrey;
-                    border-radius: 20px;
-                    font-size: 12px;
-                    font-weight: 400;
-                    line-height: 24px;
-                    text-align: center;
-                    color: $DarkGrey;
-                }
-
-                .waitTime {
-                    width: 100%;
-                    display: flex;
-                    align-items: flex-start;
-
-                    .text {
-                        font-size: 12px;
-                        font-weight: 400;
-                        line-height: 24px;
-                        color: $Grey;
-                    }
-
-                    .time {
-                        font-size: 23px;
-                        font-weight: 700;
-                        line-height: 0px;
-                        margin-left: auto;
-                        margin-right: 2%;
-                        color: $Grey;
-                    }
-                }
-            }
-        }
-
-        
+    align-items: flex-start;
+    background-color: #fff;
+    border-radius: 20px;
+    overflow-y: auto;
+    &::-webkit-scrollbar {
+      display: none;
     }
+
+    .cancle {
+      position: absolute;
+      border: none;
+      background: rgba(0, 0, 0, 0);
+      right: 7px;
+      top: 7px;
+      cursor: pointer;
+    }
+
+    .title {
+      font-size: 16px;
+      font-weight: 500;
+      margin-top: 1.5rem;
+    }
+
+    .inputBlock {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      padding: 0px 8% 1rem;
+
+      .inputLabel {
+        font-size: 14px;
+        align-self: flex-start;
+      }
+
+      .inputBar {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        width: 95%;
+        border: 1px solid $DarkGrey;
+        border-radius: 10px;
+        padding: 2.5%;
+
+        input {
+          width: 80%;
+          border: none;
+          outline: none;
+        }
+
+        .submit {
+          background-color: $Grey;
+          border: none;
+          border-radius: 10px;
+          padding: 1.5% 3%;
+          cursor: pointer;
+        }
+      }
+
+      .inputBar_red {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        width: 95%;
+        border: 1px solid $mainRed;
+        border-radius: 10px;
+        padding: 2.5%;
+
+        input {
+          width: 80%;
+          border: none;
+          outline: none;
+        }
+
+        .submit {
+          background-color: $mainRed;
+          border: none;
+          border-radius: 10px;
+          padding: 1.5% 3%;
+          color: #fff;
+          cursor: pointer;
+        }
+      }
+    }
+
+    .order {
+      width: 85%;
+      height: 6rem;
+      display: flex;
+      border: 1px solid $Grey;
+      border-radius: 10px;
+      margin: 1% auto 1rem;
+
+      .picture {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        width: 40%;
+        height: 100%;
+        justify-content: center;
+        align-items: center;
+        border-radius: 10px 0px 0px 10px;
+        background-color: $mainRed;
+
+        img {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          border-radius: 10px 0px 0px 10px;
+          object-fit: cover;
+        }
+
+        .bookingTag {
+          position: relative;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 5px;
+          width: 100px;
+          height: 2rem;
+
+          .tick {
+            position: absolute;
+            left: 19px;
+            width: min-content;
+            height: min-content;
+          }
+
+          .text {
+            position: absolute;
+            left: 45px;
+            font-size: 12px;
+            font-weight: 700;
+            color: #fff;
+            z-index: 999;
+          }
+        }
+      }
+
+      .info {
+        width: 60%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        padding: 0px 6%;
+
+        .restaurantName {
+          font-size: 14px;
+          font-weight: 700;
+          line-height: 14px;
+        }
+
+        .orderInfo {
+          width: 100%;
+
+          .text {
+            font-size: 12px;
+            font-weight: 400;
+            color: $DarkGrey;
+            line-height: 8px;
+          }
+        }
+      }
+
+      .info_isBooking {
+        width: 60%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        padding: 0px 6%;
+
+        .restaurantName {
+          font-size: 16px;
+          font-weight: 700;
+          line-height: 15px;
+          color: $DarkGrey;
+        }
+
+        .tag {
+          width: 33%;
+          height: 25%;
+          background-color: $lightGrey;
+          border-radius: 20px;
+          font-size: 12px;
+          font-weight: 400;
+          line-height: 24px;
+          text-align: center;
+          color: $DarkGrey;
+        }
+
+        .waitTime {
+          width: 100%;
+          display: flex;
+          align-items: flex-start;
+
+          .text {
+            font-size: 12px;
+            font-weight: 400;
+            line-height: 24px;
+            color: $Grey;
+          }
+
+          .time {
+            font-size: 23px;
+            font-weight: 700;
+            line-height: 0px;
+            margin-left: auto;
+            margin-right: 2%;
+            color: $Grey;
+          }
+        }
+      }
+    }
+  }
 }
