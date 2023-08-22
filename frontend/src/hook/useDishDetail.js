@@ -3,8 +3,10 @@ import Cookies from 'js-cookie'
 
 const useDishDetail = (id) => {
   const [dishData, setDishData] = useState(null)
+  const [isLoading, setIsLoading] = useState(false)
 
   async function fetchDishDetail() {
+    setIsLoading(true)
     try {
       const response = await fetch(
         `https://107.22.142.48/api/1.0/menus/${id}`,
@@ -19,6 +21,7 @@ const useDishDetail = (id) => {
       if (response.ok) {
         const data = await response.json()
         setDishData(data)
+        setIsLoading(false)
       }
     } catch (error) {
       console.error(error)
@@ -29,7 +32,8 @@ const useDishDetail = (id) => {
   }, [id])
   return {
     fetchDishDetail,
-    dishData
+    dishData,
+    isLoading
   }
 }
 
