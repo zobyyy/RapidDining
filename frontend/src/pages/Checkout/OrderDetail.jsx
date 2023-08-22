@@ -4,7 +4,7 @@ export default function OrderDetail( {detail} ) {
     return (
         <div className={styles.orderDetail}>
             <div className={styles.yellowBox}>
-                <p>編號：{detail.orderId}</p>
+                <p>編號：{detail?.orderId}</p>
             </div>
             <p style={{alignSelf:'flex-start', margin:'2.5rem 1rem 1.5rem'}}>訂單內容：</p>
             <div className={styles.separator} />
@@ -15,7 +15,7 @@ export default function OrderDetail( {detail} ) {
             </div>
             <div className={styles.yellowBox} style={{marginTop:'auto',justifyContent:'space-between'}}>
                 <p>總金額</p>
-                <p>NT${detail.total}</p>
+                <p>NT${detail?.total}</p>
             </div>
             <button>結帳</button>
         </div>

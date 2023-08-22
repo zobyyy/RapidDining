@@ -4,7 +4,7 @@ import styles from './Checkout.module.scss'
 export default function Order( {order} ) {
     return (
         <div>
-            {order.status === "內用"
+            {order?.status === "內用"
                 ?
                    (order && <DineIn order={order} />)
                 :

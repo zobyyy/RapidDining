@@ -9,7 +9,6 @@ import { useEffect, useState } from 'react'
 export default function CheckoutPage() {
     const {order} = useOrderSummary();
     const {detail} = useOrderGet();
-    console.log("detail: ",detail.total)
   return (
     <Layouts>
         <div className={styles.sideBar}>
@@ -29,7 +28,7 @@ export default function CheckoutPage() {
             <div className={styles.orderView}>
                 <div className={styles.orderList}>
                     {order.map((order)=> (
-                        <Order order={order} />
+                        (order && <Order order={order} />)
                     ))}
                 </div>
                 {detail && <OrderDetail detail = {detail} />}
