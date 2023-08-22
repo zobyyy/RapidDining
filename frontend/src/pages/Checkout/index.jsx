@@ -31,7 +31,7 @@ export default function CheckoutPage() {
                         <Order type={1} />
                     ))}
                 </div>
-                <OrderDetail />
+                <OrderDetail detail = {detail} />
             </div>
         </div>
     </Layouts>

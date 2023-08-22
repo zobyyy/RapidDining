@@ -1,6 +1,6 @@
 import styles from './Checkout.module.scss'
 
-export default function OrderDetail() {
+export default function OrderDetail(detail) {
     return (
         <div className={styles.orderDetail}>
             <div className={styles.yellowBox}>
