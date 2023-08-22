@@ -447,22 +447,28 @@
                 }
 
                 .bookingTag {
+                    position: relative;
                     display: flex;
+                    align-items: center;
                     justify-content: center;
-                    column-gap: 5%;
+                    gap: 5px;
                     width: 100px;
                     height: 2rem;
-                    line-height: 8px;
 
                     .tick {
+                        position: absolute;
+                        left: 19px;
                         width: min-content;
                         height: min-content;
                     }
 
                     .text {
+                        position: absolute;
+                        left: 45px;
                         font-size: 12px;
                         font-weight: 700;
                         color: #fff;
+                        z-index: 999;
                     }
                 }
 
