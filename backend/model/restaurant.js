@@ -18,7 +18,15 @@ import '../util/types.js';
  * @returns {Promise<DBRestaurantInfo[]>}
  * */
 export async function selectAllRestaurantSortedByTime(headCount, smallestId) {
-  const sql = `WITH r AS (
+  const sql = `SELECT
+                 r.id AS id,
+                 r.name AS name,
+                 r.phone AS phone,
+                 r.address AS address,
+                 d.waitTime AS waitTime,
+                 v.vacancy AS availability,
+                 r.picture AS picture
+               FROM (
                  SELECT
                    id,
                    name,
@@ -27,17 +35,7 @@ export async function selectAllRestaurantSortedByTime(headCount, smallestId) {
                    picture
                  FROM restaurant
                  WHERE id >= ?
-                 LIMIT 6
-               )
-               SELECT
-                 r.id AS id,
-                 r.name AS name,
-                 r.phone AS phone,
-                 r.address AS address,
-                 d.waitTime AS waitTime,
-                 v.vacancy AS availability,
-                 r.picture AS picture
-               FROM r
+               ) r
                LEFT JOIN (
                  SELECT
                    ol.restaurantId,
@@ -56,7 +54,9 @@ export async function selectAllRestaurantSortedByTime(headCount, smallestId) {
                  FROM tableList
                  WHERE vacancy = TRUE AND headcount >= ?
                  GROUP BY restaurantId
-               ) v ON r.id = v.restaurantId` // TODO: remove after redis built
+               ) v ON r.id = v.restaurantId
+               ORDER BY d.waitTime ASC
+               LIMIT 6` // TODO: remove after redis built
   return (await pool.query(sql, [smallestId, headCount]))[0];
 }
 
