@@ -47,7 +47,7 @@ const OrderFood = ({ menuInfo, profileData, isEatHere }) => {
         {isEatHere ? '內用餐點' : '外帶自取'}
       </div>
 
-      <Menu menuInfo={menuInfo} />
+      <Menu menuInfo={menuInfo} profileData={profileData} />
       {Object.keys(productChosen).length > 0 && (
         <div
           style={{

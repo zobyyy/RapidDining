@@ -12,7 +12,7 @@ export default function Product() {
   const router = useRouter()
   const restaurantId = Cookies.get('restaurantId')
   const { id } = router.query
-  const { dishData } = useDishDetail(id)
+  const { dishData, isLoading } = useDishDetail(id)
   const [productChosen, setProductChosen] = useState([])
   const [productChosenToBackend, setProductChosenToBackend] = useState([])
   let customized = []
@@ -192,47 +192,66 @@ export default function Product() {
   }, [])
   return (
     <Layouts>
-      <div style={{ width: '100%' }}>
-        <Image
-          src='/back.png'
-          width={51}
-          height={51}
+      {isLoading ? (
+        <div
           style={{
-            zIndex: '2',
-            position: 'absolute',
-            margin: '3%',
-            cursor: ' pointer'
+            position: 'relative',
+            display: 'flex',
+            width: '100%',
+            height: '100%',
+            justifyContent: 'center',
+            alignItems: 'center'
           }}
-          onClick={() => router.push(`/Booking/${restaurantId}`)}
-        />
-        <Image
-          src={dishData?.data.picture || '/product_義大利麵.png'}
-          width={390}
-          height={220}
-          style={{ zIndex: '1', position: 'absolute', objectFit: 'cover' }}
-        />
-        <div className={styles.product}>
-          <div className={styles.storeInfo}>
-            <div className={styles.storeName}>{dishData?.data.name}</div>
-            <div className={styles.storeName}>NT${dishData?.data.price}</div>
-            <div className={styles.storeAddress}>
-              {dishData?.data.description}
-            </div>
+        >
+          <div className={styles.ldsfacebook}>
+            <div></div>
+            <div></div>
+            <div></div>
           </div>
         </div>
-        <Customization customized={customized} />
-        <div className={styles.buttonFixed}>
-          <ProductNumber />
-          <button
-            className={styles.addCartButton}
-            onClick={() => {
-              handleAddToCart()
+      ) : (
+        <div style={{ width: '100%' }}>
+          <Image
+            src='/back.png'
+            width={51}
+            height={51}
+            style={{
+              zIndex: '2',
+              position: 'absolute',
+              margin: '3%',
+              cursor: ' pointer'
             }}
-          >
-            加入購物車
-          </button>
+            onClick={() => router.push(`/Booking/${restaurantId}`)}
+          />
+          <Image
+            src={dishData?.data.picture || '/product_義大利麵.png'}
+            width={390}
+            height={220}
+            style={{ zIndex: '1', position: 'absolute', objectFit: 'cover' }}
+          />
+          <div className={styles.product}>
+            <div className={styles.storeInfo}>
+              <div className={styles.storeName}>{dishData?.data.name}</div>
+              <div className={styles.storeName}>NT${dishData?.data.price}</div>
+              <div className={styles.storeAddress}>
+                {dishData?.data.description}
+              </div>
+            </div>
+          </div>
+          <Customization customized={customized} />
+          <div className={styles.buttonFixed}>
+            <ProductNumber />
+            <button
+              className={styles.addCartButton}
+              onClick={() => {
+                handleAddToCart()
+              }}
+            >
+              加入購物車
+            </button>
+          </div>
         </div>
-      </div>
+      )}
     </Layouts>
   )
 }

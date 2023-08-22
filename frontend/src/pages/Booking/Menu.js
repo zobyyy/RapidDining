@@ -3,7 +3,7 @@ import styles from './Booking.module.scss'
 import Image from 'next/image'
 import ProductColumn from './ProductColumn'
 
-const Menu = ({ menuInfo }) => {
+const Menu = ({ menuInfo, profileData }) => {
   const [activeKindIndex, setActiveKindIndex] = useState(0)
   const handleKindClick = (index) => {
     setActiveKindIndex(index)
@@ -58,7 +58,12 @@ const Menu = ({ menuInfo }) => {
   return (
     <>
       <div>
-        <Image src='/banner.png' alt='banner' width={340} height={177} />
+        <Image
+          src={profileData?.data?.banner || '/banner.png'}
+          alt='banner'
+          width={340}
+          height={177}
+        />
       </div>
       <Kinds />
       <KindsArea />

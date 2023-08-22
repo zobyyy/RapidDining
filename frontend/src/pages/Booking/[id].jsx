@@ -18,7 +18,7 @@ export default function Booking() {
   const [chooseOrderPosition, setChooseOrderPosition] = useState(true) //訂位or訂餐
   const { makeReservation, isAlert, reservationType } = useReservation()
   const { menuInfo } = useMenu(id)
-  const { profileData } = useRestaurantProfile(id)
+  const { profileData, isLoading } = useRestaurantProfile(id)
   const [isEatHere, setIsEatHere] = useState(false)
   useEffect(() => {
     if (Cookies.get('isReserved')) {
@@ -40,72 +40,91 @@ export default function Booking() {
 
   return (
     <Layouts>
-      <div style={{ width: '100%', position: 'relative' }}>
-        <Image
-          src='/back.png'
-          width={51}
-          height={51}
+      {isLoading ? (
+        <div
           style={{
-            zIndex: '2',
-            position: 'absolute',
-            margin: '3%',
-            cursor: ' pointer'
+            position: 'relative',
+            display: 'flex',
+            width: '100%',
+            height: '100%',
+            justifyContent: 'center',
+            alignItems: 'center'
           }}
-          onClick={() => router.push('/')}
-        />
-        {isAlert && <Alert />}
-        <Image
-          src={profileData?.data?.picture || '/餐廳照片.png'}
-          width={390}
-          height={220}
-          alt='餐廳照片'
-        />
-        <div className={styles.storeInfo}>
-          <div className={styles.storeName}>
-            {profileData?.data?.name || '餐廳名稱'}
-          </div>
-          <div className={styles.storeAddress}>
-            {profileData?.data?.address || '餐廳地址'}
-          </div>
-          <div className={styles.storePhone}>
-            {profileData?.data?.phone || '餐廳電話'}
+        >
+          <div className={styles.ldsfacebook}>
+            <div></div>
+            <div></div>
+            <div></div>
           </div>
         </div>
-        <div className={styles.orderChoose}>
-          <button
+      ) : (
+        <div style={{ width: '100%', position: 'relative' }}>
+          <Image
+            src='/back.png'
+            width={51}
+            height={51}
             style={{
-              borderBottom: !chooseOrderPosition && '8px solid #F5F5F5'
+              zIndex: '2',
+              position: 'absolute',
+              margin: '3%',
+              cursor: ' pointer'
             }}
-            onClick={() => setChooseOrderPosition(true)}
-          >
-            我要訂位
-          </button>
-          <button
-            style={{
-              borderBottom: chooseOrderPosition && '8px solid #F5F5F5'
-            }}
-            onClick={() => setChooseOrderPosition(false)}
-          >
-            我要訂餐
-          </button>
-        </div>
-        {chooseOrderPosition ? (
-          <OrderPosition
-            // handleChooseButtonOnclick={handleChooseButtonOnclick}
-            reservationType={reservationType}
-            makeReservation={makeReservation}
-            setChooseOrderPosition={setChooseOrderPosition}
+            onClick={() => router.push('/')}
           />
-        ) : (
-          <div>
-            <OrderFood
-              menuInfo={menuInfo}
-              isEatHere={isEatHere}
-              profileData={profileData}
-            />
+          {isAlert && <Alert />}
+          <Image
+            src={profileData?.data?.picture || '/餐廳照片.png'}
+            width={390}
+            height={220}
+            alt='餐廳照片'
+          />
+          <div className={styles.storeInfo}>
+            <div className={styles.storeName}>
+              {profileData?.data?.name || '餐廳名稱'}
+            </div>
+            <div className={styles.storeAddress}>
+              {profileData?.data?.address || '餐廳地址'}
+            </div>
+            <div className={styles.storePhone}>
+              {profileData?.data?.phone || '餐廳電話'}
+            </div>
           </div>
-        )}
-      </div>
+          <div className={styles.orderChoose}>
+            <button
+              style={{
+                borderBottom: !chooseOrderPosition && '8px solid #F5F5F5'
+              }}
+              onClick={() => setChooseOrderPosition(true)}
+            >
+              我要訂位
+            </button>
+            <button
+              style={{
+                borderBottom: chooseOrderPosition && '8px solid #F5F5F5'
+              }}
+              onClick={() => setChooseOrderPosition(false)}
+            >
+              我要訂餐
+            </button>
+          </div>
+          {chooseOrderPosition ? (
+            <OrderPosition
+              // handleChooseButtonOnclick={handleChooseButtonOnclick}
+              reservationType={reservationType}
+              makeReservation={makeReservation}
+              setChooseOrderPosition={setChooseOrderPosition}
+            />
+          ) : (
+            <div>
+              <OrderFood
+                menuInfo={menuInfo}
+                isEatHere={isEatHere}
+                profileData={profileData}
+              />
+            </div>
+          )}
+        </div>
+      )}
     </Layouts>
   )
 }
