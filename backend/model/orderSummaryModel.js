@@ -1,6 +1,5 @@
 import { pool } from './util.js';
 import moment from 'moment-timezone';
-moment.tz.setDefault("Asia/Taipei");
 
 export async function getOrderSummary(restaurantId) {
 try {
