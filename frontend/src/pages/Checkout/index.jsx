@@ -28,7 +28,7 @@ export default function CheckoutPage() {
             <div className={styles.orderView}>
                 <div className={styles.orderList}>
                     {order.map((order)=> (
-                        <Order type={1} />
+                        <Order order={order} />
                     ))}
                 </div>
                 <OrderDetail detail = {detail} />

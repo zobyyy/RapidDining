@@ -104,11 +104,22 @@
                     }
                 }
 
-                .checkoutTag {
+                .checkoutTagYellow {
                     display: flex;
                     width: 4.6rem;
                     height: 1.5rem;
                     border: 2px solid $mainYellow;
+                    border-radius: 20px;
+                    background-color: #fff;
+                    align-items: center;
+                    justify-content: center;
+                }
+
+                .checkoutTagGreen {
+                    display: flex;
+                    width: 4.6rem;
+                    height: 1.5rem;
+                    border: 2px solid #77D849;
                     border-radius: 20px;
                     background-color: #fff;
                     align-items: center;

@@ -12,7 +12,7 @@ const useOrderGet = (orderId) => {
         return response.json();
         })
         .then(data => {
-            setDetail(data.data);
+            setDetail(data.data.items);
         })
         .catch(error => {
             console.error('Error fetching data:', error);

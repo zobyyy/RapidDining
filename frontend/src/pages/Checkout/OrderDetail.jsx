@@ -9,8 +9,8 @@ export default function OrderDetail(detail) {
             <p style={{alignSelf:'flex-start', margin:'2.5rem 1rem 1.5rem'}}>訂單內容：</p>
             <div className={styles.separator} />
             <div className={styles.detailList}>
-                <DetailItem />
-                <DetailItem />
+                
+                <DetailItem/>
             </div>
             <div className={styles.yellowBox} style={{marginTop:'auto',justifyContent:'space-between'}}>
                 <p>總金額</p>
