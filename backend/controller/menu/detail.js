@@ -7,7 +7,10 @@ import { pictureForFrontend } from '../../util/util.js';
  * */
 export async function dishDetail(req, res) {
   try {
-    const dishId = req.params.dishId;
+    const dishId = +req.params.dishId;
+    if(Number.isInteger(dishId) === false){
+      return res.status(400).send({"error": "invalid dishId"});
+    }
     const dish = await getMenuDetail(dishId);
     return res.status(200).json({
       data: {
