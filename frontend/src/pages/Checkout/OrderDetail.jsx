@@ -3,8 +3,10 @@ import useOrderGet from '@/hook/useOrderGet';
 import useCheckout from '../../hook/useCheckout';
 import styles from './Checkout.module.scss'
 import { useRouter } from 'next/router';
+import { useState } from 'react';
 // 
 export default function OrderDetail() {
+    const [isAlert, setIsAlert] = useState(false);
     const {selectedOrderId} = useCheckoutContext();
     const {detail} = useOrderGet(selectedOrderId);
     const {handleCheckout} = useCheckout();
