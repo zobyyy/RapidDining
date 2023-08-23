@@ -5,6 +5,8 @@ import { useEffect, useState } from 'react'
 
 export default function SearchOrder({ setIsSearch, setIsHidden }) {
   const [phone, setPhone] = useState('')
+  const [buttonClick, setButtonClick] = useState(false)
+
   const [errorState, setErrorState] = useState(false)
   const [orderIsLoading, setOrderIsLoading] = useState(false) // 判斷Loading動畫和抓取資料
   const { order, fetchOrderPending, isLoading } = useOrderPending()
@@ -36,12 +38,13 @@ export default function SearchOrder({ setIsSearch, setIsHidden }) {
           onClick={() => {
             setIsSearch(false)
             setIsHidden(false)
-            // setPhone([])
+
+            setButtonClick(false)
           }}
         >
           <img src='/icon_cancel.svg' alt='' />
         </button>
-        <p className={styles.title}>找尋您的訂位或訂餐紀錄</p>
+        <h2 className={styles.title}>找尋您的訂位或訂餐紀錄</h2>
         <div className={styles.inputBlock}>
           <p className={styles.inputLabel}>請輸入訂位/訂餐人手機號碼</p>
           <div
@@ -58,7 +61,8 @@ export default function SearchOrder({ setIsSearch, setIsHidden }) {
               type='button'
               className={styles.submit}
               onClick={() => {
-                // setPhone('')
+                setButtonClick(true)
+
                 validatePhone(phone)
               }}
             >
@@ -92,11 +96,13 @@ export default function SearchOrder({ setIsSearch, setIsHidden }) {
               <div></div>
             </div>
           </div>
-        ) : (
+        ) : order.length > 0 ? (
           order.map((orderItem, index) => (
             <Restaurant key={index} type={2} order={orderItem} phone={phone} />
           ))
-        )}
+        ) : buttonClick && phone.trim() !== '' ? (
+          <div className={styles.noOrder}>此手機號碼沒有訂單紀錄</div>
+        ) : null}
       </div>
     </div>
   )

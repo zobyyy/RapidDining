@@ -21,11 +21,11 @@ export async function searchOrderId(orderId) {
 }
 
 
-
-
 export async function getOrderDetails(orderId) {
     try {
-        
+
+      const [totalResult] = await pool.query('SELECT total from OrderList WHERE id = ?', [orderId]);
+
       const [orderDishes] = await pool.query('SELECT od.id AS orderDishId, od.dishId, od.quantity, d.name AS dishName, d.price, d.picture FROM OrderDish od JOIN dish d ON od.dishId = d.id WHERE od.orderId = ?;', [orderId]);
   
       const orderDishIds = orderDishes.map(orderDish => orderDish.orderDishId);
@@ -53,9 +53,9 @@ export async function getOrderDetails(orderId) {
           customized,
         };
       });
-  
-      const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
-  
+
+      const total = totalResult[0].total;
+
       return {
         orderId,
         items,
