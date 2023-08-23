@@ -159,7 +159,7 @@
             .detailList {
                 width: 95%;
                 height: 55%;
-                // border: 1px solid red;
+                overflow: auto;
 
                 .detailItem {
                     border-bottom: 1px solid $Grey;
@@ -190,6 +190,7 @@
                 margin-top: 1.5rem ;
                 margin-left: auto;
                 margin-right: 1rem;
+                cursor: pointer;
             }
         }
     }

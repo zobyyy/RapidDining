@@ -28,9 +28,14 @@ export default function CheckoutPage() {
                 </div>
                 <div className={styles.orderView}>
                     <div className={styles.orderList}>
-                        {order.map((order)=> (
-                            (order && <Order order={order} />)
-                        ))}
+                        {order.length !== 0
+                            ?
+                                (order.map((order, index)=> (
+                                    (order && <Order order={order} index={index} />)
+                                )))
+                            :
+                                <p>目前尚無訂單</p>
+                        }
                     </div>
                     <OrderDetail />
                 </div>
