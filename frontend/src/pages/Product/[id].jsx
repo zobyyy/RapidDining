@@ -31,8 +31,15 @@ export default function Product() {
   }
   const [selectedOptions, setSelectedOptions] = useState({})
   const [number, setNumber] = useState(1)
+
+  const [audio, setAudio] = useState(null)
+
+  useEffect(() => {
+    setAudio(new Audio('/duck.mp3'))
+  }, [])
   const ProductNumber = () => {
     const handlePlusClick = () => {
+      audio.play()
       setNumber(number + 1)
     }
 

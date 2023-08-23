@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import styles from './Cart.module.scss'
 import { Field, ErrorMessage, Formik, Form } from 'formik'
 import * as Yup from 'yup'
@@ -20,8 +20,14 @@ const BookingInfoInput = ({ restaurantId, total, orderRequest }) => {
       .matches(/^(09)\d{8}$/, '手機格式不正確')
   })
   const allProductChosenToBackend = Cookies.get('allProductChosenToBackend')
+  const [audio, setAudio] = useState(null)
+
+  useEffect(() => {
+    setAudio(new Audio('/cash.mp3'))
+  }, [])
 
   const handleSubmit = async (values) => {
+    audio.play()
     const requestBody = {
       restaurantId: 1,
       tableId: null,
