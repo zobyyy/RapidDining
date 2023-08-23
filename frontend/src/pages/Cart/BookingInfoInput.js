@@ -40,7 +40,11 @@ const BookingInfoInput = ({ restaurantId, total, orderRequest }) => {
   }
   const RadioGroup = () => {
     return (
-      <div role='group' aria-labelledby='my-radio-group'>
+      <div
+        role='group'
+        aria-labelledby='my-radio-group'
+        className='field-radio'
+      >
         <label>
           <Field
             type='radio'
@@ -48,15 +52,15 @@ const BookingInfoInput = ({ restaurantId, total, orderRequest }) => {
             value='小姐'
             style={{ color: '#333' }}
           />
-          小姐
+          小姐<span className='checkmark'></span>
         </label>
         <label>
           <Field type='radio' name='gender' value='先生' />
-          先生
+          先生<span className='checkmark'></span>
         </label>
         <label>
           <Field type='radio' name='gender' value='其他' />
-          其他
+          其他<span className='checkmark'></span>
         </label>
       </div>
     )
