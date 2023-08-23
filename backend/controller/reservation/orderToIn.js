@@ -8,15 +8,25 @@ function ReqIsNumber(s) {
 export async function changeOrderStatus(req, res) {
     try {
         const { restaurantId, tableId, reservationId, phone } = req.body;
-        console.log(restaurantId)
-        console.log(tableId)
-        console.log(reservationId)
-        console.log(phone)
-
+    
         if (!restaurantId || !phone || !phone.startsWith('09') || !ReqIsNumber(restaurantId)) {
             return res.status(400).json({ error: 'Wrong format in request body.' });
         }
+
+        if ( (!ReqIsNumber(tableId)|| tableId !== null)) {
+            return res.status(400).json({ error: 'Wrong format in tableId.' });
+        }
+
+        if ((!ReqIsNumber(reservationId)||reservationId !== null)) {
+            return res.status(400).json({ error: 'Wrong format in reservationId.' });
+        }
+       
         const phoneNum = parseInt(phone, 10);
+
+        if(phoneNum < 900000000 || phoneNum > 999999999) {
+            return res.status(400).send({ "error": "invalid phone" });
+          }
+        
         const isOrdered = await hasOrder(restaurantId,phoneNum);
 
         if (!isOrdered) {
