@@ -86,7 +86,7 @@ const useCancel = ({ phone, restaurantId, orderId }) => {
             'Content-Type': 'application/json'
           },
           body: JSON.stringify({
-            phone: phone
+            phone: btoa(phone)
           })
         }
       )
