@@ -31,7 +31,7 @@ const useCancel = ({ phone, restaurantId, orderId }) => {
         Cookies.remove('tableId')
         setTimeout(() => {
           window.location.reload()
-        }, 100)
+        }, 50)
       }
       if (!response.ok) {
         throw new Error('Network response was not ok')
@@ -67,7 +67,7 @@ const useCancel = ({ phone, restaurantId, orderId }) => {
         Cookies.remove('tableId')
         setTimeout(() => {
           window.location.reload()
-        }, 100)
+        }, 50)
       }
       console.log('取消訂位 response: ', response.json())
     } catch (error) {
@@ -103,7 +103,7 @@ const useCancel = ({ phone, restaurantId, orderId }) => {
         // Cookies.remove('tableId')
         setTimeout(() => {
           window.location.reload()
-        }, 100)
+        }, 50)
       }
       console.log('取消外帶 response: ', response.json())
     } catch (error) {

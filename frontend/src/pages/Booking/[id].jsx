@@ -11,27 +11,29 @@ import Alert from '@/components/Alert'
 import useMenu from '@/hook/useMenu'
 import useRestaurantProfile from '@/hook/useRestaurantProfile'
 import useCancel from '@/hook/useCancel'
+import useOrderStatus from '@/hook/useOrderStatus'
 
 export default function Booking() {
   const router = useRouter()
   const { id } = router.query
   Cookies.set('restaurantsId', id)
   const [chooseOrderPosition, setChooseOrderPosition] = useState(true) //訂位or訂餐
-  const { makeReservation, isAlert, setIsAlert, reservationType } =
-    useReservation()
+
   const { menuInfo } = useMenu(id)
   const { profileData, isLoading } = useRestaurantProfile(id)
   const [isEatHere, setIsEatHere] = useState(false)
   const [isCancelAlert, setIsCancelAlert] = useState(false)
   const [isWaitingCancelAlert, setIsWaitingCancelAlert] = useState(false)
   const [isChangeAlert, setIsChangeAlert] = useState(false)
-
+  const { makeReservation, isAlert, setIsAlert, reservationType } =
+    useReservation({ setIsChangeAlert })
   const phone = Cookies.get('phone')
   const restaurantId = parseInt(Cookies.get('restaurantsId'))
   const { cancleReservation, cancleBooking } = useCancel({
     phone,
     restaurantId
   })
+  const { OrderChange } = useOrderStatus()
   useEffect(() => {
     if (Cookies.get('isReserved')) {
       if (Cookies.get('isReserved').includes(id)) {
@@ -49,7 +51,18 @@ export default function Booking() {
       setChooseOrderPosition(false)
     }
   }, [])
-
+  const handleOrderChange = async () => {
+    const phone = Cookies.get('phone')
+    const tableId = parseInt(Cookies.get('tableId'))
+    const reservationId = parseInt(Cookies.get('reservationId'))
+    const requestBody = {
+      restaurantId: parseInt(id),
+      phone: phone,
+      tableId: tableId,
+      reservationId: reservationId
+    }
+    await OrderChange(requestBody)
+  }
   return (
     <Layouts>
       {isLoading ? (
@@ -99,7 +112,7 @@ export default function Booking() {
               status='option'
               yes='保持外帶'
               no='改成內用'
-              // onClickHandle={cancleBooking}
+              onClickHandle={handleOrderChange}
             />
           )}
           {isCancelAlert && (
