@@ -97,9 +97,10 @@ function getTags(order) {
 }
 
 export default function Restaurant({ type, restaurant, order, phone }) {
-  const { cancleReservation, cancleBooking } = useCancel({
+  const { cancleReservation, cancleBooking, cancleToGo } = useCancel({
     phone,
-    restaurantId: order?.restaurantId
+    restaurantId: order?.restaurantId,
+    orderId: order?.orderId
   })
   return (
     <div
@@ -131,6 +132,7 @@ export default function Restaurant({ type, restaurant, order, phone }) {
             phone={phone}
             cancleReservation={cancleReservation}
             cancleBooking={cancleBooking}
+            cancleToGo={cancleToGo}
           />
         )
       )}
@@ -160,7 +162,7 @@ function RestaurantInfo({ restaurant }) {
   )
 }
 
-function OrderHistory({ order, cancleReservation, cancleBooking }) {
+function OrderHistory({ order, cancleReservation, cancleBooking, cancleToGo }) {
   const [isCancelAlert, setIsCancelAlert] = useState(false)
   const handleCancel = () => {
     if (
@@ -177,6 +179,14 @@ function OrderHistory({ order, cancleReservation, cancleBooking }) {
     ) {
       // 候位
       cancleReservation()
+    } else if (
+      order.tableId === null &&
+      order.reservationId === null &&
+      order.status === null &&
+      order.orderId !== null
+    ) {
+      // 外帶
+      cancleToGo()
     }
   }
 
@@ -190,10 +200,11 @@ function OrderHistory({ order, cancleReservation, cancleBooking }) {
           context='真的要取消？'
           status='option'
           yes='保留'
-          no='取消訂位'
+          no='取消'
           onClickHandle={handleCancel}
         />
       )}
+
       <div className={styles.picture}>
         <Image
           width={75}
