@@ -16,8 +16,11 @@ export async function reservationReserve(req, res) {
     }
 
     const phoneNum = parseInt(phone, 10); 
+
+    if(phoneNum < 900000000 || phoneNum > 999999999) {
+      return res.status(400).send({ "error": "invalid phone" });
+    }
   
-    
     const isTable = await checkExistingTable(restaurantId, phoneNum);
     if (isTable) {
       console.log("you alreayd have a seat, you can't reserve again!");
@@ -45,7 +48,6 @@ export async function reservationReserve(req, res) {
         "reservationCount": null,
         "order" : isOrdered
       }});
-     
     }
     console.log("there is no vancancy")
     const isOrdered = await hasOrder(restaurantId,phoneNum); 

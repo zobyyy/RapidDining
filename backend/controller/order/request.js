@@ -16,6 +16,12 @@ export async function orderRequest(req, res) {
   ) {
     return res.status(400).json({ error: 'Missing or invalid request body fields.' });
   }
+
+  const phoneNum = parseInt(requestData.phone, 10); 
+
+  if(phoneNum < 900000000 || phoneNum > 999999999) {
+    return res.status(400).send({ "error": "invalid phone" });
+  }
   
   if (!ReqIsNumber(requestData.restaurantId)||!ReqIsNumber(requestData.total)) {
     return res.status(400).json({ error: 'Invalid restaurantId and total format.' });
