@@ -3,7 +3,7 @@ const { createContext, useState, useContext } = require("react");
 const CheckoutContext = createContext();
 
 export default function CheckoutProvider ({children}) {
-    const [selectedOrderId, setSelectedOrderId] = useState(1);
+    const [selectedOrderId, setSelectedOrderId] = useState();
     return(
         <CheckoutContext.Provider value={{selectedOrderId,setSelectedOrderId}}>
             {children}

@@ -25,7 +25,7 @@ export default function OrderDetail() {
                             <DetailItem item = {item} />
                         ))
                     :
-                        <p>目前訂單沒有點餐項目</p>
+                        <p style={{fontSize:'20px'}}>目前訂單沒有點餐項目</p>
                 }
             </div>
             <div className={styles.yellowBox} style={{marginTop:'auto',justifyContent:'space-between'}}>

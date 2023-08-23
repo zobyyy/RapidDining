@@ -9,7 +9,13 @@ const useOrderGet = (orderId) => {
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
-        return response.json();
+        if (response.status === 200) {
+            return response.json();
+        } else if (response.status === 404) {
+            return []
+        } else {
+            throw new Error('Unexpected response status: ' + response.status);
+        }
         })
         .then(data => {
             setDetail(data.data);
