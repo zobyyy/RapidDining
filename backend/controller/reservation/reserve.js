@@ -5,12 +5,12 @@ import {updateTableVacancy} from '../../model/reserveModel.js';
 import {checkExistingReservation} from '../../model/reserveModel.js'; 
 import {getWaitCount} from '../../model/reserveModel.js'; 
 import {hasOrder} from '../../model/reserveModel.js'; 
-
+import {checkAvailbleTable} from '../../model/reserveModel.js'; 
 
 export async function reservationReserve(req, res) {
   try {
     const { restaurantId, headcount, name, gender, phone } = req.body;
-
+    
     if (!restaurantId || !headcount || !name || !gender || !phone||!phone.startsWith('09')) {
       return res.status(400).json({ error: 'Missing request body fields.' });
     }
@@ -19,6 +19,11 @@ export async function reservationReserve(req, res) {
 
     if(phoneNum < 900000000 || phoneNum > 999999999) {
       return res.status(400).send({ "error": "invalid phone" });
+    }
+
+    const isPossible = await checkAvailbleTable(restaurantId,headcount);
+    if(!isPossible){
+      return res.status(404).json({ error: '我們店裡沒有對應人數的桌 請重新選擇' });
     }
   
     const isTable = await checkExistingTable(restaurantId, phoneNum);
@@ -33,11 +38,10 @@ export async function reservationReserve(req, res) {
   }
   
     const isVacancy = await hasVacancy(restaurantId, headcount);
-    console.log(`isVancy is ${isVacancy}`);
-    console.log(`!isVancy is ${!isVacancy}`);
+    
     if (isVacancy) {
       console.log("there is vancancy")
-      const updateTableId = await updateTableVacancy(phoneNum,headcount);
+      const updateTableId = await updateTableVacancy(restaurantId,phoneNum,headcount);
       console.log("Good, you already have a seat in this restaurant");
 
       const isOrdered = await hasOrder(restaurantId,phoneNum); 
