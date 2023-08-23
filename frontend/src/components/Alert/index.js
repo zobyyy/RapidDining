@@ -13,8 +13,9 @@ export default function Alert({
 }) {
   const handleClose = () => {
     setIsAlert(false)
-    // window.location.reload()
   }
+  const handleYesClick = onClickHandle || handleClose // 如果传入了 onClickHandle，就使用它，否则使用 handleClose
+
   return (
     <div className={styles.overlay}>
       <div className={styles.layouts}>
@@ -22,6 +23,7 @@ export default function Alert({
           src={status === 'ok' ? '/failed.png' : '/notice.png'}
           width={67}
           height={67}
+          className={styles.alertImg}
         />
 
         <div className={styles.title}>{title}</div>

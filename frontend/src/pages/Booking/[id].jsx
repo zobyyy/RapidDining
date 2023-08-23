@@ -52,7 +52,6 @@ export default function Booking() {
     }
   }, [])
   const handleOrderChange = async () => {
-    console.log('hi')
     const phone = Cookies.get('phone')
     const tableId = parseInt(Cookies.get('tableId'))
     const reservationId = parseInt(Cookies.get('reservationId'))
@@ -63,6 +62,9 @@ export default function Booking() {
       reservationId: reservationId
     }
     await OrderChange(requestBody)
+    setTimeout(() => {
+      setIsChangeAlert(false)
+    }, 50)
   }
   return (
     <Layouts>
