@@ -3,12 +3,7 @@ import styles from './Cart.module.scss'
 import Image from 'next/image'
 import Cookies from 'js-cookie'
 
-const ProductColumn = ({
-  productChosen,
-  total,
-  setTotal,
-  setProductChosen
-}) => {
+const ProductColumn = ({ productChosen, total, setTotal, setIsAdd }) => {
   const [number, setNumber] = useState(productChosen?.quantity)
   useEffect(() => {
     const allProductChosenToBackend = JSON.parse(
@@ -103,9 +98,13 @@ const ProductColumn = ({
       'allProductChosenToBackend',
       JSON.stringify(updatedProductChosenToBackend)
     )
-    // setProductChosen((prevProductChosen) =>
-    //   prevProductChosen.filter((item) => item.dish_id !== productChosen.dish_id)
-    // )
+
+    if (updatedProductChosen.length === 0) {
+      // 移除 Cookies
+      Cookies.remove('allProductChosenToBackend')
+      Cookies.remove('allProductChosen')
+      setIsAdd(false)
+    }
     setTimeout(() => {
       window.location.reload()
     }, 500)
