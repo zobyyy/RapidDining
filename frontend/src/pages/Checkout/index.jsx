@@ -2,13 +2,14 @@ import Layouts from '../../components/LayoutTablet'
 import Order from './Order'
 import OrderDetail from './OrderDetail'
 import useOrderSummary from '@/hook/useOrderSummary'
-import useOrderGet from '@/hook/useOrderGet'
+import Alert,{CheckoutAlert} from '@/components/Alert'
 import styles from './Checkout.module.scss'
 import CheckoutProvider from './CheckoutContext'
 import { use, useEffect, useState } from 'react'
 
 export default function CheckoutPage() {
     const {order} = useOrderSummary();
+    const [isAlert, setIsAlert] = useState(false);
     const [currentTime, setCurrentTime] = useState(new Date());
     const [formattedTime, setFormattedTime] = useState();
     const [formattedDate, setFormattedDate] = useState();
@@ -28,6 +29,7 @@ export default function CheckoutPage() {
   return (
     <CheckoutProvider>
         <Layouts>
+            {isAlert && <CheckoutAlert setIsAlert={setIsAlert} status={'ok'} title={'訂單已結帳'}/>}
             <div className={styles.sideBar}>
                 <div className={styles.Logo}>
                     <div className={styles.first}>食</div>
@@ -57,7 +59,7 @@ export default function CheckoutPage() {
                                 <p>目前尚無訂單</p>
                         }
                     </div>
-                    <OrderDetail />
+                    <OrderDetail setIsAlert={setIsAlert}/>
                 </div>
             </div>
         </Layouts>

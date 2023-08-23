@@ -5,12 +5,11 @@ import styles from './Checkout.module.scss'
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 // 
-export default function OrderDetail() {
-    const [isAlert, setIsAlert] = useState(false);
+export default function OrderDetail({setIsAlert}) {
     const {selectedOrderId} = useCheckoutContext();
     const {detail} = useOrderGet(selectedOrderId);
     const {handleCheckout} = useCheckout();
-    const router = useRouter();
+    
     return (
         <div className={styles.orderDetail}>
             <div className={styles.yellowBox}>
@@ -25,14 +24,14 @@ export default function OrderDetail() {
                             <DetailItem item = {item} />
                         ))
                     :
-                        <p>目前訂單沒有點餐項目</p>
+                        <p style={{fontSize:'20px'}}>目前訂單沒有點餐項目</p>
                 }
             </div>
             <div className={styles.yellowBox} style={{marginTop:'auto',justifyContent:'space-between'}}>
                 <p>總金額</p>
                 <p>NT${detail?.total}</p>
             </div>
-            <button type='submit' onClick={()=>(handleCheckout(detail.orderId),router.reload())}>結帳</button>
+            <button type='submit' onClick={()=>(handleCheckout(detail.orderId),setIsAlert(true))}>結帳</button>
         </div>
     )
 }
