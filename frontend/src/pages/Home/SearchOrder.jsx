@@ -92,10 +92,12 @@ export default function SearchOrder({ setIsSearch, setIsHidden }) {
               <div></div>
             </div>
           </div>
-        ) : (
+        ) : order.length > 0 ? (
           order.map((orderItem, index) => (
             <Restaurant key={index} type={2} order={orderItem} />
           ))
+        ) : (
+          <div className={styles.noOrder}>此手機號碼沒有訂單紀錄</div>
         )}
       </div>
     </div>

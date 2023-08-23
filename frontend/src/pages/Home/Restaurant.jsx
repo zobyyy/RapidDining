@@ -7,7 +7,8 @@ function getOrderContent(order) {
   if (
     order.tableId !== null &&
     order.reservationId === null &&
-    order.status === null
+    order.status === null &&
+    order.orderId === null
   ) {
     return (
       //只有訂位 沒訂餐
@@ -16,9 +17,10 @@ function getOrderContent(order) {
       </div>
     )
   } else if (
-    order.tableId === null &&
+    order.tableId !== null &&
     order.orderId !== null &&
-    order.status === null
+    order.status === null &&
+    order.reservationId === null
   ) {
     return (
       //訂位+訂餐
@@ -30,7 +32,8 @@ function getOrderContent(order) {
   } else if (
     order.tableId === null &&
     order.orderId !== null &&
-    order.status !== null
+    order.status !== null &&
+    order.reservationId !== null
   ) {
     return (
       //候位有訂餐
@@ -42,7 +45,8 @@ function getOrderContent(order) {
   } else if (
     order.tableId === null &&
     order.orderId === null &&
-    order.reservationId === null
+    order.reservationId !== null &&
+    order.status !== null
   ) {
     return (
       //只有候位沒訂餐
@@ -53,7 +57,8 @@ function getOrderContent(order) {
   } else if (
     order.tableId === null &&
     order.reservationId === null &&
-    order.status === null
+    order.status === null &&
+    order.orderId !== null
   ) {
     //外帶
     return (
@@ -127,7 +132,7 @@ function RestaurantInfo({ restaurant }) {
       </div>
       <div className={styles.info}>
         <p className={styles.restaurantName}>{restaurant.name}</p>
-        {/* mockData 現在用訂位狀況判斷 */}
+
         <div className={styles.tag}>
           {restaurant.availability ? '有空位' : '無空位'}
         </div>
