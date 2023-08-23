@@ -177,7 +177,7 @@
   align-items: flex-start;
   position: sticky;
   top: 0;
-  padding: 20px 0px 0 40px;
+  padding: 20px 0px 5px 40px;
   background: linear-gradient(180deg, #fff 0%, rgba(255, 255, 255, 0) 100%);
   box-sizing: border-box;
   z-index: 100;
@@ -213,6 +213,7 @@
 }
 .activeKinds {
   background-color: $mainYellow;
+  box-shadow: 0 0 8px rgba($mainYellow, 0.9); /* 添加淡 #f58873 光煥效果 */
 }
 
 .productCol {
@@ -230,6 +231,8 @@
   font-size: 16px;
 }
 .productChosenQuantity {
+  box-shadow: 0 0 8px rgba($mainYellow, 0.9);
+
   background: $mainYellow;
   width: 44px;
   height: 44px;
