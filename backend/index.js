@@ -20,6 +20,7 @@ import { OrderSummary } from './controller/order/order.js';
 import { orderDetail } from './controller/order/detail.js';
 import { tableCancel } from './controller/reservation/tableCancel.js';
 import { orderCheckout } from './controller/order/checkout.js';
+import { orderCancel } from './controller/order/cancel.js';
 
 
 
@@ -93,6 +94,7 @@ app.post(`/api/${process.env.apiVer}/reservations/orderstatus`, changeOrderStatu
 
 
 app.post(`/api/${process.env.apiVer}/orders/:orderId/checkout`, orderCheckout);
+app.delete(`/api/${process.env.apiVer}/orders/:orderId/cancel`, orderCancel);
 
 app.listen(port, () => {
   console.log(`Rapid dining backend listening on port:${port}`);
