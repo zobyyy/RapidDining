@@ -123,17 +123,36 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-
+  margin-bottom: 5px;
   border-radius: 20px;
   padding: 0 15px;
   white-space: nowrap;
 }
 .selectedOption {
   background-color: $mainYellow;
+  transition:
+    border-color 0.3s,
+    transform 0.3s,
+    box-shadow 0.3s,
+    /* 選項的過渡動畫 */ background-color 0.5s ease; /* 背景顏色的過渡動畫 */
+  position: relative; /* 用於定位光環 */
+  box-shadow: 0 0 8px rgba($mainYellow, 0.7); /* 添加淡 #f58873 光煥效果 */
+}
+.selectedOption::before {
+  content: '';
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  right: -4px;
+  bottom: -4px;
+  border: 2px solid $mainRed;
+  border-radius: 25px;
+  opacity: 0;
+  transition: opacity 0.3s ease; /* 光環的過渡動畫 */
 }
 .type {
   width: 100%;
-  height: 98px;
+  min-height: 98px;
   border-bottom: 1px solid $lightGrey;
   display: flex;
   align-items: flex-start;
