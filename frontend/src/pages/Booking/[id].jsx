@@ -24,6 +24,8 @@ export default function Booking() {
   const [isEatHere, setIsEatHere] = useState(false)
   const [isCancelAlert, setIsCancelAlert] = useState(false)
   const [isWaitingCancelAlert, setIsWaitingCancelAlert] = useState(false)
+  const [isChangeAlert, setIsChangeAlert] = useState(false)
+
   const phone = Cookies.get('phone')
   const restaurantId = parseInt(Cookies.get('restaurantsId'))
   const { cancleReservation, cancleBooking } = useCancel({
@@ -89,6 +91,17 @@ export default function Booking() {
               status='ok'
             />
           )}
+          {isChangeAlert && (
+            <Alert
+              setIsAlert={setIsChangeAlert}
+              title='您目前有外帶訂單，要將該訂單改成內用嗎？'
+              context=''
+              status='option'
+              yes='保持外帶'
+              no='改成內用'
+              // onClickHandle={cancleBooking}
+            />
+          )}
           {isCancelAlert && (
             <Alert
               setIsAlert={setIsCancelAlert}
@@ -100,6 +113,7 @@ export default function Booking() {
               onClickHandle={cancleBooking}
             />
           )}
+
           {isWaitingCancelAlert && (
             <Alert
               setIsAlert={setIsWaitingCancelAlert}
@@ -149,13 +163,12 @@ export default function Booking() {
           </div>
           {chooseOrderPosition ? (
             <OrderPosition
-              // phone={phone}
-              // setPhone={setPhone}
               reservationType={reservationType}
               makeReservation={makeReservation}
               setChooseOrderPosition={setChooseOrderPosition}
               setIsWaitingCancelAlert={setIsWaitingCancelAlert}
               setIsCancelAlert={setIsCancelAlert}
+              setIsChangeAlert={setIsChangeAlert}
             />
           ) : (
             <div>
