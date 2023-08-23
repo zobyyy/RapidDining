@@ -34,6 +34,7 @@ export async function deleteOrder(id, phone) {
       throw new BadOrderRemoval();
     }
     if(existOrder.tableId === null){
+      console.log(`removed takeout order ${id}`);
       await conn.commit();
       return;
     }
@@ -41,11 +42,13 @@ export async function deleteOrder(id, phone) {
     const recentReservant = (await conn.query(`SELECT id,phone FROM Reservation WHERE restaurantId = ? AND headcount <= ? LIMIT 1 FOR UPDATE`, [releasedTable.restaurantId, releasedTable.headcount]))[0][0];
     if(recentReservant === undefined){
       await conn.query(`UPDATE tableList SET phone=NULL WHERE id=?`, [existOrder.tableId]);
+      console.log(`removed internal order ${id} and released table ${existOrder.tableId} of restaurant ${releasedTable.restaurantId} and there's no more reservants`);
       await conn.commit();
       return;
     }
     await conn.query(`UPDATE tableList SET phone=? WHERE id=?`, [recentReservant.phone, existOrder.tableId]);
     await conn.query(`DELETE FROM Reservation WHERE id = ?`, [recentReservant.id]);
+    console.log(`removed internal order ${id} and table ${existOrder.tableId} is now seat of reservation ${releasedTable.restaurantId}`);
     await conn.commit();
   } catch (err) {
     await conn.rollback();
