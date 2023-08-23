@@ -86,7 +86,7 @@ app.get(`/api/${process.env.apiVer}/orders/order`, OrderSummary);
 
 
 app.post(`/api/${process.env.apiVer}/orders/:orderId/checkout`, orderCheckout);
-app.post(`/api/${process.env.apiVer}/orders/:orderId/cancel`, orderCancel);
+app.delete(`/api/${process.env.apiVer}/orders/:orderId/cancel`, orderCancel);
 
 app.listen(port, () => {
   console.log(`Rapid dining backend listening on port:${port}`);
