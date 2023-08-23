@@ -169,7 +169,7 @@
 
       .text {
         font-size: 12px;
-        font-weight: 700;
+        font-weight: 600;
         color: #fff;
       }
     }
@@ -356,7 +356,7 @@
     width: 85%;
     font-size: 16px;
     font-weight: 700;
-    font-family: 'Inter';
+
     margin-top: 1.5rem;
     border-bottom: 5px $mainYellow solid;
     padding-bottom: 20px;
@@ -472,7 +472,7 @@
           position: absolute;
           left: 45px;
           font-size: 12px;
-          font-weight: 700;
+          font-weight: 500;
           color: #fff;
           z-index: 999;
         }
@@ -569,6 +569,5 @@
 .noOrder {
   color: $mainRed;
   font-weight: 700;
-  font-family: 'Inter';
   padding: 20px 0px;
 }

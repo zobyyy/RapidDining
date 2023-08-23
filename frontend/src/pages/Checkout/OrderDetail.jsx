@@ -32,7 +32,7 @@ export default function OrderDetail() {
                 <p>總金額</p>
                 <p>NT${detail?.total}</p>
             </div>
-            <button type='submit' onClick={()=>(handleCheckout(detail.orderId), router.reload())}>結帳</button>
+            <button type='submit' onClick={()=>(handleCheckout(detail.orderId),router.reload())}>結帳</button>
         </div>
     )
 }

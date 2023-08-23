@@ -11,7 +11,8 @@ const OrderPosition = ({
   phone,
   setPhone,
   setIsWaitingCancelAlert,
-  setIsCancelAlert
+  setIsCancelAlert,
+  setIsChangeAlert
 }) => {
   const [isOrderPosition, setIsOrderPosition] = useState(false)
 
@@ -168,8 +169,7 @@ const OrderPosition = ({
           <BookingWaiting />
         ) : (
           <BookingInfoInput
-            // phone={phone}
-            // setPhone={setPhone}
+            setIsChangeAlert={setIsChangeAlert}
             isOrderPosition={isOrderPosition}
             makeReservation={makeReservation}
           />
