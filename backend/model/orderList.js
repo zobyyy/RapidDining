@@ -37,13 +37,14 @@ export async function deleteOrder(id, phone) {
       await conn.commit();
       return;
     }
-    const releasedHeadcount = (await conn.query(`SELECT headcount FROM tableList WHERE id = ?`, [existOrder.tableId]))[0][0]["headcount"];
-    const recentReservant = (await conn.query(`SELECT phone FROM Reservation WHERE headcount <= ? LIMIT 1`, [releasedHeadcount]))[0][0];
+    const releasedTable = (await conn.query(`SELECT headcount,restaurantId FROM tableList WHERE id = ? FOR UPDATE`, [existOrder.tableId]))[0][0];
+    const recentReservant = (await conn.query(`SELECT id,phone FROM Reservation WHERE restaurantId = ? AND headcount <= ? LIMIT 1 FOR UPDATE`, [releasedTable.restaurantId, releasedTable.headcount]))[0][0];
     if(recentReservant === undefined){
       await conn.commit();
       return;
     }
     await conn.query(`UPDATE tableList SET phone=? WHERE id=?`, [recentReservant.phone, existOrder.tableId]);
+    await conn.query(`DELETE FROM Reservation WHERE id = ?`, [recentReservant.id]);
     await conn.commit();
   } catch (err) {
     await conn.rollback();
