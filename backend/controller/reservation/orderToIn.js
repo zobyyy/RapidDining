@@ -13,11 +13,11 @@ export async function changeOrderStatus(req, res) {
             return res.status(400).json({ error: 'Wrong format in request body.' });
         }
 
-        if ( (!ReqIsNumber(tableId)|| tableId !== null)) {
+        if ( ((!ReqIsNumber(tableId) && tableId !==null))) {
             return res.status(400).json({ error: 'Wrong format in tableId.' });
         }
 
-        if ((!ReqIsNumber(reservationId)||reservationId !== null)) {
+        if ((!ReqIsNumber(reservationId) && reservationId !== null)) {
             return res.status(400).json({ error: 'Wrong format in reservationId.' });
         }
        
@@ -34,7 +34,6 @@ export async function changeOrderStatus(req, res) {
                 error: 'Phone not found in orderList.',
             });
         }
-
 
         if (tableId !== null) {
             const orderstatusIn = await changeOrdertoIn(restaurantId, phoneNum, tableId)
