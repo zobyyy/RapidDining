@@ -8,7 +8,8 @@ import { pool } from './model/util.js';
 import { restaurantList } from './controller/restaurant/list.js';
 import { restaurantProfile } from './controller/restaurant/profile.js';
 import { reservationReserve } from './controller/reservation/reserve.js';
-import { reservationPending } from './controller/reservation/pending.js';
+import { reservationStatus } from './controller/reservation/status.js';
+import { tableStatus } from './controller/reservation/tableStatus.js';
 import { changeOrderStatus } from './controller/reservation/orderToIn.js';
 import { reservationCancel } from './controller/reservation/reserveCancel.js';
 import { restaurantVacancy } from './controller/restaurant/vacancy.js';
@@ -74,7 +75,8 @@ app.use(`/pic`, express.static('pic'));
 app.get(`/api/${process.env.apiVer}/restaurants`, restaurantList);
 app.get(`/api/${process.env.apiVer}/restaurants/:id/profile`, restaurantProfile);
 app.post(`/api/${process.env.apiVer}/reservations/reserve`, reservationReserve);
-app.get(`/api/${process.env.apiVer}/reservations/pending`, reservationPending);
+app.get(`/api/${process.env.apiVer}/reservations/status`, reservationStatus);
+app.get(`/api/${process.env.apiVer}/reservations/tablestatus`, tableStatus);
 app.delete(`/api/${process.env.apiVer}/reservations/cancel`, reservationCancel);
 app.delete(`/api/${process.env.apiVer}/tables/cancel`, tableCancel);
 app.get(`/api/${process.env.apiVer}/restaurants/:restaurantId/vacancy`, restaurantVacancy);
@@ -85,6 +87,8 @@ app.get(`/api/${process.env.apiVer}/orders/pending`, orderPending);
 app.get(`/api/${process.env.apiVer}/orders/detail`, orderDetail);
 app.get(`/api/${process.env.apiVer}/orders/order`, OrderSummary);
 app.post(`/api/${process.env.apiVer}/reservations/orderstatus`, changeOrderStatus);
+
+
 
 
 
