@@ -5,10 +5,26 @@ import useOrderSummary from '@/hook/useOrderSummary'
 import useOrderGet from '@/hook/useOrderGet'
 import styles from './Checkout.module.scss'
 import CheckoutProvider from './CheckoutContext'
-import { useEffect, useState } from 'react'
+import { use, useEffect, useState } from 'react'
 
 export default function CheckoutPage() {
     const {order} = useOrderSummary();
+    const [currentTime, setCurrentTime] = useState(new Date());
+    const [formattedTime, setFormattedTime] = useState();
+    const [formattedDate, setFormattedDate] = useState();
+
+    useEffect(() => {
+        const intervalId = setInterval(() => {
+            setCurrentTime(new Date());
+            setFormattedTime(currentTime.toLocaleTimeString());
+            setFormattedDate(currentTime.toLocaleDateString());
+        }, 1000);
+
+        return () => {
+            clearInterval(intervalId);
+        };
+    }, [currentTime]);
+
   return (
     <CheckoutProvider>
         <Layouts>
@@ -25,7 +41,10 @@ export default function CheckoutPage() {
             <div className={styles.checkoutBlock}>
                 <div className={styles.shopHeader}>
                     <p style={{fontSize:'32px',fontWeight:'700'}}>AppWorks咖啡廳</p>
-                    <p style={{justifyContent:'flex-end'}}>下午11:57 <br/> 2023/08/11</p>
+                    <p style={{justifyContent:'flex-end',width:'6rem'}}>
+                        <span id="client-time"></span>{formattedTime}<br/>
+                        {formattedDate}
+                    </p>
                 </div>
                 <div className={styles.orderView}>
                     <div className={styles.orderList}>
