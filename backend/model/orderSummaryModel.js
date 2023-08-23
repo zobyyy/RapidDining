@@ -34,3 +34,25 @@ try {
   throw error;
 }
 }
+
+
+export async function getTablesByRestId(restaurantId) {
+  try {
+    const [rows] = await pool.query('SELECT id, headcount, vacancy, phone FROM tableList WHERE restaurantId = ?', [restaurantId]);
+    return rows; 
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function getReservationByRestId(restaurantId) {
+  try {
+    const [rows] = await pool.query('SELECT id, phone, headcount FROM Reservation WHERE restaurantId = ?', [restaurantId]);
+    return rows; 
+  } catch (error) {
+    throw error;
+  }
+}
+
+
+
