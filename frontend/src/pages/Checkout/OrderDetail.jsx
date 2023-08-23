@@ -37,7 +37,7 @@ function DetailItem ({item}) {
     }
     return(
         <div className={styles.detailItem}>
-            <img src="/義大利麵.png" alt="" />
+            <img src={item.picture} alt="" />
             <div>
                 <p style={{fontSize:'16px',fontWeight:'400',margin:'0'}}>{item.dishName}</p>
                 <p style={{fontSize:'16px',fontWeight:'400',color:'#959595',margin:'0.5rem 0px'}}>{customized()}</p>
