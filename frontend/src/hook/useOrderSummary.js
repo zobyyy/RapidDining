@@ -22,7 +22,7 @@ const useOrderSummary = () => {
     useEffect(() => {
         const intervalId = setInterval(() => {
             fetchOrderSummary();
-        }, 10000);
+        }, 3000);
 
         return () => {
             clearInterval(intervalId);
