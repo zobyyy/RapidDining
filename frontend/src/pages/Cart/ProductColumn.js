@@ -33,12 +33,18 @@ const ProductColumn = ({ productChosen, total, setTotal, setIsAdd }) => {
       JSON.stringify(updatedProductChosenToBackend)
     )
   }, [number])
+  const [audio, setAudio] = useState(null)
+
+  useEffect(() => {
+    setAudio(new Audio('/duck.mp3'))
+  }, [])
   const ProductNumber = () => {
     const handlePlusClick = () => {
       const newNumber = number + 1
       setNumber(newNumber)
       const newTotalPrice = productChosen?.price * newNumber
       setTotal(newTotalPrice)
+      audio.play()
     }
 
     const handleMinusClick = () => {

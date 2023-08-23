@@ -19,9 +19,6 @@ const useOrderStatus = () => {
 
       if (response.ok) {
         const data = await response.json()
-        setTimeout(() => {
-          window.location.reload()
-        }, 50)
       }
     } catch (error) {
       console.error(error)

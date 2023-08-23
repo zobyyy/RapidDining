@@ -336,6 +336,22 @@
   background-color: #fff;
   border-radius: 20px;
   overflow-y: auto;
+  animation: scale-up 0.3s forwards;
+
+  @keyframes scale-up {
+    0% {
+      transform: scale(0.8);
+      opacity: 0;
+    }
+    70% {
+      transform: scale(1.1);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
   &::-webkit-scrollbar {
     display: none;
   }

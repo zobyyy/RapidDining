@@ -23,10 +23,15 @@ export async function orderPending(req, res) {
     return res.status(400).json({ error: 'No phone provided.' }); 
     }
 
-    phoneNum = await decodeCursor(phone);
-
+  
     if (!atob(phone)||!atob(phone).startsWith('09')) {
       return res.status(400).json({ error: 'Invalid phone format.' });
+    }
+
+    phoneNum = await decodeCursor(phone);
+
+    if(phoneNum < 900000000 || phoneNum > 999999999) {
+      return res.status(400).send({ "error": "invalid phone" });
     }
 
   console.log('phone to search is',phoneNum);
