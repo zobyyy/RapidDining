@@ -25,9 +25,9 @@ const BookingInfoInput = ({
       .matches(/^(09)\d{8}$/, '手機格式不正確')
   })
   const handleSubmit = async (values) => {
-    setTimeout(() => {
-      setIsChangeAlert(true)
-    }, 1000)
+    // setTimeout(() => {
+    //   setIsChangeAlert(true)
+    // }, 1000)
 
     const requestBody = {
       restaurantId: parseInt(id),
