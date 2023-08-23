@@ -22,14 +22,14 @@ const useOrderSummary = () => {
     useEffect(() => {
         const intervalId = setInterval(() => {
             fetchOrderSummary();
-        }, 3000);
+        }, 1000);
 
         return () => {
             clearInterval(intervalId);
         };
     }, []);
 
-  return { order }
+  return { order, fetchOrderSummary }
 }
 
 export default useOrderSummary

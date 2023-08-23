@@ -1,7 +1,8 @@
 import React from 'react'
 import styles from './Alert.module.scss'
 import Image from 'next/image'
-
+import useOrderSummary from '@/hook/useOrderSummary';
+import { useCheckoutContext } from '@/pages/Checkout/CheckoutContext';
 export default function Alert({
   setIsAlert,
   title,
@@ -63,9 +64,12 @@ export function CheckoutAlert({
   no,
   onClickHandle
 }) {
+  const {setSelectedOrderId} = useCheckoutContext();
+  const {fetchOrderSummary} = useOrderSummary();
   const handleClose = () => {
-    setIsAlert(false)
-    window.location.reload()
+    setIsAlert(false);
+    setSelectedOrderId();
+    fetchOrderSummary();
   }
   return (
     <div className={styles.overlay}>
