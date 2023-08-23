@@ -7,12 +7,11 @@ const useOrderGet = (orderId) => {
     fetch(`https://107.22.142.48/api/1.0/orders/detail?orderId=${orderId}`)
         .then(response => {
         if (!response.ok) {
+            setDetail([]);
             throw new Error('Network response was not ok');
         }
         if (response.status === 200) {
             return response.json();
-        } else if (response.status === 404) {
-            return []
         } else {
             throw new Error('Unexpected response status: ' + response.status);
         }

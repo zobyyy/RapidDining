@@ -10,7 +10,7 @@ export default function OrderDetail() {
     const {selectedOrderId} = useCheckoutContext();
     const {detail} = useOrderGet(selectedOrderId);
     const {handleCheckout} = useCheckout();
-    const router = useRouter();
+    
     return (
         <div className={styles.orderDetail}>
             <div className={styles.yellowBox}>
@@ -32,7 +32,7 @@ export default function OrderDetail() {
                 <p>總金額</p>
                 <p>NT${detail?.total}</p>
             </div>
-            <button type='submit' onClick={()=>(handleCheckout(detail.orderId),router.reload())}>結帳</button>
+            <button type='submit' onClick={()=>(handleCheckout(detail.orderId))}>結帳</button>
         </div>
     )
 }

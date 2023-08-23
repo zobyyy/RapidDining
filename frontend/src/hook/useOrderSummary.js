@@ -20,8 +20,14 @@ const useOrderSummary = () => {
     }
 
     useEffect(() => {
-        fetchOrderSummary();
-    },[])
+        const intervalId = setInterval(() => {
+            fetchOrderSummary();
+        }, 10000);
+
+        return () => {
+            clearInterval(intervalId);
+        };
+    }, []);
 
   return { order }
 }
