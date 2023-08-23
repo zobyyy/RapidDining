@@ -9,6 +9,7 @@ import { restaurantList } from './controller/restaurant/list.js';
 import { restaurantProfile } from './controller/restaurant/profile.js';
 import { reservationReserve } from './controller/reservation/reserve.js';
 import { reservationPending } from './controller/reservation/pending.js';
+import { changeOrderStatus } from './controller/reservation/orderToIn.js';
 import { reservationCancel } from './controller/reservation/reserveCancel.js';
 import { restaurantVacancy } from './controller/restaurant/vacancy.js';
 import { menuSearch } from './controller/menu/search.js';
@@ -19,6 +20,9 @@ import { OrderSummary } from './controller/order/order.js';
 import { orderDetail } from './controller/order/detail.js';
 import { tableCancel } from './controller/reservation/tableCancel.js';
 import { orderCheckout } from './controller/order/checkout.js';
+
+
+
 
 
 
@@ -80,6 +84,10 @@ app.post(`/api/${process.env.apiVer}/orders/request`, orderRequest);
 app.get(`/api/${process.env.apiVer}/orders/pending`, orderPending);
 app.get(`/api/${process.env.apiVer}/orders/detail`, orderDetail);
 app.get(`/api/${process.env.apiVer}/orders/order`, OrderSummary);
+app.post(`/api/${process.env.apiVer}/reservations/orderstatus`, changeOrderStatus);
+
+
+
 
 
 
