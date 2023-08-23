@@ -18,20 +18,25 @@ export default function Cart() {
   const { orderRequest } = useOrderRequest()
   useEffect(() => {
     const allProductChosen = Cookies.get('allProductChosen')
-
-    const productChosenJSON = [JSON.parse(allProductChosen)]
-    setProductChosen(productChosenJSON)
     if (allProductChosen) {
-      setIsAdd(true)
-    } else {
-      setIsAdd(false)
-    }
+      const productChosenJSON = [JSON.parse(allProductChosen)]
+      setProductChosen(productChosenJSON)
+      if (allProductChosen) {
+        setIsAdd(true)
+      } else {
+        setIsAdd(false)
+      }
 
-    if (productChosenJSON && productChosenJSON[0]) {
-      const totalPrice = productChosenJSON[0].reduce((total, item) => {
-        return total + item.price * item.quantity
-      }, 0)
-      setTotal(totalPrice)
+      if (productChosenJSON && productChosenJSON[0]) {
+        const totalPrice = productChosenJSON[0].reduce((total, item) => {
+          return total + item.price * item.quantity
+        }, 0)
+        setTotal(totalPrice)
+      } else {
+        setProductChosen([])
+        setIsAdd(false)
+        setTotal(0)
+      }
     }
   }, [total])
 
@@ -88,6 +93,7 @@ export default function Cart() {
                 setProductChosen={setProductChosen}
                 total={total}
                 setTotal={setTotal}
+                setIsAdd={setIsAdd}
               />
             ))
           ) : (
