@@ -40,6 +40,7 @@ export async function deleteOrder(id, phone) {
     const releasedTable = (await conn.query(`SELECT headcount,restaurantId FROM tableList WHERE id = ? FOR UPDATE`, [existOrder.tableId]))[0][0];
     const recentReservant = (await conn.query(`SELECT id,phone FROM Reservation WHERE restaurantId = ? AND headcount <= ? LIMIT 1 FOR UPDATE`, [releasedTable.restaurantId, releasedTable.headcount]))[0][0];
     if(recentReservant === undefined){
+      await conn.query(`UPDATE tableList SET phone=NULL WHERE id=?`, [existOrder.tableId]);
       await conn.commit();
       return;
     }
