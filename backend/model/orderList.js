@@ -17,9 +17,9 @@ export async function deleteOrder(id, phone) {
     await conn.beginTransaction();
     const existOrder = await async function () {
       if(phone === undefined)
-        return (await conn.query(`SELECT reservationId FROM OrderList WHERE id = ? FOR UPDATE`, [id]))[0][0];
+        return (await conn.query(`SELECT reservationId,tableId FROM OrderList WHERE id = ? FOR UPDATE`, [id]))[0][0];
       else
-        return (await conn.query(`SELECT reservationId FROM OrderList WHERE id = ? AND phone = ? FOR UPDATE`, [id, phone]))[0][0];
+        return (await conn.query(`SELECT reservationId,tableId FROM OrderList WHERE id = ? AND phone = ? FOR UPDATE`, [id, phone]))[0][0];
     }();
     if(existOrder === undefined){
       throw new TargetNotFound();
@@ -28,13 +28,28 @@ export async function deleteOrder(id, phone) {
       throw new TargetNotEligible();
     }
     /**@type {import("mysql2").ResultSetHeader}*/
-    const result = (await conn.query("DELETE FROM OrderList WHERE id=?", [id]))[0];
-    if (result.affectedRows === 1) {
-      await conn.commit();
-    } else {
-      console.error(`trying to remove ${result.affectedRows} records when removing order ${id}!`);
+    const orderDelResult = (await conn.query("DELETE FROM OrderList WHERE id=?", [id]))[0];
+    if (orderDelResult.affectedRows !== 1) {
+      console.error(`trying to remove ${orderDelResult.affectedRows} records when removing order ${id}!`);
       throw new BadOrderRemoval();
     }
+    if(existOrder.tableId === null){
+      console.log(`removed takeout order ${id}`);
+      await conn.commit();
+      return;
+    }
+    const releasedTable = (await conn.query(`SELECT headcount,restaurantId FROM tableList WHERE id = ? FOR UPDATE`, [existOrder.tableId]))[0][0];
+    const recentReservant = (await conn.query(`SELECT id,phone FROM Reservation WHERE restaurantId = ? AND headcount <= ? LIMIT 1 FOR UPDATE`, [releasedTable.restaurantId, releasedTable.headcount]))[0][0];
+    if(recentReservant === undefined){
+      await conn.query(`UPDATE tableList SET phone=NULL WHERE id=?`, [existOrder.tableId]);
+      console.log(`removed internal order ${id} and released table ${existOrder.tableId} of restaurant ${releasedTable.restaurantId} and there's no more reservants`);
+      await conn.commit();
+      return;
+    }
+    await conn.query(`UPDATE tableList SET phone=? WHERE id=?`, [recentReservant.phone, existOrder.tableId]);
+    await conn.query(`DELETE FROM Reservation WHERE id = ?`, [recentReservant.id]);
+    console.log(`removed internal order ${id} and table ${existOrder.tableId} is now seat of reservation ${releasedTable.restaurantId}`);
+    await conn.commit();
   } catch (err) {
     await conn.rollback();
     throw err;
