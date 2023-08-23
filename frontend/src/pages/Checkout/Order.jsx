@@ -2,8 +2,14 @@ import { useEffect, useState } from 'react'
 import CheckoutProvider,{useCheckoutContext} from './CheckoutContext'
 import styles from './Checkout.module.scss'
 
-export default function Order( {order} ) {
-    const {selectedOrderId, setSelectedOrderId} = useCheckoutContext(); 
+export default function Order( {order, index} ) {
+    const {selectedOrderId, setSelectedOrderId} = useCheckoutContext();
+    useEffect(()=>{
+        if (index === 0) {
+            setSelectedOrderId(order.orderId);
+        }
+    },[])
+    
     useEffect(()=>{
         console.log(selectedOrderId);
     },[selectedOrderId])

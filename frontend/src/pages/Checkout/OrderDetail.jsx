@@ -1,12 +1,17 @@
 import CheckoutProvider,{ useCheckoutContext } from './CheckoutContext'
 import useOrderGet from '@/hook/useOrderGet';
+import useCheckout from '../../hook/useCheckout';
 import styles from './Checkout.module.scss'
-
-export default function OrderDetail( {detail11} ) {
+import { useRouter } from 'next/router';
+import { useState } from 'react';
+// 
+export default function OrderDetail() {
+    const [isAlert, setIsAlert] = useState(false);
     const {selectedOrderId} = useCheckoutContext();
     const {detail} = useOrderGet(selectedOrderId);
+    const {handleCheckout} = useCheckout();
+    const router = useRouter();
     return (
-
         <div className={styles.orderDetail}>
             <div className={styles.yellowBox}>
                 <p>編號：{detail?.orderId}</p>
@@ -14,15 +19,20 @@ export default function OrderDetail( {detail11} ) {
             <p style={{alignSelf:'flex-start', margin:'2.5rem 1rem 1.5rem'}}>訂單內容：</p>
             <div className={styles.separator} />
             <div className={styles.detailList}>
-                {detail?.items?.map((item)=>(
-                    <DetailItem item = {item} />
-                ))}
+                {detail?.items !== undefined
+                    ?
+                        detail?.items?.map((item)=>(
+                            <DetailItem item = {item} />
+                        ))
+                    :
+                        <p>目前訂單沒有點餐項目</p>
+                }
             </div>
             <div className={styles.yellowBox} style={{marginTop:'auto',justifyContent:'space-between'}}>
                 <p>總金額</p>
                 <p>NT${detail?.total}</p>
             </div>
-            <button>結帳</button>
+            <button type='submit' onClick={()=>(handleCheckout(detail.orderId), router.reload())}>結帳</button>
         </div>
     )
 }
@@ -37,7 +47,7 @@ function DetailItem ({item}) {
     }
     return(
         <div className={styles.detailItem}>
-            <img src="/義大利麵.png" alt="" />
+            <img src={item.picture} alt="" />
             <div>
                 <p style={{fontSize:'16px',fontWeight:'400',margin:'0'}}>{item.dishName}</p>
                 <p style={{fontSize:'16px',fontWeight:'400',color:'#959595',margin:'0.5rem 0px'}}>{customized()}</p>
