@@ -85,7 +85,7 @@ export default function Booking() {
             <Alert
               setIsAlert={setIsAlert}
               title='訂位失敗'
-              context='您已預訂過此餐廳'
+              context='該手機號碼已預訂過餐廳'
               status='ok'
             />
           )}
