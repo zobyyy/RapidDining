@@ -18,7 +18,8 @@ export default function CheckoutPage() {
                     <div className={styles.others}>時好</div>
                 </div>
                 <div className={styles.item}>
-                    <p>查看訂單</p>
+                    <img style={{margin:'0.5rem 0 0px'}} src="/icon_order.svg" alt="" />
+                    <p style={{margin:'0.5rem 0px'}}>查看訂單</p>
                 </div>
             </div>
             <div className={styles.checkoutBlock}>
