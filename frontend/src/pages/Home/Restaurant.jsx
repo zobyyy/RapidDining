@@ -72,16 +72,12 @@ function getOrderContent(order) {
 }
 function getTags(order) {
   if (
-    order.tableId !== null &&
-    order.reservationId === null &&
-    order.status === null &&
+    (order.tableId !== null || order.reservationId !== null) &&
     order.orderId === null
   ) {
     return <Tag tag={'已訂位'} />
   } else if (
-    order.tableId === null &&
-    order.reservationId !== null &&
-    order.status !== null &&
+    (order.tableId !== null || order.reservationId !== null) &&
     order.orderId !== null
   ) {
     return (
@@ -90,25 +86,6 @@ function getTags(order) {
         <Tag tag={'已訂餐'} />
       </>
     )
-  } else if (
-    order.tableId !== null &&
-    order.reservationId === null &&
-    order.status !== null &&
-    order.orderId !== null
-  ) {
-    return (
-      <>
-        <Tag tag={'已訂位'} />
-        <Tag tag={'已訂餐'} />
-      </>
-    )
-  } else if (
-    order.tableId === null &&
-    order.reservationId !== null &&
-    order.status === null &&
-    order.orderId === null
-  ) {
-    return <Tag tag={'已訂位'} />
   } else if (
     order.tableId === null &&
     order.reservationId === null &&
@@ -195,7 +172,7 @@ function OrderHistory({ order, cancleReservation, cancleBooking }) {
       cancleBooking()
     } else if (
       order.tableId === null &&
-      order.orderId !== null &&
+      order.reservationId !== null &&
       order.status !== null
     ) {
       // 候位
