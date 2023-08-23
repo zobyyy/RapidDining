@@ -8,8 +8,7 @@ import Cookies from 'js-cookie'
 const BookingInfoInput = ({
   isOrderPosition,
   makeReservation,
-  setPhone,
-  phone
+  setIsChangeAlert
 }) => {
   const router = useRouter()
   const { id } = router.query

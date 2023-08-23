@@ -14,6 +14,10 @@ export async function tableCancel(req, res) {
     }
     const phoneNum = parseInt(phone, 10); 
 
+    if(phoneNum < 900000000 || phoneNum > 999999999) {
+      return res.status(400).send({ "error": "invalid phone" });
+    }
+
     const searchandupdate = await searchTableAndUpdate (phoneNum,restaurantId)
 
     if(searchandupdate){

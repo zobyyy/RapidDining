@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import Cookies from 'js-cookie'
 
-const useReservation = () => {
+const useReservation = ({ setIsChangeAlert }) => {
   const [reservationInfo, setReservationInfo] = useState(null)
   const [reservationError, setReservationError] = useState(null)
   const [isAlert, setIsAlert] = useState(false)
@@ -41,6 +41,11 @@ const useReservation = () => {
           Cookies.set('userName', requestBody.name)
           Cookies.set('userGender', requestBody.gender)
           Cookies.set('phone', requestBody.phone)
+        }
+        if (data.data.order === true) {
+          setTimeout(() => {
+            setIsChangeAlert(true)
+          }, 1000)
         }
       } else {
         setReservationError(data.error)

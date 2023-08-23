@@ -1,9 +1,9 @@
 import { pool } from './util.js';
 
 
-export async function checkExistingTable(phone) {
+export async function checkExistingTable(restaurantId,phone) {
     try {
-      const [rows] = await pool.query('SELECT * FROM tableList WHERE phone = ?', [phone]);
+      const [rows] = await pool.query('SELECT * FROM tableList WHERE restaurantId=? AND phone = ?', [restaurantId,phone]);
       console.log('Query result:', rows);
       return rows.length > 0;
     } catch (error) {
@@ -12,9 +12,9 @@ export async function checkExistingTable(phone) {
     }
   }
 
-  export async function checkExistingReservation(phone) {
+  export async function checkExistingReservation(restaurantId,phone) {
     try {
-      const [rows] = await pool.query('SELECT * FROM Reservation WHERE phone = ?', [phone]);
+      const [rows] = await pool.query('SELECT * FROM Reservation WHERE restaurantId=? AND phone = ?', [restaurantId,phone]);
       console.log('checkExistingReservation result:', rows);
       return rows.length > 0;
     } catch (error) {
@@ -78,3 +78,90 @@ export async function getWaitCount(restaurantId) {
       throw error; 
     }
   }
+
+
+  export async function hasOrder(restaurantId,phoneNum) {
+    try {
+      const [res] = await pool.query(
+        'SELECT id FROM OrderList WHERE restaurantId = ? AND phone = ? AND reservationId IS NULL AND tableId IS NULL',
+        [restaurantId, phoneNum]
+      );
+      console.log(`result of return ${res.length}`);
+      return res.length > 0;
+    } catch (error) {
+      console.error('Error in checkhasOrder:', error);
+      throw error; 
+    }
+  }
+
+  export async function changeOrdertoIn(restaurantId, phoneNum, tableId) {
+    const connection = await pool.getConnection();
+  
+    try {
+      await connection.beginTransaction();
+
+      const [orderRows] = await connection.query(
+        'SELECT id FROM OrderList WHERE restaurantId = ? AND phone = ? AND reservationId IS NULL AND tableId IS NULL',
+        [restaurantId, phoneNum]
+      );
+  
+      if (orderRows.length > 0) {
+        const orderId = orderRows[0].id;
+  
+        await connection.query(
+          'UPDATE OrderList SET tableId = ? WHERE id = ?',
+          [tableId, orderId]
+        );
+        await connection.commit(); 
+        return orderId;
+      }
+      await connection.commit(); 
+      return null;
+      
+    } catch (error) {
+      await connection.rollback(); 
+      console.error('Error in changeOrdertoIn:', error);
+      throw error;
+    } finally {
+      connection.release();
+    }
+  }
+
+
+
+  export async function changeOrdertoWait(restaurantId, phoneNum, reservationId) {
+    const connection = await pool.getConnection();
+  
+    try {
+      await connection.beginTransaction();
+
+      const [orderRows] = await connection.query(
+        'SELECT id FROM OrderList WHERE restaurantId = ? AND phone = ? AND reservationId IS NULL AND tableId IS NULL',
+
+        [restaurantId, phoneNum]
+      );
+  
+      if (orderRows.length > 0) {
+        const orderId = orderRows[0].id;
+  
+        await connection.query(
+          'UPDATE OrderList SET reservationId = ? WHERE id = ?',
+          [reservationId, orderId]
+        );
+        await connection.commit(); 
+        return orderId;
+      }
+  
+      await connection.commit(); 
+      return null;
+    
+    } catch (error) {
+      await connection.rollback(); 
+      console.error('Error in changeOrdertoWait:', error);
+      throw error;
+    } finally {
+      connection.release();
+    }
+  }
+  
+  

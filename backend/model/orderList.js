@@ -6,15 +6,21 @@ export class TargetNotFound extends BadOrderRemoval { }
 
 /**
  * @param {number} id
+ * @param {undefined | number} phone
  * @throws {TargetNotEligible} If the order doesn't meet the condition to be removed
  * @throws {TargetNotFound} If the specified order can't be found
  * @throws {BadOrderRemoval} Trying to remove more than one rows (unlikely!)
  * */
-export async function deleteOrder(id) {
+export async function deleteOrder(id, phone) {
   const conn = await pool.getConnection();
   try {
     await conn.beginTransaction();
-    const existOrder = (await conn.query(`SELECT reservationId FROM OrderList WHERE id = ? FOR UPDATE`, [id]))[0][0];
+    const existOrder = await async function () {
+      if(phone === undefined)
+        return (await conn.query(`SELECT reservationId FROM OrderList WHERE id = ? FOR UPDATE`, [id]))[0][0];
+      else
+        return (await conn.query(`SELECT reservationId FROM OrderList WHERE id = ? AND phone = ? FOR UPDATE`, [id, phone]))[0][0];
+    }();
     if(existOrder === undefined){
       throw new TargetNotFound();
     }
@@ -23,7 +29,6 @@ export async function deleteOrder(id) {
     }
     /**@type {import("mysql2").ResultSetHeader}*/
     const result = (await conn.query("DELETE FROM OrderList WHERE id=?", [id]))[0];
-    console.log(result);
     if (result.affectedRows === 1) {
       await conn.commit();
     } else {

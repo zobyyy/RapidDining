@@ -21,7 +21,8 @@ function getOrderContent(order) {
   } else if (
     order.tableId !== null &&
     order.orderId !== null &&
-    order.status === null
+    order.status === null &&
+    order.reservationId === null
   ) {
     return (
       //訂位+訂餐
@@ -33,7 +34,8 @@ function getOrderContent(order) {
   } else if (
     order.tableId === null &&
     order.orderId !== null &&
-    order.status !== null
+    order.status !== null &&
+    order.reservationId !== null
   ) {
     return (
       //候位有訂餐
@@ -45,7 +47,8 @@ function getOrderContent(order) {
   } else if (
     order.tableId === null &&
     order.orderId === null &&
-    order.reservationId === null
+    order.reservationId !== null &&
+    order.status !== null
   ) {
     return (
       //只有候位沒訂餐
@@ -56,7 +59,8 @@ function getOrderContent(order) {
   } else if (
     order.tableId === null &&
     order.reservationId === null &&
-    order.status === null
+    order.status === null &&
+    order.orderId !== null
   ) {
     //外帶
     return (
@@ -68,16 +72,12 @@ function getOrderContent(order) {
 }
 function getTags(order) {
   if (
-    order.tableId !== null &&
-    order.reservationId === null &&
-    order.status === null &&
+    (order.tableId !== null || order.reservationId !== null) &&
     order.orderId === null
   ) {
     return <Tag tag={'已訂位'} />
   } else if (
-    order.tableId === null &&
-    order.reservationId !== null &&
-    order.status !== null &&
+    (order.tableId !== null || order.reservationId !== null) &&
     order.orderId !== null
   ) {
     return (
@@ -86,25 +86,6 @@ function getTags(order) {
         <Tag tag={'已訂餐'} />
       </>
     )
-  } else if (
-    order.tableId !== null &&
-    order.reservationId === null &&
-    order.status !== null &&
-    order.orderId !== null
-  ) {
-    return (
-      <>
-        <Tag tag={'已訂位'} />
-        <Tag tag={'已訂餐'} />
-      </>
-    )
-  } else if (
-    order.tableId === null &&
-    order.reservationId !== null &&
-    order.status === null &&
-    order.orderId === null
-  ) {
-    return <Tag tag={'已訂位'} />
   } else if (
     order.tableId === null &&
     order.reservationId === null &&
@@ -116,9 +97,10 @@ function getTags(order) {
 }
 
 export default function Restaurant({ type, restaurant, order, phone }) {
-  const { cancleReservation, cancleBooking } = useCancel({
+  const { cancleReservation, cancleBooking, cancleToGo } = useCancel({
     phone,
-    restaurantId: order?.restaurantId
+    restaurantId: order?.restaurantId,
+    orderId: order?.orderId
   })
   return (
     <div
@@ -150,6 +132,7 @@ export default function Restaurant({ type, restaurant, order, phone }) {
             phone={phone}
             cancleReservation={cancleReservation}
             cancleBooking={cancleBooking}
+            cancleToGo={cancleToGo}
           />
         )
       )}
@@ -165,7 +148,7 @@ function RestaurantInfo({ restaurant }) {
       </div>
       <div className={styles.info}>
         <p className={styles.restaurantName}>{restaurant.name}</p>
-        {/* mockData 現在用訂位狀況判斷 */}
+
         <div className={styles.tag}>
           {restaurant.availability ? '有空位' : '無空位'}
         </div>
@@ -179,7 +162,7 @@ function RestaurantInfo({ restaurant }) {
   )
 }
 
-function OrderHistory({ order, cancleReservation, cancleBooking }) {
+function OrderHistory({ order, cancleReservation, cancleBooking, cancleToGo }) {
   const [isCancelAlert, setIsCancelAlert] = useState(false)
   const handleCancel = () => {
     if (
@@ -191,11 +174,19 @@ function OrderHistory({ order, cancleReservation, cancleBooking }) {
       cancleBooking()
     } else if (
       order.tableId === null &&
-      order.orderId !== null &&
+      order.reservationId !== null &&
       order.status !== null
     ) {
       // 候位
       cancleReservation()
+    } else if (
+      order.tableId === null &&
+      order.reservationId === null &&
+      order.status === null &&
+      order.orderId !== null
+    ) {
+      // 外帶
+      cancleToGo()
     }
   }
 
@@ -209,10 +200,11 @@ function OrderHistory({ order, cancleReservation, cancleBooking }) {
           context='真的要取消？'
           status='option'
           yes='保留'
-          no='取消訂位'
+          no='取消'
           onClickHandle={handleCancel}
         />
       )}
+
       <div className={styles.picture}>
         <Image
           width={75}

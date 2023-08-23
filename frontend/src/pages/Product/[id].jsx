@@ -31,8 +31,15 @@ export default function Product() {
   }
   const [selectedOptions, setSelectedOptions] = useState({})
   const [number, setNumber] = useState(1)
+
+  const [audio, setAudio] = useState(null)
+
+  useEffect(() => {
+    setAudio(new Audio('/duck.mp3'))
+  }, [])
   const ProductNumber = () => {
     const handlePlusClick = () => {
+      audio.play()
       setNumber(number + 1)
     }
 
@@ -74,11 +81,33 @@ export default function Product() {
       setSelectedOptions((prevSelectedOptions) => {
         const newSelectedOptions = { ...prevSelectedOptions }
 
-        // 如果已經選中了該選項，則取消選擇
-        if (newSelectedOptions[type] === optionId) {
-          newSelectedOptions[type] = null
-        } else {
-          newSelectedOptions[type] = optionId
+        // 找到該客製化類型
+        const customizationType = customized.find((opt) => opt.type === type)
+
+        if (customizationType) {
+          // 檢查客製化類型是否為 "配菜調整" 且允許多選
+          const isMultiSelect = customizationType.type === '配菜調整'
+
+          // 檢查該選項是否已經被選中
+          const isSelected = newSelectedOptions[type]?.includes(optionId)
+
+          if (isMultiSelect) {
+            if (isSelected) {
+              // 取消選擇該選項
+              newSelectedOptions[type] = newSelectedOptions[type].filter(
+                (id) => id !== optionId
+              )
+            } else {
+              // 選擇該選項
+              newSelectedOptions[type] = [
+                ...(newSelectedOptions[type] || []),
+                optionId
+              ]
+            }
+          } else {
+            // 單選，只選取一個選項
+            newSelectedOptions[type] = isSelected ? [] : [optionId]
+          }
         }
 
         return newSelectedOptions
@@ -106,7 +135,7 @@ export default function Product() {
                     <div
                       key={subIndex}
                       className={`${styles.optionsName} ${
-                        selectedOptions[option.type] === subOption.id
+                        selectedOptions[option.type]?.includes(subOption.id)
                           ? styles.selectedOption
                           : ''
                       }`}
@@ -126,23 +155,24 @@ export default function Product() {
     )
   }
 
-  //   要給後端的requestbody：
-  //   tableId (有位置才有/null)
-  //   reservationId (候位/null)
-  //   items:
-  // "dishId": 1,
-  // "customized": [{"dishoptionId": 1}, {"dishoptionId": 3}]
-  //   created_at
-  // total(總價格)
-  // name(外帶/內用null)
-  // phone(外帶/內用null)
-  const selectedIds = Object.values(selectedOptions) //這是要傳給後端的客製化id
-  const selectedNames = selectedIds.map((id) => {
+  const selectedIds = Object.values(selectedOptions)
+  //這是要傳給後端的客製化id
+  const selectedIdsArray = selectedIds.reduce((result, subArray) => {
+    // 排除空的子陣列
+    if (subArray.length > 0) {
+      // 合併子陣列的元素到結果陣列中
+      result.push(...subArray)
+    }
+    return result
+  }, [])
+  console.log(selectedIdsArray)
+  const selectedNames = selectedIdsArray.map((id) => {
     const option = customized
       .flatMap((opt) => opt.option)
       .find((subOption) => subOption.id === id)
     return option ? option.taste : ''
   })
+  console.log('selectedNames', selectedNames)
   //前端呈現在購物車的
 
   const newProductChosen = {
@@ -157,7 +187,7 @@ export default function Product() {
   //傳給後端的是商品的「dishId+客製化選項+餐點數量」三個
   const newProductChosenToBackend = {
     dishId: dishData?.data.dish_id,
-    customized: selectedIds,
+    customized: selectedIdsArray,
     quantity: number
   }
   const handleAddToCart = () => {

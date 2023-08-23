@@ -169,7 +169,7 @@
 
       .text {
         font-size: 12px;
-        font-weight: 700;
+        font-weight: 600;
         color: #fff;
       }
     }
@@ -336,6 +336,22 @@
   background-color: #fff;
   border-radius: 20px;
   overflow-y: auto;
+  animation: scale-up 0.3s forwards;
+
+  @keyframes scale-up {
+    0% {
+      transform: scale(0.8);
+      opacity: 0;
+    }
+    70% {
+      transform: scale(1.1);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
   &::-webkit-scrollbar {
     display: none;
   }
@@ -355,7 +371,8 @@
     display: flex;
     width: 85%;
     font-size: 16px;
-    font-weight: 500;
+    font-weight: 700;
+
     margin-top: 1.5rem;
     border-bottom: 5px $mainYellow solid;
     padding-bottom: 20px;
@@ -471,7 +488,7 @@
           position: absolute;
           left: 45px;
           font-size: 12px;
-          font-weight: 700;
+          font-weight: 500;
           color: #fff;
           z-index: 999;
         }
@@ -564,4 +581,9 @@
   background: transparent;
   font-size: 12px;
   cursor: pointer;
+}
+.noOrder {
+  color: $mainRed;
+  font-weight: 700;
+  padding: 20px 0px;
 }

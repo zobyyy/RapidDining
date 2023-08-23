@@ -15,16 +15,20 @@ export default function Home() {
   const [isSearch, setIsSearch] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [headCount, setHeadCount] = useState(1)
-  const { restaurants } = useRestaurants(headCount, isLoading, setIsLoading)
+  const { restaurants, fetchRestaurants } = useRestaurants(
+    headCount,
+    isLoading,
+    setIsLoading
+  )
   const bookingInfo = [false, true, false, true, false, true]
 
   function handleSelect(selectPeople) {
     console.log('select')
     setHeadCount(selectPeople)
   }
-
-  function handleSelect() {}
-
+  useEffect(() => {
+    fetchRestaurants()
+  }, [headCount])
   return (
     <main>
       <Layouts scrollBarHidden={isHidden}>

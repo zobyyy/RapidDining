@@ -37,7 +37,9 @@ const useOrderRequest = () => {
         Cookies.remove('isReserved')
         Cookies.remove('totalPrice')
         Cookies.remove('chooseOrderPosition')
-        router.push('/OrderSubmit')
+        setTimeout(() => {
+          router.push('/OrderSubmit')
+        }, 50)
       }
     } catch (error) {
       console.error(error)

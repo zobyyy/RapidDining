@@ -13,6 +13,27 @@
   justify-content: center;
   align-items: center;
   gap: 10px;
+  padding: 10px 0;
+  transform: translateY(100%);
+  opacity: 0;
+  transition:
+    transform 0.3s ease,
+    opacity 0.3s ease;
+  animation: scale-up 0.3s forwards;
+  @keyframes scale-up {
+    0% {
+      transform: scale(0.8);
+      opacity: 0;
+    }
+    70% {
+      transform: scale(1.1);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
 }
 .overlay {
   position: absolute;
@@ -29,16 +50,17 @@
 }
 .title {
   color: #000;
-  font-family: Inter;
   font-size: 18px;
   font-style: normal;
   font-weight: 700;
   line-height: normal;
-  margin-top: 0.5rem;
+  width: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .context {
   color: var(--unnamed, #959595);
-  font-family: Inter;
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
@@ -80,4 +102,18 @@
   color: $DarkGrey;
   background: transparent;
   border: 1px solid $DarkGrey;
+}
+.alertImg {
+  animation: shake 0.5s infinite alternate;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  @keyframes shake {
+    from {
+      transform: translateX(-1px);
+    }
+    to {
+      transform: translateX(1px);
+    }
+  }
 }

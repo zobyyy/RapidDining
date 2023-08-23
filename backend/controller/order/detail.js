@@ -4,14 +4,8 @@ import { searchOrderId } from '../../model/orderDetailModel.js';
 export async function orderDetail(req, res) {
   try {
 
-    // const { orderId } = req.body;
-
     const { orderId } = req.query;
-    console.log('typeof orderId:', typeof orderId);
     const orderIdNum = parseInt(orderId);
-    console.log(orderIdNum);
-
-    //記得先搜尋該筆orderId是否存在OrderList
 
     if (!orderIdNum) {
       return res.status(400).json({ error: 'Missing tableId in request body.' });
