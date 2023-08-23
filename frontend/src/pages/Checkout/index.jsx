@@ -9,6 +9,21 @@ import { useEffect, useState } from 'react'
 
 export default function CheckoutPage() {
     const {order} = useOrderSummary();
+    const [currentTime, setCurrentTime] = useState(new Date());
+
+    useEffect(() => {
+        const intervalId = setInterval(() => {
+            setCurrentTime(new Date());
+        }, 1000); // 每秒更新一次
+
+        return () => {
+            clearInterval(intervalId);
+        };
+    }, []);
+
+    const formattedTime = currentTime.toLocaleTimeString();
+    const formattedDate = currentTime.toLocaleDateString();
+
   return (
     <CheckoutProvider>
         <Layouts>
@@ -25,7 +40,7 @@ export default function CheckoutPage() {
             <div className={styles.checkoutBlock}>
                 <div className={styles.shopHeader}>
                     <p style={{fontSize:'32px',fontWeight:'700'}}>AppWorks咖啡廳</p>
-                    <p style={{justifyContent:'flex-end'}}>下午11:57 <br/> 2023/08/11</p>
+                    <p style={{justifyContent:'flex-end',width:'6rem'}}><span id="client-time">{formattedTime}</span><br/>{formattedDate}</p>
                 </div>
                 <div className={styles.orderView}>
                     <div className={styles.orderList}>
