@@ -17,30 +17,30 @@ export async function getPendingOrders(phone) {
     const [tableResult] = await pool.query(tableQuery, [phone]);
     if (tableResult.length > 0) {
       const tableInfo = tableResult[0];
-      
+
       const orderWithTable = `SELECT id FROM OrderList WHERE restaurantId = ? and tableId = ?;
       `;
       const [orderRes] = await pool.query(orderWithTable, [tableInfo.restaurantId,tableInfo.id]);
 
       if (orderRes.length === 0) {
         pendingOrders.push({
-          tableId: tableInfo.id || null,
+          tableId: tableInfo.id ,
           reservationId: null,
           orderId: null,
           status: null,
-          restaurantId: tableInfo.restaurantId || null,
-          restaurantName: tableInfo.restaurantName || null,
-          restaurantPic: tableInfo.restaurantPicture || null
+          restaurantId: tableInfo.restaurantId ,
+          restaurantName: tableInfo.restaurantName ,
+          restaurantPic: tableInfo.restaurantPicture 
         });
       } else {
         pendingOrders.push({
-          tableId: tableInfo.id || null,
+          tableId: tableInfo.id ,
           reservationId: null,
-          orderId: orderRes[0].id || null,
+          orderId: orderRes[0].id ,
           status: null,
-          restaurantId: tableInfo.restaurantId || null,
-          restaurantName: tableInfo.restaurantName || null,
-          restaurantPic: tableInfo.restaurantPicture || null
+          restaurantId: tableInfo.restaurantId ,
+          restaurantName: tableInfo.restaurantName ,
+          restaurantPic: tableInfo.restaurantPicture 
         });
       }
       
@@ -67,18 +67,7 @@ export async function getPendingOrders(phone) {
       const orderWithReservation = `SELECT id FROM OrderList WHERE reservationId = ?;
       `;
       const [orderRes] = await pool.query(orderWithReservation, [reservationInfo.reservationId]);
-
-      if (orderRes.length === 0) {
-        pendingOrders.push({
-          tableId: null,
-          reservationId: reservationInfo.reservationId,
-          orderId: null,
-          status: null,
-          restaurantId: reservationInfo.restaurantId ,
-          restaurantName: reservationInfo.restaurantName ,
-          restaurantPic: reservationInfo.restaurantPicture 
-        });
-      } else {
+     
 
       const reservationCountQuery = `
       SELECT COUNT(*) AS count FROM Reservation
@@ -89,6 +78,19 @@ export async function getPendingOrders(phone) {
       
     reservationCount = reservationCountResult[0]?.count + 1;
     console.log(`you are the num ${reservationCount}`);
+
+
+      if (orderRes.length === 0) {
+        pendingOrders.push({
+          tableId: null,
+          reservationId: reservationInfo.reservationId,
+          orderId: null,
+          status: reservationCount ,
+          restaurantId: reservationInfo.restaurantId ,
+          restaurantName: reservationInfo.restaurantName ,
+          restaurantPic: reservationInfo.restaurantPicture 
+        });
+      } else {
 
       pendingOrders.push({
         tableId: null,
