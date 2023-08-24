@@ -12,6 +12,8 @@ const useOrderGet = (orderId) => {
         }
         if (response.status === 200) {
             return response.json();
+        } else if (response.status === 403) {
+            setDetail("還沒吃完")
         } else {
             throw new Error('Unexpected response status: ' + response.status);
         }

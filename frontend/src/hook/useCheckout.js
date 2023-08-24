@@ -3,8 +3,7 @@ import Cookies from 'js-cookie'
 import { useRouter } from 'next/router'
 
 const useCheckout = () => {
-  const [updateOrderId, setUpdateOrderId] = useState(null)
-  const router = useRouter()
+  const [message, setMessage] = useState('');
 
   const handleCheckout = async (orderId) => {
     try {
@@ -19,17 +18,17 @@ const useCheckout = () => {
       )
 
       if (response.ok) {
+        console.log('checkout!')
+      } else {
         const data = await response.json()
-        console.log('hi', data.data.orders.id)
-        setUpdateOrderId(data.data)
-        router.push('/OrderSubmit')
+        setMessage(data)
       }
     } catch (error) {
       console.error(error)
     }
   }
 
-  return { handleCheckout }
+  return { message, handleCheckout }
 }
 
 export default useCheckout

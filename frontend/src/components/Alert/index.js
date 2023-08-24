@@ -70,7 +70,6 @@ export function CheckoutAlert({
   const {fetchOrderSummary} = useOrderSummary();
   const handleClose = () => {
     setIsAlert(false);
-    setSelectedOrderId();
     fetchOrderSummary();
   }
   return (

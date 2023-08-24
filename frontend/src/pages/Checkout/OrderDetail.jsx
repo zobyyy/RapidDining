@@ -9,6 +9,11 @@ export default function OrderDetail({setIsAlert}) {
     const {selectedOrderId} = useCheckoutContext();
     const {detail} = useOrderGet(selectedOrderId);
     const {handleCheckout} = useCheckout();
+
+    const handleSubmit = () => {
+        const {message} = useCheckout();
+        console.log("msg: ",message)
+    }
     
     return (
         <div className={styles.orderDetail}>
@@ -49,7 +54,17 @@ function DetailItem ({item}) {
             <img src={item.picture} alt="" />
             <div>
                 <p style={{fontSize:'16px',fontWeight:'400',margin:'0'}}>{item.dishName}</p>
-                <p style={{fontSize:'16px',fontWeight:'400',color:'#959595',margin:'0.5rem 0px'}}>{customized()}</p>
+                <div style={{
+                    display:'flex',
+                    gap:'0.3rem'
+                }}>
+                    {
+                        item.customized.map((flavor)=>(
+                            <div className={styles.tag}>{flavor.dishoption}</div>
+                        ))
+                    }
+                </div>
+                
             </div>
             
             <p style={{fontSize:'40px',fontWeight:'700', color:'#F58873', marginLeft:'auto', marginTop:'0',marginRight:'1.5rem'}}>{item.quantity}</p>

@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react'
+import {useCheckoutContext} from '@/pages/Checkout/CheckoutContext';
 
 const useOrderSummary = () => {
   const [order, setOrder] = useState([])
+  const {setSelectedOrderId} = useCheckoutContext();
 
   function fetchOrderSummary() {
     fetch(`https://107.22.142.48/api/1.0/orders/order?restaurantId=1`)
@@ -28,6 +30,14 @@ const useOrderSummary = () => {
             clearInterval(intervalId);
         };
     }, []);
+
+    useEffect(()=>{
+        if (order.length === 0) {
+            setSelectedOrderId();
+        } else {
+            setSelectedOrderId(order[0].orderId);
+        }
+    },[order])
 
   return { order, fetchOrderSummary }
 }

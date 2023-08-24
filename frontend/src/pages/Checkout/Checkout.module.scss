@@ -199,6 +199,16 @@
                         height: 3.8rem;
                         object-fit: cover;
                     }
+
+                    .tag {
+                        font-size: 14px;
+                        font-weight: 400;
+                        color: $DarkGrey;
+                        margin: 0.6rem 0px;
+                        border: 1px solid $DarkGrey;
+                        border-radius: 20px;
+                        padding: 0.1rem 0.5rem;
+                    }
                 }
             }
 
