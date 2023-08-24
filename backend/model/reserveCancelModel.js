@@ -85,13 +85,15 @@ export async function cancelTable(phone, restaurantId) {
         await connection.query('DELETE FROM OrderList WHERE id = ?', [orderId]);
       }
       const [reservationRows] = await connection.query('SELECT id, phone FROM Reservation WHERE headcount <= ? AND restaurantId = ? LIMIT 1', [tableHeadcount, restaurantId]);
-      console.log('tableheadcount',tableHeadcount)
-     
-      console.log('res id',reservationRows[0].id)
-      console.log('res phone',reservationRows[0].phone)
+      
       if (reservationRows.length > 0) {
         const reservationId = reservationRows[0].id;
         const reservationPhone = reservationRows[0].phone;
+
+        console.log('tableheadcount',tableHeadcount)
+     
+      console.log('res id',reservationRows[0].id)
+      console.log('res phone',reservationRows[0].phone)
 
         await connection.query('UPDATE tableList SET phone = ? WHERE id = ?', [reservationPhone, tableId]);
 
