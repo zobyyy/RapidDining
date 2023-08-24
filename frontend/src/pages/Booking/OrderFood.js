@@ -18,26 +18,26 @@ const OrderFood = ({ menuInfo, profileData, isEatHere }) => {
       //判斷訂位了嗎
       setChooseOrderPosition(false)
     }
-    const productChosenCookie = Cookies.get('allProductChosen')
-    if (productChosenCookie && !Object.keys(productChosen).length) {
-      const parsedProductChosen = JSON.parse(productChosenCookie)
-      setProductChosen(parsedProductChosen)
-      calculateCartInfo(parsedProductChosen)
-    }
+    // const productChosenCookie = Cookies.get('allProductChosen')
+    // if (productChosenCookie && !Object.keys(productChosen).length) {
+    //   const parsedProductChosen = JSON.parse(productChosenCookie)
+    //   setProductChosen(parsedProductChosen)
+    //   calculateCartInfo(parsedProductChosen)
+    // }
   }, [chooseOrderPosition, productChosen])
 
-  const calculateCartInfo = (chosenProducts) => {
-    let quantity = 0
-    let totalPrice = 0
+  // const calculateCartInfo = (chosenProducts) => {
+  //   let quantity = 0
+  //   let totalPrice = 0
 
-    chosenProducts.forEach((product) => {
-      quantity += product.quantity
-      totalPrice += product.price * product.quantity
-    })
+  //   chosenProducts.forEach((product) => {
+  //     quantity += product.quantity
+  //     totalPrice += product.price * product.quantity
+  //   })
 
-    setCartQuantity(quantity)
-    setCartTotalPrice(totalPrice)
-  }
+  //   setCartQuantity(quantity)
+  //   setCartTotalPrice(totalPrice)
+  // }
 
   return (
     <div className={styles.order}>
@@ -48,25 +48,6 @@ const OrderFood = ({ menuInfo, profileData, isEatHere }) => {
       </div>
 
       <Menu menuInfo={menuInfo} profileData={profileData} />
-      {Object.keys(productChosen).length > 0 && (
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            width: '100%',
-            justifyContent: 'center'
-          }}
-        >
-          <button
-            className={styles.cartButton}
-            onClick={() => router.push('/Cart')}
-          >
-            <div className={styles.cartButtonText}>{cartQuantity}</div>
-            購物車
-            <div className={styles.cartButtonPrice}>NT${cartTotalPrice}</div>
-          </button>
-        </div>
-      )}
     </div>
   )
 }
