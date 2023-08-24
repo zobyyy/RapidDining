@@ -4,8 +4,6 @@ import { useRouter } from 'next/router'
 
 const useCheckout = () => {
   const [message, setMessage] = useState('');
-  const [updateOrderId, setUpdateOrderId] = useState(null)
-  const router = useRouter()
   const [audio, setAudio] = useState(null)
 
   useEffect(() => {
