@@ -1,7 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
 @import '@/styles/global.scss';
 @import url('https://fonts.googleapis.com/css2?family=Jaldi&display=swap');
-
+.productLayout {
+  height: 702px;
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    width: 0px;
+  }
+}
 .order {
   display: flex;
   justify-content: space-around;
@@ -200,3 +206,10 @@
     height: 32px;
   }
 }
+// .customization {
+//   height: 305px;
+//   overflow-y: scroll;
+//   &::-webkit-scrollbar {
+//     width: 0px;
+//   }
+// }
