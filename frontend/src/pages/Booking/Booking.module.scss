@@ -250,53 +250,53 @@
   justify-content: center;
 }
 //購物車有東西
-.cartButton {
-  cursor: pointer;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  z-index: 999;
-  position: fixed;
-  bottom: 5%;
-  width: 340px;
-  align-self: center;
-  background: $mainLinear;
-  border: 0px;
-  height: 63px;
-  border-radius: 10px;
-  box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.1);
-  color: #fff;
-  font-size: 20px;
-  font-weight: 700;
-  letter-spacing: 8px;
-  box-sizing: border-box;
-}
-.cartButtonText {
-  width: 28px;
-  height: 25px;
-  display: flex;
+// .cartButton {
+//   cursor: pointer;
+//   display: flex;
+//   flex-direction: row;
+//   justify-content: space-between;
+//   align-items: center;
+//   z-index: 999;
+//   position: sticky;
+//   bottom: 5%;
+//   width: 340px;
+//   align-self: center;
+//   background: $mainLinear;
+//   border: 0px;
+//   height: 63px;
+//   border-radius: 10px;
+//   box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.1);
+//   color: #fff;
+//   font-size: 20px;
+//   font-weight: 700;
+//   letter-spacing: 8px;
+//   box-sizing: border-box;
+// }
+// .cartButtonText {
+//   width: 28px;
+//   height: 25px;
+//   display: flex;
 
-  justify-content: center;
-  align-items: center;
-  border-radius: 10px;
-  opacity: 0.3;
-  background: #000;
-  color: #fff;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 14px;
+//   justify-content: center;
+//   align-items: center;
+//   border-radius: 10px;
+//   opacity: 0.3;
+//   background: #000;
+//   color: #fff;
+//   font-style: normal;
+//   font-weight: 400;
+//   font-size: 14px;
 
-  letter-spacing: 1.4px;
-}
-.cartButtonPrice {
-  color: #fff;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 14px;
+//   letter-spacing: 1.4px;
+// }
+// .cartButtonPrice {
+//   color: #fff;
+//   font-style: normal;
+//   font-weight: 400;
+//   font-size: 14px;
 
-  letter-spacing: 1.4px;
-}
+//   letter-spacing: 1.4px;
+// }
 //loading
 .ldsfacebook {
   display: inline-block;

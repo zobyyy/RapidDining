@@ -31,7 +31,7 @@ export default function Home() {
   }, [headCount])
   return (
     <main>
-      <Layouts scrollBarHidden={isHidden}>
+      <Layouts>
         {isSearch && (
           <SearchOrder setIsSearch={setIsSearch} setIsHidden={setIsHidden} />
         )}

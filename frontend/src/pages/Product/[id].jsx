@@ -16,7 +16,6 @@ export default function Product() {
   const [productChosen, setProductChosen] = useState([])
   const [productChosenToBackend, setProductChosenToBackend] = useState([])
   let customized = []
-
   let dish_id = ''
   let name = ''
   let price = 0
@@ -33,9 +32,10 @@ export default function Product() {
   const [number, setNumber] = useState(1)
 
   const [audio, setAudio] = useState(null)
-
+  const [minusAudio, setMinusAudio] = useState(null)
   useEffect(() => {
     setAudio(new Audio('/duck.mp3'))
+    setMinusAudio(new Audio('/minusMusic.mp3'))
   }, [])
   const ProductNumber = () => {
     const handlePlusClick = () => {
@@ -44,6 +44,7 @@ export default function Product() {
     }
 
     const handleMinusClick = () => {
+      minusAudio.play()
       if (number > 1) {
         setNumber(number - 1)
       }
@@ -76,46 +77,61 @@ export default function Product() {
       </div>
     )
   }
-  const Customization = ({ customized }) => {
-    const handleOptionClick = (type, optionId) => {
-      setSelectedOptions((prevSelectedOptions) => {
-        const newSelectedOptions = { ...prevSelectedOptions }
-
-        // 找到該客製化類型
-        const customizationType = customized.find((opt) => opt.type === type)
-
-        if (customizationType) {
-          // 檢查客製化類型是否為 "配菜調整" 且允許多選
-          const isMultiSelect = customizationType.type === '配菜調整'
-
-          // 檢查該選項是否已經被選中
-          const isSelected = newSelectedOptions[type]?.includes(optionId)
-
-          if (isMultiSelect) {
-            if (isSelected) {
-              // 取消選擇該選項
-              newSelectedOptions[type] = newSelectedOptions[type].filter(
-                (id) => id !== optionId
-              )
-            } else {
-              // 選擇該選項
-              newSelectedOptions[type] = [
-                ...(newSelectedOptions[type] || []),
-                optionId
-              ]
-            }
-          } else {
-            // 單選，只選取一個選項
-            newSelectedOptions[type] = isSelected ? [] : [optionId]
-          }
-        }
-
-        return newSelectedOptions
-      })
-    }
-
+  const CustomizationOption = ({ selected, onClick, taste }) => {
     return (
-      <div>
+      <div
+        className={`${styles.optionsName} ${
+          selected ? styles.selectedOption : ''
+        }`}
+        onClick={onClick}
+      >
+        {taste}
+      </div>
+    )
+  }
+  const handleOptionClick = (type, optionId) => {
+    setSelectedOptions((prevSelectedOptions) => {
+      const newSelectedOptions = { ...prevSelectedOptions }
+
+      // 找到該客製化類型
+      const customizationType = customized.find((opt) => opt.type === type)
+
+      if (customizationType) {
+        // 檢查客製化類型是否為 "配菜調整" 且允許多選
+        const isMultiSelect = customizationType.type === '配菜調整'
+
+        // 檢查該選項是否已經被選中
+        const isSelected = newSelectedOptions[type]?.includes(optionId)
+
+        if (isMultiSelect) {
+          if (isSelected) {
+            // 取消選擇該選項
+            newSelectedOptions[type] = newSelectedOptions[type].filter(
+              (id) => id !== optionId
+            )
+          } else {
+            // 選擇該選項
+            newSelectedOptions[type] = [
+              ...(newSelectedOptions[type] || []),
+              optionId
+            ]
+          }
+        } else {
+          // 單選，只選取一個選項
+          newSelectedOptions[type] = isSelected ? [] : [optionId]
+        }
+      }
+
+      return newSelectedOptions
+    })
+  }
+  const Customization = ({
+    customized,
+    selectedOptions,
+    handleOptionClick
+  }) => {
+    return (
+      <div className={styles.customization}>
         {customized[0]?.type !== null && (
           <>
             <div
@@ -127,25 +143,26 @@ export default function Product() {
             >
               依你喜好
             </div>
+
             {customized.map((option, index) => (
               <div key={index} className={styles.type}>
                 {option.type}
                 <div className={styles.options}>
-                  {option.option.map((subOption, subIndex) => (
-                    <div
-                      key={subIndex}
-                      className={`${styles.optionsName} ${
-                        selectedOptions[option.type]?.includes(subOption.id)
-                          ? styles.selectedOption
-                          : ''
-                      }`}
-                      onClick={() =>
-                        handleOptionClick(option.type, subOption.id)
-                      }
-                    >
-                      {subOption.taste}
-                    </div>
-                  ))}
+                  {option.option.map((subOption, subIndex) => {
+                    const isSelected =
+                      selectedOptions[option.type]?.includes(subOption.id) ??
+                      false
+                    return (
+                      <CustomizationOption
+                        key={subIndex}
+                        selected={isSelected}
+                        onClick={() =>
+                          handleOptionClick(option.type, subOption.id)
+                        }
+                        taste={subOption.taste}
+                      />
+                    )
+                  })}
                 </div>
               </div>
             ))}
@@ -240,7 +257,7 @@ export default function Product() {
           </div>
         </div>
       ) : (
-        <div style={{ width: '100%' }}>
+        <div style={{ width: '100%' }} className={styles.productLayout}>
           <Image
             src='/back.png'
             width={51}
@@ -268,7 +285,11 @@ export default function Product() {
               </div>
             </div>
           </div>
-          <Customization customized={customized} />
+          <Customization
+            customized={customized}
+            handleOptionClick={handleOptionClick}
+            selectedOptions={selectedOptions}
+          />
           <div className={styles.buttonFixed}>
             <ProductNumber />
             <button

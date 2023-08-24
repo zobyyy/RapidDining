@@ -67,7 +67,10 @@ export default function Booking() {
     }, 50)
   }
   return (
-    <Layouts>
+    <Layouts
+      chooseOrderPosition={chooseOrderPosition}
+      setChooseOrderPosition={setChooseOrderPosition}
+    >
       {isLoading ? (
         <div
           style={{

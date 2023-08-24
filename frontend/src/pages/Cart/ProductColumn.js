@@ -34,9 +34,10 @@ const ProductColumn = ({ productChosen, total, setTotal, setIsAdd }) => {
     )
   }, [number])
   const [audio, setAudio] = useState(null)
-
+  const [minusAudio, setMinusAudio] = useState(null)
   useEffect(() => {
     setAudio(new Audio('/duck.mp3'))
+    setMinusAudio(new Audio('/minusMusic.mp3'))
   }, [])
   const ProductNumber = () => {
     const handlePlusClick = () => {
@@ -54,6 +55,7 @@ const ProductColumn = ({ productChosen, total, setTotal, setIsAdd }) => {
         const newTotalPrice = productChosen?.price * newNumber
         setTotal(newTotalPrice)
       }
+      minusAudio.play()
     }
     return (
       <div className={styles.productNumber}>
