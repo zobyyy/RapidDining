@@ -10,6 +10,7 @@ import { use, useEffect, useState } from 'react'
 export default function CheckoutPage() {
     const {order} = useOrderSummary();
     const [isAlert, setIsAlert] = useState(false);
+    const [checkoutStatus, setCheckoutStatus] = useState(1)
     const [currentTime, setCurrentTime] = useState(new Date());
     const [formattedTime, setFormattedTime] = useState();
     const [formattedDate, setFormattedDate] = useState();
@@ -29,7 +30,7 @@ export default function CheckoutPage() {
   return (
     <CheckoutProvider>
         <Layouts>
-            {isAlert && <CheckoutAlert setIsAlert={setIsAlert} status={'ok'} title={'訂單已結帳'}/>}
+            {isAlert && <CheckoutAlert setIsAlert={setIsAlert} checkoutStatus={checkoutStatus} />}
             <div className={styles.sideBar}>
                 <div className={styles.Logo}>
                     <div className={styles.first}>食</div>
@@ -59,7 +60,7 @@ export default function CheckoutPage() {
                                 <p>目前尚無訂單</p>
                         }
                     </div>
-                    <OrderDetail setIsAlert={setIsAlert}/>
+                    <OrderDetail setIsAlert={setIsAlert} setCheckoutStatus={setCheckoutStatus} />
                 </div>
             </div>
         </Layouts>

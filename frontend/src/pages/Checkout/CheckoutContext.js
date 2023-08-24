@@ -1,4 +1,4 @@
-const { createContext, useState, useContext } = require("react");
+const { createContext, useState, useContext, useEffect } = require("react");
 
 const CheckoutContext = createContext();
 

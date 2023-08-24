@@ -61,11 +61,13 @@ export function CheckoutAlert({
   setIsAlert,
   title,
   context,
-  status,
+  checkoutStatus,
   yes,
   no,
   onClickHandle
 }) {
+  // checkoutStatus = 1 結帳成功
+  // checkoutStatus = 2 候位結帳失敗
   const {setSelectedOrderId} = useCheckoutContext();
   const {fetchOrderSummary} = useOrderSummary();
   const handleClose = () => {
@@ -76,36 +78,20 @@ export function CheckoutAlert({
     <div className={styles.overlay}>
       <div className={styles.layouts} style={{width:'30rem'}}>
         <Image
-          src="/收到確認.png"
+          src={checkoutStatus === 200 ? "/收到確認.png" : '/failed.png'}
           width={67}
           height={67}
         />
-
-        <div className={styles.title} style={{marginTop: '0.5rem'}}>{title}</div>
-        <div className={styles.context}>{context}</div>
-        {status === 'ok' && (
-          <button className={styles.OKbutton} onClick={handleClose}>
+        {
+          checkoutStatus === 200
+            ?
+              <div className={styles.title} style={{marginTop: '0.5rem'}}>訂單已結帳</div>
+            :
+              <div className={styles.title} style={{marginTop: '0.5rem'}}>候位中，無法結帳！</div>
+        }
+        <button className={styles.OKbutton} onClick={handleClose}>
             OK
-          </button>
-        )}
-        {status === 'option' && (
-          <div className={styles.buttonGroup}>
-            <button
-              className={styles.buttonNo}
-              onClick={onClickHandle}
-              style={{ border: '1px solid #BDBDBD' }}
-            >
-              {no}
-            </button>
-            <button
-              className={styles.buttonYes}
-              onClick={handleClose}
-              style={{ border: '1px solid #f58873', color: '#f58873' }}
-            >
-              {yes}
-            </button>
-          </div>
-        )}
+        </button>
       </div>
     </div>
   )

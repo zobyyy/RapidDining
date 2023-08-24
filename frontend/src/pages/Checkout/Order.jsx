@@ -13,6 +13,7 @@ export default function Order( {order, index} ) {
     useEffect(()=>{
         console.log(selectedOrderId);
     },[selectedOrderId])
+    
     return (
         <div>
             {order?.status === "內用"
