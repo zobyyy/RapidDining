@@ -7,7 +7,7 @@ const useOrderGet = (orderId) => {
     fetch(`https://107.22.142.48/api/1.0/orders/detail?orderId=${orderId}`)
         .then(response => {
         if (!response.ok) {
-            setDetail([]);
+            setDetail('error');
             throw new Error('Network response was not ok');
         }
         if (response.status === 200) {
@@ -23,16 +23,6 @@ const useOrderGet = (orderId) => {
             console.error('Error fetching data:', error);
         });
     }
-
-    // useEffect(() => {
-    //     const intervalId = setInterval(() => {
-    //         fetchOrderDetail();
-    //     }, 1000);
-
-    //     return () => {
-    //         clearInterval(intervalId);
-    //     };
-    // }, []);
 
     useEffect(() => {
         fetchOrderDetail();
