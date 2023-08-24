@@ -5,15 +5,10 @@ import styles from './Checkout.module.scss'
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 // 
-export default function OrderDetail({setIsAlert}) {
-    const {selectedOrderId} = useCheckoutContext();
+export default function OrderDetail({setIsAlert, setCheckoutStatus}) {
+    const {selectedOrderId, setSelectedOrderId} = useCheckoutContext();
     const {detail} = useOrderGet(selectedOrderId);
-    const {handleCheckout} = useCheckout();
-
-    const handleSubmit = () => {
-        const {message} = useCheckout();
-        console.log("msg: ",message)
-    }
+    const {checkoutResponse, handleCheckout} = useCheckout();
     
     return (
         <div className={styles.orderDetail}>
@@ -36,7 +31,7 @@ export default function OrderDetail({setIsAlert}) {
                 <p>總金額</p>
                 <p>NT${detail?.total}</p>
             </div>
-            <button type='submit' onClick={()=>(handleCheckout(detail.orderId),setIsAlert(true))}>結帳</button>
+            <button type='submit' onClick={()=>(handleCheckout(detail.orderId,setIsAlert,setCheckoutStatus),setCheckoutStatus(checkoutResponse))}>結帳</button>
         </div>
     )
 }

@@ -24,6 +24,16 @@ const useOrderGet = (orderId) => {
         });
     }
 
+    // useEffect(() => {
+    //     const intervalId = setInterval(() => {
+    //         fetchOrderDetail();
+    //     }, 1000);
+
+    //     return () => {
+    //         clearInterval(intervalId);
+    //     };
+    // }, []);
+
     useEffect(() => {
         fetchOrderDetail();
     },[orderId])
