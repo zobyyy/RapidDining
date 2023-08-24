@@ -1,5 +1,5 @@
 
-import {searchReservation , cancelReservation  } from '../../model/reserveCancelModel.js';
+import{cancelReservation} from '../../model/reserveCancelModel.js';
 
 function ReqIsNumber(s) {
   return parseFloat(s).toString() !== "NaN"; 
@@ -20,10 +20,9 @@ export async function reservationCancel(req, res) {
       return res.status(400).send({ "error": "invalid phone" });
     }
   
-    const searchReservationRes = await searchReservation (phoneNum,restaurantId)
+    const searchReservationRes = await cancelReservation (phoneNum,restaurantId)
 
-    if(searchReservationRes !== null){
-      await cancelReservation(searchReservationRes);
+    if(searchReservationRes!== null){
       return res.status(200).json({
         data: {
           reservationId: searchReservationRes,

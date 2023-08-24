@@ -72,7 +72,7 @@ export function CheckoutAlert({
   const {fetchOrderSummary} = useOrderSummary();
   const handleClose = () => {
     setIsAlert(false);
-    fetchOrderSummary();
+    // fetchOrderSummary();
   }
   return (
     <div className={styles.overlay}>

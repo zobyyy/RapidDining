@@ -1,27 +1,37 @@
 import { pool } from './util.js';
 
-export async function searchReservation(phone,restaurantId) {
+
+export async function cancelReservation(phone, restaurantId) {
+  const connection = await pool.getConnection();
+
   try {
-    const [rows] = await pool.query('SELECT * FROM Reservation WHERE phone = ? AND restaurantId = ?', [phone,restaurantId]);
+    await connection.beginTransaction();
+
+    const [rows] = await pool.query('SELECT id FROM Reservation WHERE phone = ? AND restaurantId = ?', [phone,restaurantId]);
     if (rows.length > 0) {
-        return rows[0].id;
-      } else {
-        return null;
+      const reservationId = rows[0].id;
+
+      const [orderRows] = await connection.query('SELECT * FROM OrderList WHERE reservationId = ?', [reservationId]);
+      if (orderRows.length > 0) {
+        await connection.query('DELETE FROM OrderList WHERE reservationId = ?', [reservationId]);
       }
+      await connection.query('DELETE FROM Reservation WHERE id = ?', [reservationId]);
+      await connection.commit(); 
+      return reservationId; 
+    }
+
+    await connection.commit(); 
+    return null; 
+
   } catch (error) {
-    console.error('Error in searchReservation:', error);
+    await connection.rollback(); 
+    console.error('Error in searchTableAndUpdate:', error);
     throw error;
+  } finally {
+    connection.release(); 
   }
 }
 
-export async function cancelReservation(id) {
-  try {
-    await pool.query('DELETE FROM Reservation WHERE id = ?', [id]);
-  } catch (error) {
-    console.error('Error in cancelReservation:', error);
-    throw error;
-  }
-}
 
 
 export async function searchTableAndUpdate(phone, restaurantId) {
@@ -55,6 +65,8 @@ export async function searchTableAndUpdate(phone, restaurantId) {
     }
   }
    
+
+
 
 
 
