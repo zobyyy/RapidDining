@@ -16,7 +16,6 @@ export default function Product() {
   const [productChosen, setProductChosen] = useState([])
   const [productChosenToBackend, setProductChosenToBackend] = useState([])
   let customized = []
-
   let dish_id = ''
   let name = ''
   let price = 0
@@ -33,9 +32,10 @@ export default function Product() {
   const [number, setNumber] = useState(1)
 
   const [audio, setAudio] = useState(null)
-
+  const [minusAudio, setMinusAudio] = useState(null)
   useEffect(() => {
     setAudio(new Audio('/duck.mp3'))
+    setMinusAudio(new Audio('/minusMusic.mp3'))
   }, [])
   const ProductNumber = () => {
     const handlePlusClick = () => {
@@ -44,6 +44,7 @@ export default function Product() {
     }
 
     const handleMinusClick = () => {
+      minusAudio.play()
       if (number > 1) {
         setNumber(number - 1)
       }
