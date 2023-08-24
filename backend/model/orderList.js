@@ -47,6 +47,7 @@ export async function deleteOrder(id, phone) {
       return;
     }
     await conn.query(`UPDATE tableList SET phone=? WHERE id=?`, [recentReservant.phone, existOrder.tableId]);
+    await conn.query(`UPDATE OrderList SET tableId = ? WHERE reservationId = ?`, [existOrder.tableId, recentReservant.id]);
     await conn.query(`DELETE FROM Reservation WHERE id = ?`, [recentReservant.id]);
     console.log(`removed internal order ${id} and table ${existOrder.tableId} is now seat of reservation ${releasedTable.restaurantId}`);
     await conn.commit();
