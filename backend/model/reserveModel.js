@@ -1,5 +1,16 @@
 import { pool } from './util.js';
 
+export async function checkAvailbleTable(restaurantId,headcount) {
+  try {
+    const [rows] = await pool.query('SELECT id FROM tableList WHERE restaurantId=? AND headcount >= ?', [restaurantId,headcount]);
+    console.log('Query result:', rows);
+    return rows.length > 0;
+  } catch (error) {
+    console.error('Error in checkAvailbleTable:', error);
+    throw error; 
+  }
+}
+
 
 export async function checkExistingTable(restaurantId,phone) {
     try {
@@ -38,9 +49,9 @@ export async function hasVacancy(restaurantId, headcount) {
   }
 }
 
-export async function updateTableVacancy(phone,headcount) {
+export async function updateTableVacancy(restaurantId,phone,headcount) {
   try {
-    const [results] = await pool.query(`SELECT id FROM tableList WHERE vacancy = true AND headcount >= ? ORDER BY id LIMIT 1`, [headcount]
+    const [results] = await pool.query(`SELECT id FROM tableList WHERE restaurantId = ? AND vacancy = true AND headcount >= ? ORDER BY id LIMIT 1`, [restaurantId,headcount]
         );
         console.log(`results is ${results}`);
         const tableid = results[0].id; 

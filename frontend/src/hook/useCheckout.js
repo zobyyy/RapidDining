@@ -4,8 +4,17 @@ import { useRouter } from 'next/router'
 
 const useCheckout = () => {
   const [message, setMessage] = useState('');
+  const [updateOrderId, setUpdateOrderId] = useState(null)
+  const router = useRouter()
+  const [audio, setAudio] = useState(null)
+
+  useEffect(() => {
+    setAudio(new Audio('/cash.mp3'))
+  }, [])
 
   const handleCheckout = async (orderId) => {
+    audio.play()
+
     try {
       const response = await fetch(
         `https://107.22.142.48/api/1.0/orders/${orderId}/checkout`,

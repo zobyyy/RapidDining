@@ -1,9 +1,69 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap');
+
 body {
   background: white;
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: 'Noto Sans TC', sans-serif, 'Inter';
+}
+
+.field-radio label {
+  display: block;
+  position: relative;
+  padding-left: 30px;
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 24px;
+  color: #333;
+  display: inline-block; /* 讓 label 元素成為行內區塊元素，實現水平排列 */
+  margin-right: 5px; /* 調整 radio 按鈕之間的間距 */
+}
+
+.field-radio input[type='radio'] {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.field-radio .checkmark {
+  position: absolute;
+  top: 3px; /* 調整 checkmark 的垂直位置，使其對齊 radio 按鈕的文字 */
+  left: 0;
+  height: 14px; /* 調整圓圈的大小 */
+  width: 14px; /* 調整圓圈的大小 */
+  background-color: white; /* 背景顏色 */
+  border: 1px solid #333; /* 圓圈邊框 */
+  border-radius: 50%; /* 讓圓圈呈現圓形 */
+  transition:
+    /* border-color 0.3s, */
+    transform 0.1s,
+    box-shadow 0.1s; /* 添加過渡效果 */
+}
+
+.field-radio input[type='radio']:checked ~ .checkmark {
+  background-color: transparent; /* 選中時的背景顏色 */
+  border: 2px solid #f58873; /* 選中時的圓圈邊框 */
+
+  box-shadow: 0 0 8px rgba(245, 136, 115, 0.7); /* 添加淡 #f58873 光煥效果 */
+}
+.field-radio input[type='radio']:checked ~ .checkmark::before {
+  content: ''; /* 添加偽元素，模擬大圈圈 */
+  display: block;
+  width: 10px; /* 大圈圈的尺寸 */
+  height: 10px; /* 大圈圈的尺寸 */
+  background-color: #f58873; /* 大圈圈的顏色 */
+  border-radius: 50%; /* 讓大圈圈呈現圓形 */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* 將大圈圈居中 */
+}
+.field-radio label span.checkmark {
+  /* ... 其他樣式 ... */
+  position: absolute; /* 使用絕對定位 */
+  top: 55%; /* 將圈圈上下置中 */
+  left: 6px; /* 調整圈圈的水平位置，以使它更接近文字 */
+  transform: translateY(-50%); /* 將圈圈上下置中 */
 }
