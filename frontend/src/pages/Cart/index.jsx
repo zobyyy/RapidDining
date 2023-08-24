@@ -56,15 +56,16 @@ export default function Cart() {
   }
   const allProductChosenToBackend = Cookies.get('allProductChosenToBackend')
   const handleSubmit = async () => {
-    const requestBody = {
-      restaurantId: parseInt(restaurantId),
-      tableId: tableId,
-      reservationId: reservationId,
-      items: JSON.parse(allProductChosenToBackend),
-      total: total,
-      phone: phone
-    }
-    await orderRequest(requestBody)
+
+     const requestBody = {
+       restaurantId: parseInt(restaurantId),
+       tableId: tableId,
+       reservationId: reservationId,
+       items: JSON.parse(allProductChosenToBackend),
+       total: total,
+       phone: phone
+     }
+     await orderRequest(requestBody)
   }
   return (
     <Layouts>

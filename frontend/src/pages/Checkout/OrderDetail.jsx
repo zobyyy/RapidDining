@@ -3,17 +3,16 @@ import useOrderGet from '@/hook/useOrderGet';
 import useCheckout from '../../hook/useCheckout';
 import styles from './Checkout.module.scss'
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 // 
-export default function OrderDetail({setIsAlert}) {
-    const {selectedOrderId} = useCheckoutContext();
+export default function OrderDetail({setIsAlert, setCheckoutStatus}) {
+    const {selectedOrderId, setSelectedOrderId} = useCheckoutContext();
     const {detail} = useOrderGet(selectedOrderId);
-    const {handleCheckout} = useCheckout();
+    const {checkoutResponse, handleCheckout} = useCheckout();
 
-    const handleSubmit = () => {
-        const {message} = useCheckout();
-        console.log("msg: ",message)
-    }
+    useEffect(()=>{
+        console.log("detail: ",detail)
+    },[detail])
     
     return (
         <div className={styles.orderDetail}>
@@ -36,19 +35,12 @@ export default function OrderDetail({setIsAlert}) {
                 <p>總金額</p>
                 <p>NT${detail?.total}</p>
             </div>
-            <button type='submit' onClick={()=>(handleCheckout(detail.orderId),setIsAlert(true))}>結帳</button>
+            <button type='submit' disabled={detail==='error'} onClick={()=>(handleCheckout(detail.orderId,setIsAlert,setCheckoutStatus),setCheckoutStatus(checkoutResponse))}>結帳</button>
         </div>
     )
 }
 
 function DetailItem ({item}) {
-    const customized = () => {
-        let customizedList = []
-        item.customized.map((flavor)=>(
-            customizedList.push(flavor.dishoption)
-        ))
-        return customizedList; 
-    }
     return(
         <div className={styles.detailItem}>
             <img src={item.picture} alt="" />
@@ -64,9 +56,7 @@ function DetailItem ({item}) {
                         ))
                     }
                 </div>
-                
             </div>
-            
             <p style={{fontSize:'40px',fontWeight:'700', color:'#F58873', marginLeft:'auto', marginTop:'0',marginRight:'1.5rem'}}>{item.quantity}</p>
         </div>
     )

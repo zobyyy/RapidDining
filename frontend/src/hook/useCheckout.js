@@ -1,16 +1,18 @@
+import CheckoutProvider,{ useCheckoutContext } from '@/pages/Checkout/CheckoutContext'
 import { useState, useEffect } from 'react'
 import Cookies from 'js-cookie'
 import { useRouter } from 'next/router'
 
 const useCheckout = () => {
-  const [message, setMessage] = useState('');
+  const {selectedOrderId, setSelectedOrderId} = useCheckoutContext();
+  const [checkoutResponse, setCheckoutResponse] = useState();
   const [audio, setAudio] = useState(null)
 
   useEffect(() => {
     setAudio(new Audio('/cash.mp3'))
   }, [])
 
-  const handleCheckout = async (orderId) => {
+  const handleCheckout = async (orderId,setIsAlert,setCheckoutStatus) => {
     audio.play()
 
     try {
@@ -26,16 +28,19 @@ const useCheckout = () => {
 
       if (response.ok) {
         console.log('checkout!')
+        setCheckoutStatus(200)
+        setSelectedOrderId()
+        setIsAlert(true)
       } else {
-        const data = await response.json()
-        setMessage(data)
+        setCheckoutStatus(403)
+        setIsAlert(true)
       }
     } catch (error) {
       console.error(error)
     }
   }
 
-  return { message, handleCheckout }
+  return { checkoutResponse, handleCheckout }
 }
 
 export default useCheckout
