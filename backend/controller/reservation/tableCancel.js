@@ -1,5 +1,6 @@
 
-import {searchTableAndUpdate} from '../../model/reserveCancelModel.js';
+//import {searchTableAndUpdate} from '../../model/reserveCancelModel.js';
+import {cancelTable} from '../../model/reserveCancelModel.js';
 
 function ReqIsNumber(s) {
   return parseFloat(s).toString() !== "NaN"; 
@@ -18,7 +19,19 @@ export async function tableCancel(req, res) {
       return res.status(400).send({ "error": "invalid phone" });
     }
 
-    const searchandupdate = await searchTableAndUpdate (phoneNum,restaurantId)
+    // const searchandupdate = await searchTableAndUpdate (phoneNum,restaurantId)
+
+    // if(searchandupdate){
+
+    //   return res.status(200).json({
+    //     data: {
+    //       tableId: searchandupdate,
+    //     }
+    //   });
+    // }  
+
+
+    const searchandupdate = await cancelTable(phoneNum,restaurantId)
 
     if(searchandupdate){
 
@@ -28,6 +41,7 @@ export async function tableCancel(req, res) {
         }
       });
     }  
+
 
     return res.status(404).json({
         error: 'Phone not found in tableList.',
