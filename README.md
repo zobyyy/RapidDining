@@ -2,7 +2,7 @@
 
 ### Real-time reservation and ordering system: For those who crave a speedy meal.
 
-You can watch the complete process and interface, through [Platform Intro vedio (Click me!👈)](https://youtu.be/b0S1UzsztXc) .
+You can watch the complete process and interface, through [Platform Intro video (Click me!👈)](https://youtu.be/b0S1UzsztXc) .
 
 We are building a reservation and ordering system that can be used by both customers and restaurants!</br></br>
 
