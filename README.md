@@ -4,7 +4,7 @@
 
 You can watch the complete process and interface, through [Platform Intro video (Click me!👈)](https://youtu.be/b0S1UzsztXc) .
 
-We are building a reservation and ordering system that can be utilized by both customers and restaurant managers!</br></br>
+We are building a reservation and ordering system that can be utilized by both customers and restaurant managers. </br></br>
 
 ### 🙆‍♀️Customers
 
